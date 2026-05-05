@@ -130,7 +130,7 @@ if (import.meta.client) {
             <p class="text-walnut-700">{{ t('common.hoursLabel') }}</p>
             <p
               v-if="venue.amenities.includes('terrace')"
-              class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-leaf/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-leaf"
+              class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-leaf/50 bg-cream-50 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-walnut-900"
             >
               <span aria-hidden="true">·</span>
               {{ t('common.amenityTerrace') }}

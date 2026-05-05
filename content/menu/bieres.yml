@@ -71,10 +71,10 @@ items:
       en: Heineken
       it: Heineken
     description:
-      fr: Bouteille 33 cl.
-      en: 33 cl bottle.
-      it: Bottiglia 33 cl.
-    price: null
+      fr: Bouteille 25 cl.
+      en: 25 cl bottle.
+      it: Bottiglia 25 cl.
+    price: 4
     tags: [bouteille, blonde]
 
   - slug: leffe-blonde
@@ -100,7 +100,7 @@ items:
       fr: Mexicaine, 25 cl.
       en: Mexican, 25 cl.
       it: Messicana, 25 cl.
-    price: null
+    price: 5
     tags: [bouteille, blonde]
 
   - slug: desperados
@@ -113,7 +113,7 @@ items:
       fr: Bière aromatisée tequila, 33 cl.
       en: Tequila-flavoured beer, 33 cl.
       it: Birra aromatizzata alla tequila, 33 cl.
-    price: null
+    price: 5
     tags: [bouteille, aromatisée]
 
   - slug: triple-karmeliet
@@ -126,5 +126,5 @@ items:
       fr: Belge triple, 33 cl, 8,4 %.
       en: Belgian triple, 33 cl, 8.4 %.
       it: Belga triple, 33 cl, 8,4 %.
-    price: null
+    price: 7
     tags: [bouteille, belge, signature]

@@ -218,5 +218,5 @@ items:
       fr: Bouteille de vin 75 cl (à emporter)
       en: Wine bottle 75 cl (takeaway)
       it: Bottiglia di vino 75 cl (da asporto)
-    price: 10
+    price: 15
     tags: [emporter, vin]

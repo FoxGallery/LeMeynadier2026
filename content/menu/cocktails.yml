@@ -57,7 +57,7 @@ items:
       fr: Bière, fruits rouges, vodka.
       en: Beer, red fruits, vodka.
       it: Birra, frutti rossi, vodka.
-    price: null
+    price: 8
 
   - slug: dragon
     order: 5
