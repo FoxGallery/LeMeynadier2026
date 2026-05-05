@@ -4,8 +4,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content:
-        'Le Meynadier — pizzas signatures, bières pression et cocktails au cœur de Cannes.',
+      content: 'Le Meynadier — pizzas signatures, bières pression et cocktails au cœur de Cannes.',
     },
   ],
 })
