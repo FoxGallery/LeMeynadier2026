@@ -1,5 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2026-05-01',
@@ -10,6 +12,8 @@ export default defineNuxtConfig({
   ssr: true,
   modules: ['@nuxt/fonts'],
   css: ['~/assets/css/tailwind.css'],
+  // Pages dev-only (catalogue du DS) : ignorées en prod
+  ignore: isDev ? [] : ['app/pages/dev-*.vue'],
   vite: {
     plugins: [tailwindcss()],
   },
