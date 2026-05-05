@@ -12,6 +12,9 @@ export default defineNuxtConfig({
   ssr: true,
   modules: ['@nuxt/fonts', '@nuxt/content'],
   css: ['~/assets/css/tailwind.css'],
+  // Auto-import composants à plat (sans préfixe de dossier).
+  // Nos noms sont déjà uniques (UiButton, AppHeader, GoldDivider…).
+  components: [{ path: '~/components', pathPrefix: false }],
   // Pages dev-only (catalogue du DS) : ignorées en prod
   ignore: isDev ? [] : ['app/pages/dev-*.vue'],
   vite: {
