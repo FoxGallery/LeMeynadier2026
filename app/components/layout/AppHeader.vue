@@ -13,24 +13,19 @@ import { cn } from '~/utils/cn'
 
 const past = useScrollPast(40)
 const route = useRoute()
+const localePath = useLocalePath()
+const { t } = useI18n()
 const { hidden: headerHidden } = useHeaderVisibility()
+const links = useNavLinks()
 
 const menuOpen = ref(false)
 
 function isActive(to: string) {
-  if (to === '/') return route.path === '/'
-  return route.path === to || route.path.startsWith(`${to}/`)
+  const localized = localePath(to)
+  if (to === '/') return route.path === localized
+  return route.path === localized || route.path.startsWith(`${localized}/`)
 }
 
-const links = [
-  { to: '/', label: 'Accueil' },
-  { to: '/carte', label: 'La carte' },
-  { to: '/histoire', label: 'Histoire' },
-  { to: '/galerie', label: 'Galerie' },
-  { to: '/contact', label: 'Nous trouver' },
-] as const
-
-// Ferme le menu sur changement de route (sécurité au cas où NuxtLink ne le fait pas)
 watch(
   () => route.path,
   () => {
@@ -56,7 +51,7 @@ watch(
       )"
     >
       <!-- Logo -->
-      <NuxtLink
+      <NuxtLinkLocale
         to="/"
         aria-label="Le Meynadier — accueil"
         class="group flex items-baseline gap-1.5 whitespace-nowrap pl-3 leading-none focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
@@ -67,14 +62,14 @@ watch(
         <span class="font-display text-xl tracking-[0.01em] text-walnut-900 sm:text-[1.4rem]">
           Meynadier
         </span>
-      </NuxtLink>
+      </NuxtLinkLocale>
 
       <!-- Nav desktop -->
       <nav
         aria-label="Navigation principale"
         class="hidden items-center lg:flex"
       >
-        <NuxtLink
+        <NuxtLinkLocale
           v-for="link in links"
           :key="link.to"
           :to="link.to"
@@ -82,8 +77,8 @@ watch(
           class="meyn-navlink px-4 py-2"
           :data-active="isActive(link.to) || undefined"
         >
-          {{ link.label }}
-        </NuxtLink>
+          {{ t(link.i18nKey) }}
+        </NuxtLinkLocale>
       </nav>
 
       <!-- Lang switcher (desktop) + toggle mobile -->
@@ -94,7 +89,7 @@ watch(
         </div>
         <button
           type="button"
-          aria-label="Ouvrir le menu"
+          :aria-label="t('common.openMenu')"
           aria-haspopup="dialog"
           :aria-expanded="menuOpen"
           class="inline-flex size-10 items-center justify-center rounded-full text-walnut-800 transition-colors hover:bg-walnut-100 focus-visible:outline-2 focus-visible:outline-brass-500 lg:hidden"
@@ -105,7 +100,7 @@ watch(
       </div>
     </div>
 
-    <!-- Menu plein écran mobile (cinématique, cohérent avec l'esprit luxe) -->
+    <!-- Menu plein écran mobile -->
     <DialogRoot :open="menuOpen" :modal="true" @update:open="menuOpen = $event">
       <DialogPortal>
         <DialogOverlay
@@ -114,29 +109,27 @@ watch(
         <DialogContent
           class="fixed inset-x-4 top-4 z-50 mx-auto flex max-h-[calc(100dvh-2rem)] w-auto max-w-2xl flex-col overflow-hidden rounded-(--radius-card) border border-walnut-200/70 bg-walnut-50 shadow-[0_30px_80px_-30px_rgba(13,9,5,0.6)] focus:outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-4 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-4 sm:top-6 sm:inset-x-6"
         >
-          <!-- En-tête : logo + close -->
           <div class="flex items-center justify-between border-b border-walnut-200/70 px-6 py-5">
             <DialogTitle class="flex items-baseline gap-1.5 leading-none">
               <span class="font-script text-2xl text-brass-700">Le</span>
               <span class="font-display text-2xl tracking-tight text-walnut-900">Meynadier</span>
             </DialogTitle>
             <DialogDescription class="sr-only">
-              Menu de navigation principal
+              {{ t('lang.label') }}
             </DialogDescription>
             <DialogClose
-              aria-label="Fermer le menu"
+              :aria-label="t('common.closeMenu')"
               class="inline-flex size-10 items-center justify-center rounded-full text-walnut-800 transition-colors hover:bg-walnut-100 focus-visible:outline-2 focus-visible:outline-brass-500"
             >
               <X class="size-5" aria-hidden="true" />
             </DialogClose>
           </div>
 
-          <!-- Liens éditoriaux numérotés -->
           <nav
             aria-label="Navigation principale"
             class="flex flex-col divide-y divide-walnut-200/60 overflow-y-auto"
           >
-            <NuxtLink
+            <NuxtLinkLocale
               v-for="(link, idx) in links"
               :key="link.to"
               :to="link.to"
@@ -156,7 +149,7 @@ watch(
                       : 'text-walnut-900 group-hover:text-brass-700',
                   )"
                 >
-                  {{ link.label }}
+                  {{ t(link.i18nKey) }}
                 </span>
               </div>
               <span
@@ -167,10 +160,9 @@ watch(
                   <path d="M3 8 L13 8 M9 4 L13 8 L9 12" />
                 </svg>
               </span>
-            </NuxtLink>
+            </NuxtLinkLocale>
           </nav>
 
-          <!-- Pied : LangSwitcher + monogramme -->
           <div class="flex items-center justify-between border-t border-walnut-200/70 px-6 py-5">
             <LangSwitcher />
             <Monogram :size="32" class="text-brass-500/70" />

@@ -1,0 +1,194 @@
+{
+  "site": {
+    "name": "Le Meynadier",
+    "tagline": "Brasserie · Pizzeria · Pub",
+    "place": "nel cuore della vecchia Cannes"
+  },
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "history": "La storia",
+    "gallery": "Galleria",
+    "contact": "Contatti"
+  },
+  "common": {
+    "discover": "Scopri",
+    "viewMenu": "Vedi il menu",
+    "findUs": "Contatti",
+    "ourHistory": "La nostra storia",
+    "viewAll": "Vedi tutto",
+    "loading": "Caricamento…",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "close": "Chiudi",
+    "directions": "Itinerario",
+    "writeUs": "Scrivici",
+    "callUs": "Chiamaci",
+    "skipToContent": "Vai al contenuto principale",
+    "comingSoon": "Prossimamente",
+    "toBeConfirmed": "da confermare",
+    "everyDay": "Tutti i giorni",
+    "noCookies": "Sito senza cookie pubblicitari",
+    "allRightsReserved": "Tutti i diritti riservati",
+    "legal": "Note legali",
+    "privacy": "Privacy"
+  },
+  "lang": {
+    "label": "Cambia lingua",
+    "current": "Lingua attuale",
+    "soon": "Presto"
+  },
+  "home": {
+    "hero": {
+      "kicker": "Benvenuti da",
+      "title": "Le Meynadier",
+      "tagline1": "Brasserie · Pizzeria · Pub",
+      "tagline2": "nel cuore della vecchia Cannes.",
+      "categories": "Pizze signature · Birre alla spina · Cocktail della casa"
+    },
+    "signature": {
+      "kicker": "La nostra",
+      "title": "Firma",
+      "tagline": "Tre pilastri, una promessa: prodotti freschi, ricette della casa, atmosfera calorosa — come ci sono sempre piaciuti.",
+      "pillars": {
+        "pizzas": {
+          "title": "Pizze signature",
+          "description": "Pasta fina, forno per pizza, salsa di pomodoro fatta in casa, ingredienti freschi. Nove ricette signature, dalla classica Margherita alla generosa Raffinata all'olio di tartufo.",
+          "cta": "Vedi le pizze"
+        },
+        "drinks": {
+          "title": "Birre & vini",
+          "description": "Tre alla spina al banco — Pelforth, Affligem, Monaco — una selezione di bottiglie belghe e internazionali, vini del Domaine Source Marine.",
+          "cta": "Vedi la selezione"
+        },
+        "cocktails": {
+          "title": "Cocktail della casa",
+          "description": "Spritz, Pina Colada, Dragon, Tabula — ricette della casa da sorseggiare al banco o in terrazza, dal pranzo all'ultimo bicchiere.",
+          "cta": "Vedi i cocktail"
+        }
+      }
+    },
+    "ambiance": {
+      "kicker": "Nel cuore della",
+      "title": "vecchia Cannes",
+      "p1": "Su rue Meynadier, a due passi dal mercato Forville e dalla Croisette, Le Meynadier vi accoglie in un decoro caloroso: legno di noce massiccio, accenti d'ottone, ghirlande luminose, terrazza animata.",
+      "quote": "Trasformare una via commerciale in un luogo di ritrovo — dal caffè mattutino al cocktail della sera.",
+      "p2": "Dal caffè del mattino al cocktail della sera, è l'indirizzo per un pranzo veloce, un aperitivo tra amici o una cena complice — sette giorni su sette, tutto l'anno."
+    },
+    "menuPreview": {
+      "kicker": "Anteprima del",
+      "title": "Menu",
+      "tagline": "Una selezione di preferiti — il menu completo vi aspetta nella pagina seguente.",
+      "cta": "Vedi tutto il menu",
+      "items": {
+        "margarita": {
+          "name": "Margherita",
+          "category": "Pizza signature",
+          "alt": "Pizza Margherita appena uscita dal forno",
+          "description": "Salsa di pomodoro all'origano, mozzarella e basilico — la classica inarrivabile."
+        },
+        "karmeliet": {
+          "name": "Triple Karmeliet",
+          "category": "Birra belga",
+          "alt": "Birra Triple Karmeliet in bicchiere a tulipano",
+          "description": "Belga triple, 8,4% — generosa, fruttata, rotonda, dal manto dorato."
+        },
+        "spritz": {
+          "name": "Spirit Spritz",
+          "category": "Cocktail signature",
+          "alt": "Cocktail Spirit Spritz arancione e bolle",
+          "description": "Aperol, prosecco, acqua frizzante, arancia — sole nel bicchiere."
+        }
+      }
+    },
+    "practical": {
+      "kicker": "Info",
+      "title": "Pratiche",
+      "tagline": "Sette giorni su sette — dal caffè mattutino al cocktail della sera.",
+      "address": "Indirizzo",
+      "hours": "Orari",
+      "phone": "Telefono",
+      "viewMap": "Vedi la mappa"
+    }
+  },
+  "menu": {
+    "hero": {
+      "kicker": "Il nostro",
+      "title": "Menu",
+      "tagline": "Pizze signature, panini, birre alla spina, vini, cocktail della casa — una cucina generosa, ricette che difendiamo."
+    },
+    "category": "alla carta",
+    "cta": {
+      "title": "Un tavolo da noi?",
+      "subtitle": "Prezzi in fase di verifica — il vostro cameriere resta la fonte migliore.",
+      "findUs": "Contatti",
+      "history": "La nostra storia"
+    }
+  },
+  "history": {
+    "cta": {
+      "title": "Un tavolo da noi?",
+      "subtitle": "Su rue Meynadier, a due passi dal mercato Forville. Tutti i giorni, dalle 8 alle 23.",
+      "menu": "Scopri il menu",
+      "find": "Contatti"
+    }
+  },
+  "gallery": {
+    "hero": {
+      "kicker": "In",
+      "title": "Immagini",
+      "tagline": "Legno di noce, luce calda, piante verdi — l'atmosfera del Meynadier in alcuni scatti. Clicca su un'immagine per aprirla."
+    },
+    "filters": {
+      "all": "Tutto",
+      "venue": "Il locale",
+      "food": "Piatti & bevande",
+      "ambience": "Atmosfera"
+    },
+    "section": {
+      "kicker": "Galleria",
+      "title": "Il locale in foto",
+      "tagline": "Foto in arricchimento con quelle fornite dal team del Meynadier."
+    },
+    "cta": {
+      "title": "Vedere Le Meynadier dal vivo?",
+      "subtitle": "Rue Meynadier, nel cuore della vecchia Cannes — la foto non sostituisce l'atmosfera.",
+      "find": "Contatti",
+      "menu": "Vedi il menu"
+    }
+  },
+  "contact": {
+    "hero": {
+      "kicker": "Vieni a",
+      "title": "Trovarci"
+    },
+    "section1": {
+      "kicker": "Coordinate",
+      "title": "Le Meynadier",
+      "tagline": "Sette giorni su sette, senza interruzione — dal caffè mattutino al cocktail della sera."
+    },
+    "map": {
+      "kicker": "Sulla",
+      "title": "Mappa",
+      "tagline": "Mappa fornita da OpenStreetMap — senza tracciamento pubblicitario né cookie di terze parti."
+    },
+    "neighborhood": {
+      "kicker": "A due passi dalla",
+      "title": "vecchia Cannes",
+      "market": "Mercato Forville",
+      "marketTime": "a 2 minuti a piedi",
+      "seafront": "La Croisette",
+      "seafrontTime": "a 5 minuti a piedi",
+      "oldTown": "Le Suquet",
+      "oldTownTime": "a 7 minuti a piedi"
+    },
+    "cta": {
+      "title": "Vi aspettiamo.",
+      "subtitle": "Per un caffè, un panino veloce, un aperitivo tra amici o una cena complice — nel cuore di rue Meynadier.",
+      "menu": "Vedi il menu",
+      "gallery": "Scopri il locale"
+    }
+  }
+}

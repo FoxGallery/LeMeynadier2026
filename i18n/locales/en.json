@@ -1,0 +1,194 @@
+{
+  "site": {
+    "name": "Le Meynadier",
+    "tagline": "Brasserie · Pizzeria · Pub",
+    "place": "in the heart of old Cannes"
+  },
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "history": "About",
+    "gallery": "Gallery",
+    "contact": "Find us"
+  },
+  "common": {
+    "discover": "Discover",
+    "viewMenu": "See the menu",
+    "findUs": "Find us",
+    "ourHistory": "Our story",
+    "viewAll": "View all",
+    "loading": "Loading…",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "directions": "Directions",
+    "writeUs": "Email us",
+    "callUs": "Call us",
+    "skipToContent": "Skip to main content",
+    "comingSoon": "Coming soon",
+    "toBeConfirmed": "to be confirmed",
+    "everyDay": "Every day",
+    "noCookies": "No advertising cookies",
+    "allRightsReserved": "All rights reserved",
+    "legal": "Legal",
+    "privacy": "Privacy"
+  },
+  "lang": {
+    "label": "Change language",
+    "current": "Current language",
+    "soon": "Soon"
+  },
+  "home": {
+    "hero": {
+      "kicker": "Welcome to",
+      "title": "Le Meynadier",
+      "tagline1": "Brasserie · Pizzeria · Pub",
+      "tagline2": "in the heart of old Cannes.",
+      "categories": "Signature pizzas · Draft beers · House cocktails"
+    },
+    "signature": {
+      "kicker": "Our",
+      "title": "Signature",
+      "tagline": "Three pillars, one promise: fresh produce, homemade recipes, warm atmosphere — the way we've always loved them.",
+      "pillars": {
+        "pizzas": {
+          "title": "Signature pizzas",
+          "description": "Thin crust, stone oven, homemade tomato sauce, fresh ingredients. Nine signature recipes, from the classic Margherita to the generous Raffinée with truffle oil.",
+          "cta": "See the pizzas"
+        },
+        "drinks": {
+          "title": "Beers & wines",
+          "description": "Three drafts at the bar — Pelforth, Affligem, Monaco — a selection of Belgian and international bottles, wines from Domaine Source Marine.",
+          "cta": "See the selection"
+        },
+        "cocktails": {
+          "title": "House cocktails",
+          "description": "Spritz, Pina Colada, Dragon, Tabula — house recipes to sip at the bar or on the terrace, from lunch to the last glass.",
+          "cta": "See the cocktails"
+        }
+      }
+    },
+    "ambiance": {
+      "kicker": "In the heart of",
+      "title": "old Cannes",
+      "p1": "On rue Meynadier, two steps from Forville Market and the Croisette, Le Meynadier welcomes you in a warm setting: solid walnut wood, brass accents, fairy lights, lively terrace.",
+      "quote": "Turn a shopping street into a meeting point — from morning coffee to evening cocktail.",
+      "p2": "From the morning coffee to the evening cocktail, this is the spot for a quick lunch, drinks with friends, or an intimate dinner — seven days a week, year-round."
+    },
+    "menuPreview": {
+      "kicker": "A taste of the",
+      "title": "Menu",
+      "tagline": "A handful of favourites — the full menu awaits on the next page.",
+      "cta": "See the full menu",
+      "items": {
+        "margarita": {
+          "name": "Margherita",
+          "category": "Signature pizza",
+          "alt": "Margherita pizza fresh from the stone oven",
+          "description": "Oregano tomato sauce, mozzarella and basil — the unbeatable classic."
+        },
+        "karmeliet": {
+          "name": "Triple Karmeliet",
+          "category": "Belgian beer",
+          "alt": "Triple Karmeliet beer poured into a tulip glass",
+          "description": "Belgian triple, 8.4% — generous, fruity, round, with a golden hue."
+        },
+        "spritz": {
+          "name": "Spirit Spritz",
+          "category": "Signature cocktail",
+          "alt": "Spirit Spritz cocktail with orange and bubbles",
+          "description": "Aperol, prosecco, sparkling water, orange — sunshine in a glass."
+        }
+      }
+    },
+    "practical": {
+      "kicker": "Useful",
+      "title": "Info",
+      "tagline": "Seven days a week — from morning coffee to evening cocktail.",
+      "address": "Address",
+      "hours": "Hours",
+      "phone": "Phone",
+      "viewMap": "View map"
+    }
+  },
+  "menu": {
+    "hero": {
+      "kicker": "Our",
+      "title": "Menu",
+      "tagline": "Signature pizzas, paninis, draft beers, wines, house cocktails — generous cuisine, recipes we stand by."
+    },
+    "category": "à la carte",
+    "cta": {
+      "title": "A table here?",
+      "subtitle": "Prices being verified — your server remains your best source.",
+      "findUs": "Find us",
+      "history": "Our story"
+    }
+  },
+  "history": {
+    "cta": {
+      "title": "A table here?",
+      "subtitle": "On rue Meynadier, two steps from Forville Market. Every day, 8 am – 11 pm.",
+      "menu": "Discover the menu",
+      "find": "Find us"
+    }
+  },
+  "gallery": {
+    "hero": {
+      "kicker": "In",
+      "title": "Pictures",
+      "tagline": "Walnut wood, warm light, green plants — Le Meynadier's atmosphere in a few shots. Click an image to open it."
+    },
+    "filters": {
+      "all": "All",
+      "venue": "The venue",
+      "food": "Food & drinks",
+      "ambience": "Ambience"
+    },
+    "section": {
+      "kicker": "Gallery",
+      "title": "The venue in pictures",
+      "tagline": "Photos being enriched with those provided by Le Meynadier's team."
+    },
+    "cta": {
+      "title": "See Le Meynadier for real?",
+      "subtitle": "Rue Meynadier, in the heart of old Cannes — pictures never match the atmosphere.",
+      "find": "Find us",
+      "menu": "See the menu"
+    }
+  },
+  "contact": {
+    "hero": {
+      "kicker": "Find",
+      "title": "Us"
+    },
+    "section1": {
+      "kicker": "Contact",
+      "title": "Le Meynadier",
+      "tagline": "Seven days a week, non-stop — from morning coffee to evening cocktail."
+    },
+    "map": {
+      "kicker": "On the",
+      "title": "Map",
+      "tagline": "Map provided by OpenStreetMap — without ad tracking or third-party cookies."
+    },
+    "neighborhood": {
+      "kicker": "Two steps from",
+      "title": "old Cannes",
+      "market": "Forville Market",
+      "marketTime": "2-minute walk",
+      "seafront": "La Croisette",
+      "seafrontTime": "5-minute walk",
+      "oldTown": "Le Suquet",
+      "oldTownTime": "7-minute walk"
+    },
+    "cta": {
+      "title": "We're waiting for you.",
+      "subtitle": "For a coffee, a quick panini, drinks with friends or an intimate dinner — in the heart of rue Meynadier.",
+      "menu": "See the menu",
+      "gallery": "Discover the venue"
+    }
+  }
+}

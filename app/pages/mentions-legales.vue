@@ -1,3 +1,13 @@
+<script setup lang="ts">
+defineI18nRoute({
+  paths: {
+    fr: '/mentions-legales',
+    en: '/legal',
+    it: '/note-legali',
+  },
+})
+</script>
+
 <template>
   <LegalPage
     path="/pages/mentions-legales"

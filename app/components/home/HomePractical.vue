@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ArrowUpRight, Clock, MapPin, Phone } from 'lucide-vue-next'
 
+const { t } = useI18n()
+const localePath = useLocalePath()
 const venue = useVenue()
 
 const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURIComponent(`${venue.name} ${venue.address.street}, ${venue.address.postalCode} ${venue.address.locality}`)}`
@@ -16,17 +18,17 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
     <div class="relative mx-auto max-w-6xl px-6">
       <SectionLabel
         number="06"
-        kicker="Infos"
-        title="Pratiques"
-        tagline="Sept jours sur sept — du café du matin au cocktail du soir."
+        :kicker="t('home.practical.kicker')"
+        :title="t('home.practical.title')"
+        :tagline="t('home.practical.tagline')"
       />
 
       <div v-reveal:children="{ y: 32, stagger: 0.15, duration: 1 }" class="mt-20 grid gap-12 lg:grid-cols-2 lg:gap-20">
         <!-- Aperçu carte (cliquable vers Contact) -->
         <NuxtLink
-          to="/contact"
+          :to="localePath('/contact')"
           class="group relative block aspect-[16/11] overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-300 shadow-(--shadow-deep) focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
-          aria-label="Voir la carte interactive"
+          :aria-label="t('home.practical.viewMap')"
         >
           <!-- Mini-map illustrée (placeholder décoratif élégant) -->
           <svg
@@ -88,7 +90,7 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
           <!-- Badge "Voir le plan" qui apparaît au hover -->
           <div class="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-(--radius-pill) bg-walnut-900/85 px-5 py-3 text-cream-50 backdrop-blur-sm">
             <div>
-              <p class="text-xs uppercase tracking-[0.3em] text-brass-300">Voir le plan</p>
+              <p class="text-xs uppercase tracking-[0.3em] text-brass-300">{{ t('home.practical.viewMap') }}</p>
               <p class="font-display text-sm">{{ venue.address.street }} · Cannes</p>
             </div>
             <ArrowUpRight class="size-5 text-brass-300 transition-transform group-hover:rotate-12" aria-hidden="true" />
@@ -100,7 +102,7 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
           <div class="border-l-2 border-brass-500 pl-6">
             <p class="text-xs uppercase tracking-[0.3em] text-brass-700">
               <MapPin class="mr-1 inline-block size-3.5 -mt-0.5" aria-hidden="true" />
-              Adresse
+              {{ t('home.practical.address') }}
             </p>
             <p class="mt-2 font-display text-3xl text-walnut-900">
               {{ venue.address.street }}
@@ -112,7 +114,7 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
               :href="directionsHref"
               class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brass-700 hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500"
             >
-              Itinéraire
+              {{ t('common.directions') }}
               <ArrowUpRight class="size-3.5" aria-hidden="true" />
             </a>
           </div>
@@ -120,19 +122,19 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
           <div class="border-l-2 border-brass-500 pl-6">
             <p class="text-xs uppercase tracking-[0.3em] text-brass-700">
               <Clock class="mr-1 inline-block size-3.5 -mt-0.5" aria-hidden="true" />
-              Horaires
+              {{ t('home.practical.hours') }}
             </p>
             <p class="mt-2 font-display text-3xl text-walnut-900">
-              Tous les jours
+              {{ t('common.everyDay') }}
             </p>
             <p class="text-walnut-700">8h00 — 23h00</p>
-            <p class="mt-1 text-xs text-walnut-500">(à confirmer auprès du client)</p>
+            <p class="mt-1 text-xs text-walnut-500">({{ t('common.toBeConfirmed') }})</p>
           </div>
 
           <div class="border-l-2 border-brass-500 pl-6">
             <p class="text-xs uppercase tracking-[0.3em] text-brass-700">
               <Phone class="mr-1 inline-block size-3.5 -mt-0.5" aria-hidden="true" />
-              Téléphone
+              {{ t('home.practical.phone') }}
             </p>
             <p class="mt-2 font-display text-3xl text-walnut-900">
               <span v-if="venue.telephoneHref">

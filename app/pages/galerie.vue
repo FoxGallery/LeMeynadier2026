@@ -10,13 +10,23 @@ import {
   DialogTitle,
 } from 'reka-ui'
 
+defineI18nRoute({
+  paths: {
+    fr: '/galerie',
+    en: '/gallery',
+    it: '/galleria',
+  },
+})
+
+const { t } = useI18n()
+const localePath = useLocalePath()
+
 useHead({
-  title: 'Galerie',
+  title: t('nav.gallery'),
   meta: [
     {
       name: 'description',
-      content:
-        'Galerie photos du Meynadier — comptoir bois noyer, terrasse, plats, ambiance pub à Cannes.',
+      content: t('gallery.hero.tagline'),
     },
   ],
 })
@@ -52,11 +62,11 @@ const photos: Photo[] = [
   },
 ]
 
-const filterLabels: Record<'tout' | Photo['category'], string> = {
-  tout: 'Tout',
-  lieu: 'Le lieu',
-  plats: 'Plats & boissons',
-  ambiance: 'Ambiance',
+const filterKeys: Record<'tout' | Photo['category'], string> = {
+  tout: 'gallery.filters.all',
+  lieu: 'gallery.filters.venue',
+  plats: 'gallery.filters.food',
+  ambiance: 'gallery.filters.ambience',
 }
 
 const activeFilter = ref<'tout' | Photo['category']>('tout')
@@ -149,14 +159,13 @@ if (import.meta.client) {
 
       <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
         <Monogram :size="56" class="text-brass-400" />
-        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">En</p>
+        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">{{ t('gallery.hero.kicker') }}</p>
         <h1 class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 sm:text-7xl md:text-8xl">
-          Images
+          {{ t('gallery.hero.title') }}
         </h1>
         <GoldDivider size="md" ornament="diamond" class="mt-8 text-brass-400" />
         <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg">
-          Bois noyer, lumière chaude, plantes vertes — l'ambiance du Meynadier
-          en quelques plans. Cliquez sur une image pour l'ouvrir.
+          {{ t('gallery.hero.tagline') }}
         </p>
       </div>
     </section>
@@ -171,19 +180,19 @@ if (import.meta.client) {
     >
       <div class="mx-auto flex max-w-7xl items-stretch overflow-x-auto px-4 sm:px-6">
         <button
-          v-for="(label, key) in filterLabels"
-          :key="key"
+          v-for="(key, filterKey) in filterKeys"
+          :key="filterKey"
           type="button"
-          :aria-current="activeFilter === key ? 'true' : undefined"
+          :aria-current="activeFilter === filterKey ? 'true' : undefined"
           :class="[
             'meyn-tab group relative shrink-0 px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300',
-            activeFilter === key
+            activeFilter === filterKey
               ? 'text-walnut-900'
               : 'text-walnut-600 hover:text-walnut-900',
           ]"
-          @click="activeFilter = key; activeIndex = 0"
+          @click="activeFilter = filterKey; activeIndex = 0"
         >
-          <span>{{ label }}</span>
+          <span>{{ t(key) }}</span>
           <span
             v-if="activeFilter === key"
             aria-hidden="true"
@@ -198,9 +207,9 @@ if (import.meta.client) {
       <div class="mx-auto max-w-6xl px-6">
         <SectionLabel
           number="01"
-          kicker="Galerie"
-          title="Le lieu en photos"
-          tagline="Photos en cours d'enrichissement avec celles fournies par l'équipe du Meynadier."
+          :kicker="t('gallery.section.kicker')"
+          :title="t('gallery.section.title')"
+          :tagline="t('gallery.section.tagline')"
         />
 
         <ul
@@ -240,7 +249,7 @@ if (import.meta.client) {
                 class="absolute inset-x-3 bottom-3 flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               >
                 <span class="inline-flex items-center rounded-full bg-walnut-900/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-cream-50 backdrop-blur-sm">
-                  {{ filterLabels[photo.category] }}
+                  {{ t(filterKeys[photo.category]) }}
                 </span>
               </div>
             </button>
@@ -259,14 +268,14 @@ if (import.meta.client) {
       <div class="relative mx-auto max-w-2xl px-6">
         <Monogram :size="48" class="mx-auto text-brass-400" />
         <h2 class="mt-5 font-display text-3xl text-cream-50 sm:text-4xl">
-          Voir le Meynadier en vrai ?
+          {{ t('gallery.cta.title') }}
         </h2>
         <p class="mt-4 text-cream-100/80">
-          Rue Meynadier, au cœur du vieux Cannes — la photo ne remplace pas l'ambiance.
+          {{ t('gallery.cta.subtitle') }}
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <UiButton variant="gold" to="/contact">Nous trouver</UiButton>
-          <UiButton variant="hero-outline" to="/carte">Voir la carte</UiButton>
+          <UiButton variant="gold" :to="localePath('/contact')">{{ t('gallery.cta.find') }}</UiButton>
+          <UiButton variant="hero-outline" :to="localePath('/carte')">{{ t('gallery.cta.menu') }}</UiButton>
         </div>
       </div>
     </section>

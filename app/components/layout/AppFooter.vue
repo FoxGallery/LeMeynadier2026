@@ -3,12 +3,12 @@ import { Clock, Facebook, Instagram, MapPin, Phone } from 'lucide-vue-next'
 
 const venue = useVenue()
 const links = useNavLinks()
+const { t } = useI18n()
 const year = new Date().getFullYear()
 </script>
 
 <template>
   <footer class="relative overflow-hidden bg-walnut-900 text-cream-100/85">
-    <!-- Filet doré décoratif en haut -->
     <div
       aria-hidden="true"
       class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brass-500/50 to-transparent"
@@ -16,9 +16,7 @@ const year = new Date().getFullYear()
     <WoodGrain :opacity="0.08" :color="'#0d0905'" />
 
     <div class="relative mx-auto max-w-6xl px-6 py-12">
-      <!-- Top : brand inline + nav inline -->
       <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-        <!-- Brand inline -->
         <div class="flex items-center gap-4">
           <Monogram :size="36" class="text-brass-400" />
           <div class="flex items-baseline gap-1.5 leading-none">
@@ -27,27 +25,24 @@ const year = new Date().getFullYear()
           </div>
           <span class="hidden h-4 w-px bg-cream-100/20 sm:block" aria-hidden="true" />
           <span class="hidden text-[11px] uppercase tracking-[0.22em] text-cream-100/60 sm:inline">
-            Brasserie · Pizzeria · Pub
+            {{ t('site.tagline') }}
           </span>
         </div>
 
-        <!-- Nav -->
         <nav aria-label="Navigation pied de page" class="flex flex-wrap items-center gap-x-7 gap-y-2">
-          <NuxtLink
+          <NuxtLinkLocale
             v-for="link in links"
             :key="link.to"
             :to="link.to"
             class="text-[11px] uppercase tracking-[0.22em] text-cream-100/85 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400 focus-visible:outline-offset-4"
           >
-            {{ link.label }}
-          </NuxtLink>
+            {{ t(link.i18nKey) }}
+          </NuxtLinkLocale>
         </nav>
       </div>
 
-      <!-- Filet -->
       <div class="my-8 h-px bg-cream-100/10" aria-hidden="true" />
 
-      <!-- Bottom : 3 infos courtes inline + réseaux -->
       <div class="flex flex-col gap-6 text-sm lg:flex-row lg:items-start lg:justify-between">
         <ul class="flex flex-col gap-x-10 gap-y-3 sm:flex-row sm:flex-wrap">
           <li class="flex items-start gap-2">
@@ -60,7 +55,7 @@ const year = new Date().getFullYear()
             <Clock class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
             <span class="leading-relaxed">
               7 j/7 · 8h – 23h
-              <span class="text-cream-100/55">(à confirmer)</span>
+              <span class="text-cream-100/55">({{ t('common.toBeConfirmed') }})</span>
             </span>
           </li>
           <li class="flex items-start gap-2">
@@ -97,29 +92,28 @@ const year = new Date().getFullYear()
       </div>
     </div>
 
-    <!-- Bandeau bas compact : copyright + légal -->
     <div class="relative border-t border-cream-100/10">
       <div
         class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 py-4 text-center text-[11px] tracking-wide text-cream-100/65 sm:flex-row sm:justify-between"
       >
-        <p>© {{ year }} Le Meynadier · Cannes · Tous droits réservés.</p>
+        <p>© {{ year }} Le Meynadier · Cannes · {{ t('common.allRightsReserved') }}.</p>
         <ul class="flex items-center gap-x-5">
           <li>
-            <NuxtLink
+            <NuxtLinkLocale
               to="/mentions-legales"
               class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
             >
-              Mentions légales
-            </NuxtLink>
+              {{ t('common.legal') }}
+            </NuxtLinkLocale>
           </li>
           <li aria-hidden="true">·</li>
           <li>
-            <NuxtLink
+            <NuxtLinkLocale
               to="/confidentialite"
               class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
             >
-              Confidentialité
-            </NuxtLink>
+              {{ t('common.privacy') }}
+            </NuxtLinkLocale>
           </li>
         </ul>
       </div>

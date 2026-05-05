@@ -1,22 +1,22 @@
 /**
  * Liens de navigation principaux. Centralisé ici pour Header + Footer + Sheet mobile.
  *
- * Les `to` sont en français (locale par défaut). M4 introduira la résolution
- * multilingue via `<NuxtLinkLocale>` et `i18n` config `pages`.
+ * Les chemins sont localisés via @nuxtjs/i18n — `to` est le chemin source
+ * (FR par défaut), résolu par `<NuxtLinkLocale>` ou `useLocalePath()`.
  */
 export interface NavLink {
+  /** Nom de la route (résolu via useLocalePath ou NuxtLink). */
   to: string
-  label: string
-  /** Description ARIA pour les liens dont le label seul ne suffit pas. */
-  ariaLabel?: string
+  /** Clé i18n pour le label affiché. */
+  i18nKey: string
 }
 
 export function useNavLinks(): readonly NavLink[] {
   return [
-    { to: '/', label: 'Accueil' },
-    { to: '/carte', label: 'La carte' },
-    { to: '/histoire', label: 'Notre histoire' },
-    { to: '/galerie', label: 'Galerie' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/', i18nKey: 'nav.home' },
+    { to: '/carte', i18nKey: 'nav.menu' },
+    { to: '/histoire', i18nKey: 'nav.history' },
+    { to: '/galerie', i18nKey: 'nav.gallery' },
+    { to: '/contact', i18nKey: 'nav.contact' },
   ] as const
 }

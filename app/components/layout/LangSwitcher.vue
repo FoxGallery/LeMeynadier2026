@@ -3,12 +3,6 @@ import { Check, Globe } from 'lucide-vue-next'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import { cn } from '~/utils/cn'
 
-interface Locale {
-  code: 'fr' | 'en' | 'it'
-  label: string
-  short: string
-}
-
 const props = defineProps<{
   /** Style compact (footer) ou complet (header). */
   compact?: boolean
@@ -17,20 +11,31 @@ const props = defineProps<{
   class?: string
 }>()
 
-// Placeholder en attendant @nuxtjs/i18n (M4) — pour l'instant FR uniquement.
-const current = ref<Locale['code']>('fr')
+const { locale, locales, t } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 
-const locales: readonly Locale[] = [
-  { code: 'fr', label: 'Français', short: 'FR' },
-  { code: 'en', label: 'English', short: 'EN' },
-  { code: 'it', label: 'Italiano', short: 'IT' },
-]
+interface LocaleOption {
+  code: 'fr' | 'en' | 'it'
+  short: string
+  label: string
+}
+
+const items = computed<LocaleOption[]>(() => {
+  return (locales.value as { code: string; name?: string }[]).map((l) => ({
+    code: l.code as LocaleOption['code'],
+    short: l.code.toUpperCase(),
+    label: l.name ?? l.code,
+  }))
+})
 
 const open = ref(false)
+const current = computed(() => items.value.find((l) => l.code === locale.value))
 
-function pick(code: Locale['code']) {
-  current.value = code
+function pick(code: LocaleOption['code']) {
   open.value = false
+  // Navigation se fait via NuxtLink avec :to ; pas besoin de set locale manuellement
+  // (i18n s'en occupe). Cookie persisté automatiquement.
+  void code
 }
 </script>
 
@@ -39,7 +44,7 @@ function pick(code: Locale['code']) {
     <PopoverTrigger
       as="button"
       type="button"
-      :aria-label="`Changer de langue · langue actuelle : ${locales.find((l) => l.code === current)?.label}`"
+      :aria-label="`${t('lang.label')} · ${t('lang.current')} : ${current?.label}`"
       :class="cn(
         'inline-flex items-center gap-1.5 transition-colors',
         'focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4',
@@ -51,7 +56,7 @@ function pick(code: Locale['code']) {
       )"
     >
       <Globe class="size-4" aria-hidden="true" />
-      <span>{{ locales.find((l) => l.code === current)?.short }}</span>
+      <span>{{ current?.short }}</span>
     </PopoverTrigger>
 
     <PopoverPortal>
@@ -61,34 +66,28 @@ function pick(code: Locale['code']) {
         class="z-50 min-w-40 rounded-(--radius-card) border border-walnut-200 bg-cream-50 p-1 text-walnut-800 shadow-(--shadow-deep) data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
       >
         <ul role="menu" class="flex flex-col">
-          <li v-for="locale in locales" :key="locale.code" role="none">
-            <button
-              type="button"
+          <li v-for="item in items" :key="item.code" role="none">
+            <NuxtLink
+              :to="switchLocalePath(item.code)"
               role="menuitemradio"
-              :aria-checked="locale.code === current"
+              :aria-checked="item.code === locale"
               :class="cn(
                 'flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-sm transition-colors',
                 'hover:bg-walnut-100 focus-visible:outline-2 focus-visible:outline-brass-500',
-                locale.code === current && 'text-brass-700',
+                item.code === locale && 'text-brass-700',
               )"
-              :disabled="locale.code !== 'fr'"
-              :title="locale.code !== 'fr' ? 'Disponible prochainement' : undefined"
-              @click="pick(locale.code)"
+              @click="pick(item.code)"
             >
               <span class="flex items-center gap-2">
-                <span class="font-medium">{{ locale.short }}</span>
-                <span class="text-walnut-700">{{ locale.label }}</span>
+                <span class="font-medium">{{ item.short }}</span>
+                <span class="text-walnut-700">{{ item.label }}</span>
               </span>
               <Check
-                v-if="locale.code === current"
+                v-if="item.code === locale"
                 class="size-4 text-brass-600"
                 aria-hidden="true"
               />
-              <span
-                v-else-if="locale.code !== 'fr'"
-                class="text-[10px] uppercase tracking-widest text-walnut-500"
-              >Bientôt</span>
-            </button>
+            </NuxtLink>
           </li>
         </ul>
       </PopoverContent>

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import type { MenuCategory } from '~~/content.config'
 
+defineI18nRoute({
+  paths: {
+    fr: '/carte',
+    en: '/menu',
+    it: '/menu',
+  },
+})
+
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
+
 useHead({
   title: 'La carte',
   meta: [
@@ -65,9 +76,15 @@ function localized(field: { fr: string; en?: string; it?: string } | undefined) 
   return field?.fr ?? ''
 }
 
+const localeMap: Record<string, string> = {
+  fr: 'fr-FR',
+  en: 'en-GB',
+  it: 'it-IT',
+}
+
 function formatPrice(p: number | null) {
   if (p == null) return '—'
-  return new Intl.NumberFormat('fr-FR', {
+  return new Intl.NumberFormat(localeMap[locale.value] ?? 'fr-FR', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: p % 1 === 0 ? 0 : 2,
@@ -127,14 +144,13 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
 
       <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
         <Monogram :size="56" class="text-brass-400" />
-        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">Notre</p>
+        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">{{ t('menu.hero.kicker') }}</p>
         <h1 class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 sm:text-7xl md:text-8xl">
-          La carte
+          {{ t('menu.hero.title') }}
         </h1>
         <GoldDivider size="md" ornament="diamond" class="mt-8 text-brass-400" />
         <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg">
-          Pizzas signatures, paninis, bières pression, vins, cocktails maison —
-          une cuisine généreuse, des recettes qu'on défend.
+          {{ t('menu.hero.tagline') }}
         </p>
       </div>
     </section>
@@ -197,7 +213,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       <div class="relative mx-auto max-w-6xl px-6">
         <SectionLabel
           :number="String(activeIndex + 1).padStart(2, '0')"
-          kicker="à la carte"
+          :kicker="t('menu.category')"
           :title="localized(activeCategory.label)"
           :tagline="localized(activeCategory.description) || undefined"
         />
@@ -282,14 +298,14 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       <div class="relative mx-auto max-w-2xl px-6">
         <Monogram :size="48" class="mx-auto text-brass-400" />
         <h2 class="mt-5 font-display text-3xl text-cream-50 sm:text-4xl">
-          Une table chez nous ?
+          {{ t('menu.cta.title') }}
         </h2>
         <p class="mt-4 text-cream-100/80">
-          Tarifs indicatifs en cours de vérification — votre serveur reste votre meilleure source.
+          {{ t('menu.cta.subtitle') }}
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <UiButton variant="gold" to="/contact">Nous trouver</UiButton>
-          <UiButton variant="hero-outline" to="/histoire">Notre histoire</UiButton>
+          <UiButton variant="gold" :to="localePath('/contact')">{{ t('menu.cta.findUs') }}</UiButton>
+          <UiButton variant="hero-outline" :to="localePath('/histoire')">{{ t('menu.cta.history') }}</UiButton>
         </div>
       </div>
     </section>

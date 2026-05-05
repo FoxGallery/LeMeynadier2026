@@ -10,7 +10,43 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: true,
-  modules: ['@nuxt/fonts', '@nuxt/content'],
+  modules: ['@nuxt/fonts', '@nuxt/content', '@nuxtjs/i18n'],
+  i18n: {
+    defaultLocale: 'fr',
+    strategy: 'prefix_except_default',
+    locales: [
+      {
+        code: 'fr',
+        iso: 'fr-FR',
+        language: 'fr-FR',
+        name: 'Français',
+        file: 'fr.json',
+      },
+      {
+        code: 'en',
+        iso: 'en-GB',
+        language: 'en-GB',
+        name: 'English',
+        file: 'en.json',
+      },
+      {
+        code: 'it',
+        iso: 'it-IT',
+        language: 'it-IT',
+        name: 'Italiano',
+        file: 'it.json',
+      },
+    ],
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'meynadier-lang',
+      cookieSecure: true,
+      cookieCrossOrigin: false,
+      redirectOn: 'root',
+      fallbackLocale: 'fr',
+      alwaysRedirect: false,
+    },
+  },
   css: ['~/assets/css/tailwind.css'],
   // Auto-import composants à plat (sans préfixe de dossier).
   // Nos noms sont déjà uniques (UiButton, AppHeader, GoldDivider…).

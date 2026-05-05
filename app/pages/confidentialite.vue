@@ -1,3 +1,13 @@
+<script setup lang="ts">
+defineI18nRoute({
+  paths: {
+    fr: '/confidentialite',
+    en: '/privacy',
+    it: '/privacy',
+  },
+})
+</script>
+
 <template>
   <LegalPage
     path="/pages/confidentialite"

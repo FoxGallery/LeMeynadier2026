@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-vue-next'
 
+defineI18nRoute({
+  paths: {
+    fr: '/contact',
+    en: '/contact',
+    it: '/contatto',
+  },
+})
+
+const { t } = useI18n()
+const localePath = useLocalePath()
 const venue = useVenue()
 const jsonLd = venueJsonLd(venue)
 
@@ -92,14 +102,13 @@ function formatDayRange(days: string[]) {
 
       <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
         <Monogram :size="56" class="text-brass-400" />
-        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">Nous</p>
+        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">{{ t('contact.hero.kicker') }}</p>
         <h1 class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 sm:text-7xl md:text-8xl">
-          Trouver
+          {{ t('contact.hero.title') }}
         </h1>
         <GoldDivider size="md" ornament="diamond" class="mt-8 text-brass-400" />
         <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg">
-          {{ venue.address.street }}, {{ venue.address.postalCode }} {{ venue.address.locality }} —
-          au cœur du vieux Cannes, à deux pas du marché Forville.
+          {{ venue.address.street }}, {{ venue.address.postalCode }} {{ venue.address.locality }}
         </p>
       </div>
     </section>
@@ -109,9 +118,9 @@ function formatDayRange(days: string[]) {
       <div class="mx-auto max-w-6xl px-6">
         <SectionLabel
           number="01"
-          kicker="Coordonnées"
-          title="Le Meynadier"
-          tagline="Sept jours sur sept, sans interruption — du café du matin au cocktail du soir."
+          :kicker="t('contact.section1.kicker')"
+          :title="t('contact.section1.title')"
+          :tagline="t('contact.section1.tagline')"
         />
 
         <div
@@ -212,9 +221,9 @@ function formatDayRange(days: string[]) {
       <div class="relative mx-auto max-w-7xl px-6">
         <SectionLabel
           number="02"
-          kicker="Sur le"
-          title="Plan"
-          tagline="Carte issue d'OpenStreetMap — sans tracking publicitaire ni cookie tiers."
+          :kicker="t('contact.map.kicker')"
+          :title="t('contact.map.title')"
+          :tagline="t('contact.map.tagline')"
         />
 
         <div ref="mapTrigger" class="mt-16">
@@ -254,7 +263,7 @@ function formatDayRange(days: string[]) {
             >&copy; OpenStreetMap</a>
           </p>
           <UiButton variant="outline" size="sm" :href="directionsHref">
-            Itinéraire
+            {{ t('common.directions') }}
           </UiButton>
         </div>
       </div>
@@ -265,27 +274,27 @@ function formatDayRange(days: string[]) {
       <div class="mx-auto max-w-5xl px-6">
         <SectionLabel
           number="03"
-          kicker="À deux pas du"
-          title="vieux Cannes"
+          :kicker="t('contact.neighborhood.kicker')"
+          :title="t('contact.neighborhood.title')"
         />
         <ul
           v-reveal:children="{ y: 24, stagger: 0.1, duration: 0.8 }"
           class="mt-12 grid gap-6 sm:grid-cols-3"
         >
           <li class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-6 text-center shadow-(--shadow-paper)">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">Marché</p>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">{{ t('contact.neighborhood.market') }}</p>
             <p class="mt-2 font-display text-2xl text-walnut-900">Forville</p>
-            <p class="mt-1 text-xs text-walnut-700">à 2 minutes à pied</p>
+            <p class="mt-1 text-xs text-walnut-700">{{ t('contact.neighborhood.marketTime') }}</p>
           </li>
           <li class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-6 text-center shadow-(--shadow-paper)">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">Front de mer</p>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">{{ t('contact.neighborhood.seafront') }}</p>
             <p class="mt-2 font-display text-2xl text-walnut-900">La Croisette</p>
-            <p class="mt-1 text-xs text-walnut-700">à 5 minutes à pied</p>
+            <p class="mt-1 text-xs text-walnut-700">{{ t('contact.neighborhood.seafrontTime') }}</p>
           </li>
           <li class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-6 text-center shadow-(--shadow-paper)">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">Vieille ville</p>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">{{ t('contact.neighborhood.oldTown') }}</p>
             <p class="mt-2 font-display text-2xl text-walnut-900">Le Suquet</p>
-            <p class="mt-1 text-xs text-walnut-700">à 7 minutes à pied</p>
+            <p class="mt-1 text-xs text-walnut-700">{{ t('contact.neighborhood.oldTownTime') }}</p>
           </li>
         </ul>
       </div>
@@ -301,15 +310,14 @@ function formatDayRange(days: string[]) {
       <div class="relative mx-auto max-w-2xl px-6">
         <Monogram :size="48" class="mx-auto text-brass-400" />
         <h2 class="mt-5 font-display text-3xl text-cream-50 sm:text-4xl">
-          On vous attend.
+          {{ t('contact.cta.title') }}
         </h2>
         <p class="mt-4 text-cream-100/80">
-          Pour un café, un panini sur le pouce, un apéro entre amis ou un dîner complice —
-          au cœur de la rue Meynadier.
+          {{ t('contact.cta.subtitle') }}
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <UiButton variant="gold" to="/carte">Voir la carte</UiButton>
-          <UiButton variant="hero-outline" to="/galerie">Découvrir le lieu</UiButton>
+          <UiButton variant="gold" :to="localePath('/carte')">{{ t('contact.cta.menu') }}</UiButton>
+          <UiButton variant="hero-outline" :to="localePath('/galerie')">{{ t('contact.cta.gallery') }}</UiButton>
         </div>
       </div>
     </section>

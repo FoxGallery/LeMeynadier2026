@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const { t } = useI18n()
+const localePath = useLocalePath()
+</script>
+
 <template>
   <section
     aria-labelledby="ambiance-title"
@@ -15,33 +20,24 @@
         <div class="lg:col-span-5 lg:pt-12">
           <SectionLabel
             number="04"
-            kicker="Au cœur du"
-            title="vieux Cannes"
+            :kicker="t('home.ambiance.kicker')"
+            :title="t('home.ambiance.title')"
             align="left"
             tone="light"
           />
 
           <div class="mt-8 space-y-5 text-base leading-relaxed text-cream-100/85">
-            <p>
-              Sur la rue Meynadier, à deux pas du marché Forville et de la Croisette,
-              Le Meynadier vous accueille dans un décor chaleureux : bois noyer massif,
-              accents laiton, guirlandes lumineuses, terrasse animée.
-            </p>
+            <p>{{ t('home.ambiance.p1') }}</p>
 
             <blockquote class="border-l-2 border-brass-400 pl-5 font-display text-2xl italic leading-snug text-cream-50">
-              « Faire d'une rue commerçante un point de ralliement —
-              du café à l'ouverture au cocktail du soir. »
+              « {{ t('home.ambiance.quote') }} »
             </blockquote>
 
-            <p>
-              Du café du matin au cocktail du soir, c'est l'adresse pour un déjeuner
-              sur le pouce, un apéro entre amis ou un dîner complice — sept jours sur sept,
-              toute l'année.
-            </p>
+            <p>{{ t('home.ambiance.p2') }}</p>
           </div>
 
-          <UiButton variant="hero-outline" to="/histoire" class="mt-10">
-            Notre histoire
+          <UiButton variant="hero-outline" :to="localePath('/histoire')" class="mt-10">
+            {{ t('common.ourHistory') }}
           </UiButton>
         </div>
 
@@ -51,7 +47,7 @@
             <div class="col-span-4 row-span-5 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
               <img
                 src="/images/ambiance/ambiance-1.jpg"
-                alt="Intérieur du Meynadier — comptoir bois noyer et lumière chaude"
+                alt=""
                 loading="lazy"
                 decoding="async"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
@@ -60,7 +56,7 @@
             <div class="col-span-2 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
               <img
                 src="/images/ambiance/ambiance-2.jpg"
-                alt="Détail laiton et plantes du comptoir"
+                alt=""
                 loading="lazy"
                 decoding="async"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
@@ -69,7 +65,7 @@
             <div class="col-span-2 row-span-2 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
               <img
                 src="/images/ambiance/ambiance-3.jpg"
-                alt="Plantes et verdure"
+                alt=""
                 loading="lazy"
                 decoding="async"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
@@ -78,7 +74,7 @@
             <div class="col-span-3 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
               <img
                 src="/images/ambiance/ambiance-4.jpg"
-                alt="Terrasse à Cannes"
+                alt=""
                 loading="lazy"
                 decoding="async"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"

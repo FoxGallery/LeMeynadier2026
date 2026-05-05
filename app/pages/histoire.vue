@@ -1,4 +1,12 @@
 <script setup lang="ts">
+defineI18nRoute({
+  paths: {
+    fr: '/histoire',
+    en: '/about',
+    it: '/storia',
+  },
+})
+
 const { data: page } = await useAsyncData('page-histoire', () =>
   queryCollection('pages').path('/pages/histoire').first(),
 )

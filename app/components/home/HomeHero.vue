@@ -3,6 +3,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ChevronDown } from 'lucide-vue-next'
 
+const { t } = useI18n()
+const localePath = useLocalePath()
 const heroImage = ref<HTMLImageElement | null>(null)
 
 if (import.meta.client) {
@@ -67,7 +69,7 @@ if (import.meta.client) {
 
         <!-- Kicker script -->
         <p class="mt-6 font-script text-2xl text-brass-300 motion-safe:meyn-fade-up motion-safe:[animation-delay:120ms] sm:text-3xl">
-          Bienvenue chez
+          {{ t('home.hero.kicker') }}
         </p>
 
         <!-- Titre monumental -->
@@ -75,7 +77,7 @@ if (import.meta.client) {
           id="hero-title"
           class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 motion-safe:meyn-fade-up motion-safe:[animation-delay:240ms] sm:text-7xl md:text-8xl lg:text-9xl"
         >
-          Le Meynadier
+          {{ t('home.hero.title') }}
         </h1>
 
         <GoldDivider
@@ -85,17 +87,17 @@ if (import.meta.client) {
         />
 
         <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/90 motion-safe:meyn-fade-up motion-safe:[animation-delay:480ms] sm:text-lg">
-          Brasserie · Pizzeria · Pub<br>
-          au cœur du vieux Cannes.
+          {{ t('home.hero.tagline1') }}<br>
+          {{ t('home.hero.tagline2') }}
         </p>
 
         <p class="mt-3 text-[10px] uppercase tracking-[0.4em] text-brass-300 motion-safe:meyn-fade-up motion-safe:[animation-delay:560ms] sm:text-xs">
-          Pizzas signatures · Bières pression · Cocktails maison
+          {{ t('home.hero.categories') }}
         </p>
 
         <div class="mt-10 flex flex-col gap-4 motion-safe:meyn-fade-up motion-safe:[animation-delay:680ms] sm:flex-row">
-          <UiButton variant="primary" size="lg" to="/carte">Voir la carte</UiButton>
-          <UiButton variant="hero-outline" size="lg" to="/contact">Nous trouver</UiButton>
+          <UiButton variant="primary" size="lg" :to="localePath('/carte')">{{ t('common.viewMenu') }}</UiButton>
+          <UiButton variant="hero-outline" size="lg" :to="localePath('/contact')">{{ t('common.findUs') }}</UiButton>
         </div>
       </div>
     </div>
@@ -103,10 +105,10 @@ if (import.meta.client) {
     <!-- Scroll indicator en flux normal pour ne pas chevaucher les CTA -->
     <a
       href="#signature"
-      aria-label="Faire défiler vers la suite"
+      :aria-label="t('common.discover')"
       class="relative mx-auto mb-6 inline-flex flex-col items-center gap-1 text-[10px] uppercase tracking-[0.3em] text-cream-100/65 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400 focus-visible:outline-offset-4"
     >
-      <span>Découvrir</span>
+      <span>{{ t('common.discover') }}</span>
       <ChevronDown class="size-4 motion-safe:animate-bounce" aria-hidden="true" />
     </a>
 
