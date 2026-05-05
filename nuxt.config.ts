@@ -10,10 +10,24 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: true,
-  modules: ['@nuxt/fonts', '@nuxt/content', '@nuxtjs/i18n'],
+  modules: ['@nuxt/fonts', '@nuxt/content', '@nuxtjs/i18n', '@nuxtjs/sitemap'],
+  // URL canonique du site, pré-requise par @nuxtjs/sitemap pour absoluer
+  // les URLs et générer les balises hreflang correctes.
+  site: {
+    url: 'https://lemeynadier.fr',
+    name: 'Le Meynadier',
+  },
+  sitemap: {
+    autoLastmod: true,
+    // Exclure les pages dev-only (dev-tokens, dev-components) du sitemap public.
+    exclude: ['/dev-*', '/en/dev-*', '/it/dev-*'],
+    // Hreflang auto-généré pour chaque route via l'intégration native
+    // avec @nuxtjs/i18n (slugs localisés inclus).
+  },
   i18n: {
     defaultLocale: 'fr',
     strategy: 'prefix_except_default',
+    baseUrl: 'https://lemeynadier.fr',
     locales: [
       {
         code: 'fr',
