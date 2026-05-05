@@ -53,16 +53,19 @@ const pillars: Pillar[] = [
         :tagline="t('home.signature.tagline')"
       />
 
-      <div v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }" class="mt-20 grid gap-10 md:grid-cols-3">
+      <div
+        v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }"
+        class="mt-20 grid items-stretch gap-8 md:grid-cols-3"
+      >
         <article
           v-for="pillar in pillars"
           :key="pillar.number"
-          class="group flex flex-col"
+          class="group flex h-full flex-col overflow-hidden rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)"
         >
-          <!-- Image avec masque doré au hover -->
+          <!-- Image (hauteur fixe via aspect-ratio) -->
           <NuxtLink
             :to="localePath(pillar.to.split('#')[0] ?? '/') + (pillar.to.includes('#') ? `#${pillar.to.split('#')[1]}` : '')"
-            class="relative block aspect-[4/5] overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-200 shadow-(--shadow-paper) focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
+            class="relative block aspect-[5/4] overflow-hidden focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:-outline-offset-2"
           >
             <img
               :src="pillar.image"
@@ -73,27 +76,28 @@ const pillars: Pillar[] = [
             >
             <div
               aria-hidden="true"
-              class="absolute inset-0 bg-gradient-to-t from-walnut-950/60 via-walnut-950/0 to-transparent transition-opacity duration-500 group-hover:opacity-80"
+              class="absolute inset-0 bg-gradient-to-t from-walnut-950/55 via-walnut-950/0 to-transparent transition-opacity duration-500 group-hover:opacity-80"
             />
             <span
               aria-hidden="true"
-              class="absolute left-5 top-5 inline-flex size-12 items-center justify-center rounded-full border border-cream-50/60 bg-walnut-950/40 font-display text-sm font-medium tabular-nums text-cream-50 backdrop-blur-sm"
+              class="absolute left-4 top-4 inline-flex size-11 items-center justify-center rounded-full border border-cream-50/60 bg-walnut-950/40 font-display text-sm font-medium tabular-nums text-cream-50 backdrop-blur-sm"
             >
               {{ pillar.number }}
             </span>
           </NuxtLink>
 
-          <div class="mt-6">
+          <!-- Texte uniforme (flex-1 pour étirer + CTA collé en bas) -->
+          <div class="flex flex-1 flex-col p-6">
             <h3 class="font-display text-2xl text-walnut-900 sm:text-3xl">
               {{ t(pillar.titleKey) }}
             </h3>
-            <p class="mt-3 text-walnut-700">
+            <p class="mt-3 flex-1 text-walnut-700">
               {{ t(pillar.descKey) }}
             </p>
 
             <NuxtLink
               :to="localePath(pillar.to.split('#')[0] ?? '/') + (pillar.to.includes('#') ? `#${pillar.to.split('#')[1]}` : '')"
-              class="mt-5 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
+              class="mt-6 inline-flex items-center gap-2 self-start text-xs font-medium uppercase tracking-[0.22em] text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
             >
               <span class="h-px w-6 bg-current transition-[width] group-hover:w-10" />
               {{ t(pillar.ctaKey) }}

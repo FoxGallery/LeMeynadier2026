@@ -29,7 +29,7 @@ const year = new Date().getFullYear()
           </span>
         </div>
 
-        <nav aria-label="Navigation pied de page" class="flex flex-wrap items-center gap-x-7 gap-y-2">
+        <nav :aria-label="t('common.footerNavLabel')" class="flex flex-wrap items-center gap-x-7 gap-y-2">
           <NuxtLinkLocale
             v-for="link in links"
             :key="link.to"
@@ -54,8 +54,7 @@ const year = new Date().getFullYear()
           <li class="flex items-start gap-2">
             <Clock class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
             <span class="leading-relaxed">
-              7 j/7 · 8h – 23h
-              <span class="text-cream-100/55">({{ t('common.toBeConfirmed') }})</span>
+              {{ t('common.hoursLabel') }}
             </span>
           </li>
           <li class="flex items-start gap-2">
@@ -74,7 +73,7 @@ const year = new Date().getFullYear()
         <div class="flex shrink-0 items-center gap-2">
           <a
             href="#"
-            aria-label="Instagram (à venir)"
+            :aria-label="t('common.instagramAria')"
             class="inline-flex size-9 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:bg-brass-500 hover:text-walnut-950 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
@@ -82,7 +81,7 @@ const year = new Date().getFullYear()
           </a>
           <a
             href="#"
-            aria-label="Facebook (à venir)"
+            :aria-label="t('common.facebookAria')"
             class="inline-flex size-9 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:bg-brass-500 hover:text-walnut-950 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
