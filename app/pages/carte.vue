@@ -116,14 +116,14 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       </div>
     </section>
 
-    <!-- Onglets : pill flottante centrée, cohérente avec la navbar -->
+    <!-- Onglets : pill ultra-minimaliste cohérente avec la navbar -->
     <div
       v-if="activeTab && categories.length"
       class="pointer-events-none sticky top-24 z-30 flex justify-center px-4 sm:top-28"
     >
       <nav
         aria-label="Catégories de la carte"
-        class="pointer-events-auto flex max-w-[calc(100vw-2rem)] gap-1 overflow-x-auto rounded-full border border-walnut-200/80 bg-walnut-50/92 px-2 py-1.5 shadow-[0_18px_50px_-22px_rgba(63,45,26,0.30)] backdrop-blur-md sm:gap-1.5"
+        class="meyn-tabs pointer-events-auto flex max-w-[calc(100vw-2rem)] items-center gap-0 overflow-x-auto rounded-full border border-walnut-200/70 bg-walnut-50/92 p-1 shadow-[0_18px_50px_-22px_rgba(63,45,26,0.30)] backdrop-blur-md"
       >
         <button
           v-for="(cat, idx) in categories"
@@ -131,21 +131,26 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
           type="button"
           :aria-current="activeTab === cat.category ? 'true' : undefined"
           :class="[
-            'shrink-0 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-all',
-            'focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2',
+            'meyn-tab shrink-0 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300',
             activeTab === cat.category
-              ? 'bg-walnut-900 text-cream-50 shadow-[0_6px_14px_-8px_rgba(63,45,26,0.50)]'
-              : 'text-walnut-700 hover:bg-walnut-100 hover:text-walnut-900',
+              ? 'text-cream-50'
+              : 'text-walnut-700 hover:text-walnut-900',
           ]"
           @click="activeTab = cat.category"
         >
           <span
-            class="mr-2 font-display tabular-nums"
-            :class="activeTab === cat.category ? 'text-brass-300' : 'text-brass-700/70'"
+            class="relative z-10 mr-2 font-display tabular-nums transition-colors"
+            :class="activeTab === cat.category ? 'text-brass-300' : 'text-brass-700/60'"
           >
             {{ String(idx + 1).padStart(2, '0') }}
           </span>
-          {{ localized(cat.label) }}
+          <span class="relative z-10">{{ localized(cat.label) }}</span>
+          <!-- Indicateur de fond animé -->
+          <span
+            v-if="activeTab === cat.category"
+            aria-hidden="true"
+            class="meyn-tab-indicator"
+          />
         </button>
       </nav>
     </div>
@@ -265,4 +270,49 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
   from { transform: scale(1.05); }
   to   { transform: scale(1.10); }
 }
+
+/* ── Onglets carte : pill épurée, indicator animé, pas de focus outline visible ── */
+.meyn-tab {
+  position: relative;
+  isolation: isolate;
+}
+
+.meyn-tab:focus-visible {
+  outline: none;
+}
+
+/* Sous-ligne brass discrète au focus clavier (a11y sans cadre) */
+.meyn-tab:focus-visible::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.25rem;
+  height: 1px;
+  background: var(--color-brass-500);
+  z-index: 10;
+}
+
+.meyn-tab-indicator {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 9999px;
+  background: var(--color-walnut-900);
+  box-shadow: 0 6px 14px -8px rgba(63, 45, 26, 0.50);
+  animation: meyn-tab-in 0.35s cubic-bezier(0.2, 0.6, 0.1, 1) both;
+}
+
+@keyframes meyn-tab-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meyn-tab-indicator { animation: none; }
+}
+
+/* Scrollbar cachée pour la pill onglets sur mobile */
+.meyn-tabs::-webkit-scrollbar { display: none; }
+.meyn-tabs { scrollbar-width: none; }
 </style>
