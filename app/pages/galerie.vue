@@ -25,21 +25,45 @@ interface Photo {
   src: string
   alt: string
   span?: 1 | 2
+  category: 'lieu' | 'plats' | 'ambiance'
 }
 
 const photos: Photo[] = [
-  { src: '/images/gallery/g1.jpg', alt: 'Salle du Meynadier, ambiance lumineuse', span: 2 },
+  {
+    src: '/images/gallery/g1.jpg',
+    alt: 'Salle du Meynadier, ambiance lumineuse',
+    span: 2,
+    category: 'lieu',
+  },
   {
     src: '/images/gallery/g2.jpg',
-    alt: 'Comptoir bois noyer du Meynadier, accents laiton et guirlandes lumineuses',
+    alt: 'Comptoir bois noyer, accents laiton et guirlandes',
+    category: 'lieu',
   },
-  { src: '/images/gallery/g3.jpg', alt: 'Plantes vertes sur le comptoir bois noyer' },
-  { src: '/images/gallery/g4.jpg', alt: 'Pizza signature à pâte fine' },
-  { src: '/images/gallery/g5.jpg', alt: 'Bar luxe et tabourets bois', span: 2 },
-  { src: '/images/gallery/g6.jpg', alt: 'Cocktail signature' },
-  { src: '/images/gallery/g7.jpg', alt: 'Pub feutré, lumière chaude' },
-  { src: '/images/gallery/g8.jpg', alt: "Détail d'ambiance — jeu de lumière" },
+  { src: '/images/gallery/g3.jpg', alt: 'Plantes vertes sur le comptoir', category: 'ambiance' },
+  { src: '/images/gallery/g4.jpg', alt: 'Pizza signature à pâte fine', category: 'plats' },
+  { src: '/images/gallery/g5.jpg', alt: 'Bar luxe et tabourets bois', span: 2, category: 'lieu' },
+  { src: '/images/gallery/g6.jpg', alt: 'Cocktail signature', category: 'plats' },
+  { src: '/images/gallery/g7.jpg', alt: 'Pub feutré, lumière chaude', category: 'ambiance' },
+  {
+    src: '/images/gallery/g8.jpg',
+    alt: "Détail d'ambiance — jeu de lumière",
+    category: 'ambiance',
+  },
 ]
+
+const filterLabels: Record<'tout' | Photo['category'], string> = {
+  tout: 'Tout',
+  lieu: 'Le lieu',
+  plats: 'Plats & boissons',
+  ambiance: 'Ambiance',
+}
+
+const activeFilter = ref<'tout' | Photo['category']>('tout')
+
+const filteredPhotos = computed(() =>
+  activeFilter.value === 'tout' ? photos : photos.filter((p) => p.category === activeFilter.value),
+)
 
 const open = ref(false)
 const activeIndex = ref(0)
@@ -54,11 +78,12 @@ function close() {
 }
 
 function goPrev() {
-  activeIndex.value = (activeIndex.value - 1 + photos.length) % photos.length
+  activeIndex.value =
+    (activeIndex.value - 1 + filteredPhotos.value.length) % filteredPhotos.value.length
 }
 
 function goNext() {
-  activeIndex.value = (activeIndex.value + 1) % photos.length
+  activeIndex.value = (activeIndex.value + 1) % filteredPhotos.value.length
 }
 
 function onKey(event: KeyboardEvent) {
@@ -78,33 +103,113 @@ if (import.meta.client) {
   onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 }
 
-const active = computed(() => photos[activeIndex.value])
+const active = computed(() => filteredPhotos.value[activeIndex.value])
+
+// Cacher la navbar quand la barre de filtres devient sticky au top.
+const { hidden: headerHidden } = useHeaderVisibility()
+const tabsSentinel = ref<HTMLElement | null>(null)
+
+if (import.meta.client) {
+  let io: IntersectionObserver | null = null
+  onMounted(() => {
+    if (!tabsSentinel.value) return
+    io = new IntersectionObserver(
+      ([entry]) => {
+        headerHidden.value = entry ? !entry.isIntersecting : false
+      },
+      { threshold: 0, rootMargin: '0px' },
+    )
+    io.observe(tabsSentinel.value)
+  })
+  onBeforeUnmount(() => {
+    io?.disconnect()
+    headerHidden.value = false
+  })
+}
 </script>
 
 <template>
   <article class="bg-walnut-50 text-walnut-800">
-    <!-- Hero éditorial -->
-    <section class="bg-walnut-100 pb-16 pt-32">
-      <div class="mx-auto max-w-3xl px-6">
-        <SectionLabel
-          :level="1"
-          kicker="En"
-          title="Images"
-          tagline="Bois noyer, lumière chaude, plantes vertes — l'ambiance du Meynadier en quelques plans. Cliquez sur une image pour l'ouvrir."
-        />
+    <!-- Hero immersif — cohérent /, /carte, /histoire -->
+    <section class="relative isolate flex min-h-[70dvh] flex-col items-center justify-center overflow-hidden bg-walnut-900 text-cream-50">
+      <img
+        src="/images/gallery/g7.jpg"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 -z-30 size-full object-cover object-center opacity-45 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
+      >
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 -z-20 bg-gradient-to-b from-walnut-950/85 via-walnut-900/65 to-walnut-950/95"
+      />
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_55%_45%_at_50%_35%,rgba(221,193,138,0.20),transparent_70%)]"
+      />
+
+      <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
+        <Monogram :size="56" class="text-brass-400" />
+        <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">En</p>
+        <h1 class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 sm:text-7xl md:text-8xl">
+          Images
+        </h1>
+        <GoldDivider size="md" ornament="diamond" class="mt-8 text-brass-400" />
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg">
+          Bois noyer, lumière chaude, plantes vertes — l'ambiance du Meynadier
+          en quelques plans. Cliquez sur une image pour l'ouvrir.
+        </p>
       </div>
     </section>
 
+    <!-- Sentinel pour piloter la visibilité de la navbar -->
+    <div ref="tabsSentinel" aria-hidden="true" class="h-px" />
+
+    <!-- Barre filtres pleine largeur carrée, cohérente avec /carte -->
+    <nav
+      aria-label="Filtres galerie"
+      class="meyn-tabs sticky top-0 z-40 border-b border-walnut-200/70 bg-walnut-50/95 backdrop-blur-md"
+    >
+      <div class="mx-auto flex max-w-7xl items-stretch overflow-x-auto px-4 sm:px-6">
+        <button
+          v-for="(label, key) in filterLabels"
+          :key="key"
+          type="button"
+          :aria-current="activeFilter === key ? 'true' : undefined"
+          :class="[
+            'meyn-tab group relative shrink-0 px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300',
+            activeFilter === key
+              ? 'text-walnut-900'
+              : 'text-walnut-600 hover:text-walnut-900',
+          ]"
+          @click="activeFilter = key; activeIndex = 0"
+        >
+          <span>{{ label }}</span>
+          <span
+            v-if="activeFilter === key"
+            aria-hidden="true"
+            class="meyn-tab-underline"
+          />
+        </button>
+      </div>
+    </nav>
+
     <!-- Grille masonry -->
-    <section class="py-20">
+    <section class="relative bg-walnut-50 py-20 pt-12">
       <div class="mx-auto max-w-6xl px-6">
+        <SectionLabel
+          number="01"
+          kicker="Galerie"
+          title="Le lieu en photos"
+          tagline="Photos en cours d'enrichissement avec celles fournies par l'équipe du Meynadier."
+        />
+
         <ul
-          class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
+          class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
           aria-label="Galerie photos"
         >
           <li
-            v-for="(photo, idx) in photos"
-            :key="idx"
+            v-for="(photo, idx) in filteredPhotos"
+            :key="`${activeFilter}-${idx}`"
             :class="
               photo.span === 2
                 ? 'row-span-2 aspect-[3/4]'
@@ -128,9 +233,40 @@ const active = computed(() => photos[activeIndex.value])
                 aria-hidden="true"
                 class="absolute inset-0 bg-walnut-950/0 transition-colors duration-300 group-hover:bg-walnut-950/15"
               />
+              <!-- Étiquette catégorie au hover -->
+              <div
+                aria-hidden="true"
+                class="absolute inset-x-3 bottom-3 flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              >
+                <span class="inline-flex items-center rounded-full bg-walnut-900/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-cream-50 backdrop-blur-sm">
+                  {{ filterLabels[photo.category] }}
+                </span>
+              </div>
             </button>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- CTA final cohérent / /carte /histoire -->
+    <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
+      <WoodGrain :opacity="0.10" :color="'#0d0905'" />
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_50%_50%,rgba(221,193,138,0.14),transparent_70%)]"
+      />
+      <div class="relative mx-auto max-w-2xl px-6">
+        <Monogram :size="48" class="mx-auto text-brass-400" />
+        <h2 class="mt-5 font-display text-3xl text-cream-50 sm:text-4xl">
+          Voir le Meynadier en vrai ?
+        </h2>
+        <p class="mt-4 text-cream-100/80">
+          Rue Meynadier, au cœur du vieux Cannes — la photo ne remplace pas l'ambiance.
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <UiButton variant="gold" to="/contact">Nous trouver</UiButton>
+          <UiButton variant="hero-outline" to="/carte">Voir la carte</UiButton>
+        </div>
       </div>
     </section>
 
@@ -144,7 +280,7 @@ const active = computed(() => photos[activeIndex.value])
           class="fixed inset-0 z-50 flex items-center justify-center p-4 focus:outline-none"
         >
           <DialogTitle class="sr-only">
-            Photo {{ activeIndex + 1 }} sur {{ photos.length }}
+            Photo {{ activeIndex + 1 }} sur {{ filteredPhotos.length }}
           </DialogTitle>
           <DialogDescription class="sr-only">
             {{ active?.alt }}
@@ -179,7 +315,7 @@ const active = computed(() => photos[activeIndex.value])
           </button>
 
           <div class="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-walnut-900/60 px-4 py-1.5 text-xs uppercase tracking-widest text-cream-50 backdrop-blur-sm">
-            {{ activeIndex + 1 }} · {{ photos.length }}
+            {{ activeIndex + 1 }} · {{ filteredPhotos.length }}
           </div>
 
           <DialogClose
@@ -194,3 +330,52 @@ const active = computed(() => photos[activeIndex.value])
     </DialogRoot>
   </article>
 </template>
+
+<style scoped>
+@keyframes meyn-zoom-slow {
+  from { transform: scale(1.05); }
+  to   { transform: scale(1.10); }
+}
+
+.meyn-tab {
+  position: relative;
+  isolation: isolate;
+}
+
+.meyn-tab:focus-visible {
+  outline: none;
+}
+
+.meyn-tab:focus-visible::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-brass-400);
+  z-index: 5;
+}
+
+.meyn-tab-underline {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-brass-600);
+  animation: meyn-tab-in 0.35s cubic-bezier(0.2, 0.6, 0.1, 1) both;
+}
+
+@keyframes meyn-tab-in {
+  from { opacity: 0; transform: scaleX(0.6); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meyn-tab-underline { animation: none; }
+}
+
+.meyn-tabs > div::-webkit-scrollbar { display: none; }
+.meyn-tabs > div { scrollbar-width: none; }
+</style>
