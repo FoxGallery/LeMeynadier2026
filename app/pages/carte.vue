@@ -73,7 +73,10 @@ watch(activeTab, (value) => {
 })
 
 function localized(field: { fr: string; en?: string; it?: string } | undefined) {
-  return field?.fr ?? ''
+  if (!field) return ''
+  // Locale courante puis fallback FR (la seule garantie d'être présente).
+  const code = locale.value as 'fr' | 'en' | 'it'
+  return field[code] ?? field.fr ?? ''
 }
 
 const localeMap: Record<string, string> = {
