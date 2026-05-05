@@ -45,40 +45,56 @@ const localePath = useLocalePath()
         <div class="lg:col-span-7">
           <div class="grid grid-cols-6 grid-rows-8 gap-3 sm:gap-4">
             <div class="col-span-4 row-span-5 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
-              <img
+              <NuxtImg
                 src="/images/ambiance/ambiance-1.jpg"
                 alt=""
                 loading="lazy"
                 decoding="async"
+                width="1200"
+                height="900"
+                sizes="sm:100vw md:600px lg:800px"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
-              >
+              />
             </div>
             <div class="col-span-2 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
-              <img
+              <NuxtImg
                 src="/images/ambiance/ambiance-2.jpg"
                 alt=""
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="600"
+                sizes="sm:50vw md:400px"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
-              >
+              />
             </div>
             <div class="col-span-2 row-span-2 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
-              <img
+              <NuxtImg
                 src="/images/ambiance/ambiance-3.jpg"
                 alt=""
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="600"
+                sizes="sm:50vw md:400px"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
-              >
+              />
             </div>
             <div class="col-span-3 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
-              <img
+              <NuxtImg
                 src="/images/ambiance/ambiance-4.jpg"
                 alt=""
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="600"
+                sizes="sm:50vw md:500px"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
-              >
+              />
             </div>
             <div class="col-span-3 row-span-3 flex items-center justify-center overflow-hidden rounded-(--radius-card) bg-walnut-800 ring-1 ring-cream-100/10 shadow-(--shadow-deep)">
               <div class="text-center">

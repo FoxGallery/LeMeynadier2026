@@ -67,13 +67,17 @@ const pillars: Pillar[] = [
             :to="localePath(pillar.to.split('#')[0] ?? '/') + (pillar.to.includes('#') ? `#${pillar.to.split('#')[1]}` : '')"
             class="relative block aspect-[5/4] overflow-hidden focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:-outline-offset-2"
           >
-            <img
+            <NuxtImg
               :src="pillar.image"
               :alt="t(pillar.titleKey)"
               loading="lazy"
               decoding="async"
+              width="800"
+              height="640"
+              sizes="sm:100vw md:50vw lg:33vw"
+              format="avif,webp"
               class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-            >
+            />
             <div
               aria-hidden="true"
               class="absolute inset-0 bg-gradient-to-t from-walnut-950/55 via-walnut-950/0 to-transparent transition-opacity duration-500 group-hover:opacity-80"

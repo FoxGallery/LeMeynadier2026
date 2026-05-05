@@ -10,14 +10,19 @@ defineI18nRoute({
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-useHead({
-  title: t('history.hero.title'),
-  meta: [
-    {
-      name: 'description',
-      content: t('history.hero.tagline'),
-    },
-  ],
+useSeoMeta({
+  title: () => t('seo.history.title'),
+  description: () => t('seo.history.description'),
+  ogTitle: () => `${t('seo.history.title')} — Le Meynadier`,
+  ogDescription: () => t('seo.history.description'),
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+})
+
+defineOgImageComponent('Meynadier', {
+  kicker: () => t('nav.history'),
+  title: () => t('seo.history.title'),
+  description: () => t('seo.history.description'),
 })
 </script>
 
@@ -25,12 +30,18 @@ useHead({
   <article class="bg-walnut-50 text-walnut-800">
     <!-- Hero immersif -->
     <section class="relative isolate flex min-h-[80dvh] flex-col items-center justify-center overflow-hidden bg-walnut-900 text-cream-50">
-      <img
+      <NuxtImg
         src="/images/ambiance/ambiance-1.jpg"
         alt=""
         aria-hidden="true"
+        preload
+        sizes="100vw"
+        width="2400"
+        height="1800"
+        format="avif,webp"
+        quality="80"
         class="absolute inset-0 -z-30 size-full object-cover object-center opacity-50 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
-      >
+      />
       <div
         aria-hidden="true"
         class="absolute inset-0 -z-20 bg-gradient-to-b from-walnut-950/85 via-walnut-900/65 to-walnut-950/95"
@@ -59,13 +70,17 @@ useHead({
     <section class="relative bg-walnut-50 pb-24 pt-20">
       <div class="mx-auto max-w-5xl px-6">
         <figure class="-mt-32 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-walnut-200/70">
-          <img
+          <NuxtImg
             src="/images/ambiance/ambiance-2.jpg"
             :alt="t('history.section1.title')"
             loading="lazy"
             decoding="async"
+            width="1280"
+            height="720"
+            sizes="sm:100vw md:1024px"
+            format="avif,webp"
             class="aspect-[16/9] w-full object-cover"
-          >
+          />
         </figure>
 
         <div class="mx-auto mt-16 max-w-2xl">
@@ -99,13 +114,17 @@ useHead({
             </div>
           </div>
           <figure class="overflow-hidden rounded-(--radius-card) shadow-(--shadow-paper) ring-1 ring-walnut-200/70 lg:col-span-5">
-            <img
+            <NuxtImg
               src="/images/ambiance/ambiance-3.jpg"
               :alt="t('history.section2.title')"
               loading="lazy"
               decoding="async"
+              width="640"
+              height="800"
+              sizes="sm:100vw md:50vw lg:480px"
+              format="avif,webp"
               class="aspect-[4/5] w-full object-cover"
-            >
+            />
           </figure>
         </div>
       </div>
@@ -134,13 +153,17 @@ useHead({
       <div class="mx-auto max-w-6xl px-6">
         <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <figure class="overflow-hidden rounded-(--radius-card) shadow-(--shadow-paper) ring-1 ring-walnut-200/70 lg:order-1 lg:col-span-5">
-            <img
+            <NuxtImg
               src="/images/ambiance/ambiance-4.jpg"
               :alt="t('history.section3.title')"
               loading="lazy"
               decoding="async"
+              width="640"
+              height="800"
+              sizes="sm:100vw md:50vw lg:480px"
+              format="avif,webp"
               class="aspect-[4/5] w-full object-cover"
-            >
+            />
           </figure>
           <div class="lg:order-2 lg:col-span-7">
             <SectionLabel

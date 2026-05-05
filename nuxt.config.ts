@@ -10,12 +10,68 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: true,
-  modules: ['@nuxt/fonts', '@nuxt/content', '@nuxtjs/i18n', '@nuxtjs/sitemap'],
-  // URL canonique du site, pré-requise par @nuxtjs/sitemap pour absoluer
-  // les URLs et générer les balises hreflang correctes.
+  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/content', '@nuxtjs/i18n', '@nuxtjs/seo'],
+  // URL canonique + identité du site — consommée par @nuxtjs/seo (sitemap,
+  // robots, schema-org, og-image) pour absoluer les URLs et hreflang.
   site: {
     url: 'https://lemeynadier.fr',
     name: 'Le Meynadier',
+    description:
+      'Brasserie · Pizzeria · Pub au cœur du vieux Cannes. Pizzas signatures, bières pression, cocktails maison.',
+    defaultLocale: 'fr',
+    indexable: true,
+  },
+  schemaOrg: {
+    identity: {
+      type: 'BarOrPub',
+      name: 'Le Meynadier',
+      logo: 'https://lemeynadier.fr/og/og-fr.jpg',
+      url: 'https://lemeynadier.fr',
+      address: {
+        streetAddress: '1 rue Meynadier (angle 5 rue du Maréchal Joffre)',
+        addressLocality: 'Cannes',
+        postalCode: '06400',
+        addressRegion: "Provence-Alpes-Côte d'Azur",
+        addressCountry: 'FR',
+      },
+      telephone: '+33493302312',
+      priceRange: '€€',
+      servesCuisine: ['Pizza', 'Italian', 'French', 'Brasserie'],
+    },
+  },
+  ogImage: {
+    enabled: true,
+    // Composant par défaut : OgImageMeynadier (papier crème + bois + brass).
+    // Chaque page définit son composant via defineOgImageComponent('Meynadier', …).
+    // Les polices (Cormorant Garamond, Inter Tight, Italianno) sont auto-détectées
+    // par satori à partir des CSS font-family du composant ; aucune config dédiée.
+    defaults: {
+      width: 1200,
+      height: 630,
+      cacheMaxAgeSeconds: 60 * 60 * 24 * 7, // 1 semaine
+    },
+  },
+  // @nuxtjs/seo > link-checker : ignorer les protocoles non-http (geo:, tel:,
+  // mailto:) — le link-checker ne sait que GET en HTTP, donc une simple
+  // présence de geo:… déclenche un faux 404. Les patterns string utilisent
+  // radix3 (URL paths) ; pour des préfixes de protocole on passe par RegExp.
+  linkChecker: {
+    enabled: true,
+    excludeLinks: [/^tel:/, /^mailto:/, /^geo:/, /^sms:/, /^whatsapp:/],
+  },
+  image: {
+    format: ['avif', 'webp', 'jpg'],
+    quality: 80,
+    densities: [1, 2],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+      '2xl': 1920,
+    },
   },
   sitemap: {
     autoLastmod: true,

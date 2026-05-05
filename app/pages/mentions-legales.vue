@@ -6,6 +6,16 @@ defineI18nRoute({
     it: '/note-legali',
   },
 })
+
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.legal.title'),
+  description: () => t('seo.legal.description'),
+  ogTitle: () => `${t('seo.legal.title')} — Le Meynadier`,
+  ogDescription: () => t('seo.legal.description'),
+  robots: 'index, follow',
+})
 </script>
 
 <template>

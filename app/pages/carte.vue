@@ -12,15 +12,19 @@ defineI18nRoute({
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-useHead({
-  title: 'La carte',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Découvrez la carte du Meynadier : pizzas signatures, paninis, bières pression, vins, cocktails maison, smoothies, frappés, milkshakes, boissons chaudes et softs.',
-    },
-  ],
+useSeoMeta({
+  title: () => t('seo.menu.title'),
+  description: () => t('seo.menu.description'),
+  ogTitle: () => `${t('seo.menu.title')} — Le Meynadier`,
+  ogDescription: () => t('seo.menu.description'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+})
+
+defineOgImageComponent('Meynadier', {
+  kicker: () => t('nav.menu'),
+  title: () => t('seo.menu.title'),
+  description: () => t('seo.menu.description'),
 })
 
 const route = useRoute()
@@ -130,12 +134,18 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
   <article class="bg-walnut-50 text-walnut-800">
     <!-- Hero immersif (cohérent HomeHero) -->
     <section class="relative isolate flex min-h-[70dvh] flex-col items-center justify-center overflow-hidden bg-walnut-900 text-cream-50">
-      <img
+      <NuxtImg
         src="/images/menu/margarita.jpg"
         alt=""
         aria-hidden="true"
+        preload
+        sizes="100vw"
+        width="2400"
+        height="1800"
+        format="avif,webp"
+        quality="80"
         class="absolute inset-0 -z-30 size-full object-cover object-center opacity-40 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
-      >
+      />
       <div
         aria-hidden="true"
         class="absolute inset-0 -z-20 bg-gradient-to-b from-walnut-950/85 via-walnut-900/65 to-walnut-950/95"
@@ -233,13 +243,17 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
           >
             <!-- Image -->
             <div class="relative aspect-[5/4] overflow-hidden bg-walnut-100">
-              <img
+              <NuxtImg
                 :src="resolveImage({ category: activeCategory.category, slug: item.slug, tags: item.tags, override: item.image })"
                 :alt="localized(item.imageAlt) || localized(item.name)"
                 loading="lazy"
                 decoding="async"
+                width="700"
+                height="560"
+                sizes="sm:50vw md:33vw lg:25vw"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-              >
+              />
               <!-- Médaillon prix flottant -->
               <span
                 :class="[

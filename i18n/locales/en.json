@@ -238,5 +238,35 @@
       "menu": "See the menu",
       "gallery": "Discover the venue"
     }
+  },
+  "seo": {
+    "home": {
+      "title": "Brasserie · Pizzeria · Pub in Cannes",
+      "description": "Le Meynadier — brasserie, pizzeria and pub in the heart of old Cannes. Signature pizzas, draught beers, house cocktails. Open daily until 12:30 am."
+    },
+    "menu": {
+      "title": "The menu",
+      "description": "Signature pizzas, sharing boards, draught beers and cocktails — the full menu at Le Meynadier, a historic brasserie on the pedestrian street of old Cannes."
+    },
+    "history": {
+      "title": "Our story",
+      "description": "For over 40 years, Le Meynadier has stood at the corner of rue Meynadier and rue du Maréchal Joffre — one of the finest counters in old Cannes."
+    },
+    "gallery": {
+      "title": "Gallery",
+      "description": "Le Meynadier in pictures — counter, terrace, boards and pizzas. A glimpse of the brasserie atmosphere in the heart of old Cannes."
+    },
+    "contact": {
+      "title": "Find us",
+      "description": "Le Meynadier — 1 rue Meynadier, 06400 Cannes (corner 5 rue du Maréchal Joffre). Open daily · 8 am – 12:30 am. Tel. +33 4 93 30 23 12."
+    },
+    "legal": {
+      "title": "Legal notice",
+      "description": "Legal notice for Le Meynadier — publisher, host, intellectual property and terms of use."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "description": "Privacy policy for Le Meynadier — collection and processing of personal data, cookies and user rights."
+    }
   }
 }

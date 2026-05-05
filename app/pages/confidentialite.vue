@@ -6,6 +6,16 @@ defineI18nRoute({
     it: '/privacy',
   },
 })
+
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.privacy.title'),
+  description: () => t('seo.privacy.description'),
+  ogTitle: () => `${t('seo.privacy.title')} — Le Meynadier`,
+  ogDescription: () => t('seo.privacy.description'),
+  robots: 'index, follow',
+})
 </script>
 
 <template>

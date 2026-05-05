@@ -78,13 +78,17 @@ function formatPrice(p: number | null) {
           class="group relative overflow-hidden rounded-(--radius-card) bg-cream-50 ring-1 ring-walnut-200 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:shadow-(--shadow-warm)"
         >
           <div class="relative aspect-[5/4] overflow-hidden">
-            <img
+            <NuxtImg
               :src="item.image"
               :alt="t(item.imageAltKey)"
               loading="lazy"
               decoding="async"
+              width="700"
+              height="560"
+              sizes="sm:100vw md:50vw lg:33vw"
+              format="avif,webp"
               class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-            >
+            />
             <span
               class="absolute right-4 top-4 inline-flex h-12 min-w-[3rem] items-center justify-center rounded-full bg-walnut-900 px-3 font-display text-base font-medium text-brass-300 ring-1 ring-brass-500/40 backdrop-blur-sm"
             >

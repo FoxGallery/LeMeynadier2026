@@ -33,13 +33,17 @@ const formattedPrice = computed(() => {
     )"
   >
     <div v-if="props.image" class="relative aspect-[4/3] overflow-hidden bg-walnut-100">
-      <img
+      <NuxtImg
         :src="props.image"
         :alt="props.imageAlt ?? props.name"
         loading="lazy"
         decoding="async"
+        width="600"
+        height="450"
+        sizes="sm:50vw md:33vw lg:25vw"
+        format="avif,webp"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-      >
+      />
     </div>
 
     <div class="flex flex-1 flex-col gap-2 p-5">

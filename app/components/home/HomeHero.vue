@@ -36,14 +36,21 @@ if (import.meta.client) {
     aria-labelledby="hero-title"
     class="relative isolate flex min-h-[100dvh] flex-col overflow-hidden bg-walnut-900 text-cream-50"
   >
-    <!-- Photo plein écran (parallax via GSAP scrub) -->
-    <img
+    <!-- Photo plein écran (parallax via GSAP scrub) ; @nuxt/image génère
+         AVIF + WebP responsive avec preload du LCP. -->
+    <NuxtImg
       ref="heroImage"
       src="/images/hero/hero-1.jpg"
       alt=""
       aria-hidden="true"
+      preload
+      sizes="100vw"
+      width="2400"
+      height="1800"
+      format="avif,webp"
+      quality="80"
       class="absolute inset-0 -z-30 size-full object-cover object-center opacity-70 motion-safe:scale-110"
-    >
+    />
     <!-- Voile sombre + halo doré + vignette -->
     <div
       aria-hidden="true"

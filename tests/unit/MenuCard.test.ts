@@ -50,8 +50,18 @@ describe('MenuCard', () => {
   })
 
   it('renders image with alt fallback', () => {
+    // NuxtImg dépend du runtime Nuxt (useRuntimeConfig, useImage) ; on le stubbe
+    // en `<img>` simple pour pouvoir tester l'unité de manière isolée.
     const wrapper = mount(MenuCard, {
       props: { name: 'Margarita', price: 9, image: '/img/marg.jpg' },
+      global: {
+        stubs: {
+          NuxtImg: {
+            inheritAttrs: false,
+            template: '<img v-bind="$attrs" />',
+          },
+        },
+      },
     })
     const img = wrapper.find('img')
     expect(img.attributes('src')).toBe('/img/marg.jpg')

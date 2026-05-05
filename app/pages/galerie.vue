@@ -21,14 +21,19 @@ defineI18nRoute({
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-useHead({
-  title: t('nav.gallery'),
-  meta: [
-    {
-      name: 'description',
-      content: t('gallery.hero.tagline'),
-    },
-  ],
+useSeoMeta({
+  title: () => t('seo.gallery.title'),
+  description: () => t('seo.gallery.description'),
+  ogTitle: () => `${t('seo.gallery.title')} — Le Meynadier`,
+  ogDescription: () => t('seo.gallery.description'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+})
+
+defineOgImageComponent('Meynadier', {
+  kicker: () => t('nav.gallery'),
+  title: () => t('seo.gallery.title'),
+  description: () => t('seo.gallery.description'),
 })
 
 interface Photo {
@@ -142,12 +147,18 @@ if (import.meta.client) {
   <article class="bg-walnut-50 text-walnut-800">
     <!-- Hero immersif — cohérent /, /carte, /histoire -->
     <section class="relative isolate flex min-h-[70dvh] flex-col items-center justify-center overflow-hidden bg-walnut-900 text-cream-50">
-      <img
+      <NuxtImg
         src="/images/gallery/g7.jpg"
         alt=""
         aria-hidden="true"
+        preload
+        sizes="100vw"
+        width="2400"
+        height="1800"
+        format="avif,webp"
+        quality="80"
         class="absolute inset-0 -z-30 size-full object-cover object-center opacity-45 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
-      >
+      />
       <div
         aria-hidden="true"
         class="absolute inset-0 -z-20 bg-gradient-to-b from-walnut-950/85 via-walnut-900/65 to-walnut-950/95"
@@ -240,13 +251,17 @@ if (import.meta.client) {
               class="group relative size-full overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-200 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-0.5 hover:shadow-(--shadow-warm) focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
               @click="openAt(idx)"
             >
-              <img
+              <NuxtImg
                 :src="photo.src"
                 :alt="photo.alt"
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="800"
+                sizes="sm:50vw md:33vw lg:25vw"
+                format="avif,webp"
                 class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-              >
+              />
               <div
                 aria-hidden="true"
                 class="absolute inset-0 bg-walnut-950/0 transition-colors duration-300 group-hover:bg-walnut-950/15"
@@ -307,12 +322,17 @@ if (import.meta.client) {
           <div
             class="relative max-h-[90vh] max-w-[92vw] overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95"
           >
-            <img
+            <NuxtImg
               v-if="active"
               :src="active.src"
               :alt="active.alt"
+              width="2400"
+              height="1800"
+              sizes="92vw"
+              format="avif,webp"
+              quality="85"
               class="block max-h-[90vh] max-w-[92vw] object-contain"
-            >
+            />
           </div>
 
           <button
