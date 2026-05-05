@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Le Meynadier — Design System tokens (Tailwind CSS v4 @theme)
+ * Inspiré du lieu : bois noyer, laiton/doré, papier crème, lumière chaude.
+ * ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Couleurs : noyer (wood / dark) */
+  --color-walnut-50:  #f7f1ea;
+  --color-walnut-100: #ebdcc8;
+  --color-walnut-200: #d8bd9a;
+  --color-walnut-300: #b58a5e;
+  --color-walnut-400: #8d6238;
+  --color-walnut-500: #6e4528;
+  --color-walnut-600: #57361e;
+  --color-walnut-700: #3d2415;
+  --color-walnut-800: #261509;
+  --color-walnut-900: #1a0e07;
+  --color-walnut-950: #0d0703;
+
+  /* Couleurs : laiton / doré (signature) */
+  --color-brass-100: #f6e7c2;
+  --color-brass-300: #e6c884;
+  --color-brass-500: #c9a45e;
+  --color-brass-700: #8b6e35;
+  --color-brass-900: #4d3a16;
+
+  /* Accents */
+  --color-cream:    #f4ead8;
+  --color-burgundy: #6b1a1a;
+  --color-leaf:     #4a6b3a;
+  --color-ink:      #0c0907;
+
+  /* Typographie */
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body:    "Inter Tight", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-script:  "Italianno", cursive;
+
+  /* Échelle typographique (modular scale 1.250) */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.25rem;
+  --text-xl:   1.563rem;
+  --text-2xl:  1.953rem;
+  --text-3xl:  2.441rem;
+  --text-4xl:  3.052rem;
+  --text-5xl:  3.815rem;
+  --text-6xl:  4.768rem;
+
+  /* Rayons */
+  --radius-card: 0.75rem;
+  --radius-pill: 9999px;
+
+  /* Ombres chaleureuses */
+  --shadow-warm: 0 10px 30px -10px rgba(201, 164, 94, 0.25);
+  --shadow-deep: 0 30px 60px -20px rgba(12, 9, 7, 0.5);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Base — réglages globaux fidèles à l'identité du lieu
+ * ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-walnut-900);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-cream);
+  }
+
+  ::selection {
+    background-color: var(--color-brass-500);
+    color: var(--color-walnut-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* Respect prefers-reduced-motion globalement */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
