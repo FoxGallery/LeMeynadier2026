@@ -23,7 +23,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-defineOgImageComponent('Meynadier', {
+defineOgImage('Meynadier', {
   kicker: () => t('nav.contact'),
   title: () => t('seo.contact.title'),
   description: () => t('seo.contact.description'),
@@ -98,10 +98,8 @@ function formatDayRange(days: string[]) {
         alt=""
         aria-hidden="true"
         preload
-        sizes="100vw"
-        width="2400"
-        height="1800"
-        format="avif,webp"
+        sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
+        format="webp"
         quality="80"
         class="absolute inset-0 -z-30 size-full object-cover object-center opacity-50 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
       />

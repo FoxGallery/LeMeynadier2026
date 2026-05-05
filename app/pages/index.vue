@@ -15,8 +15,8 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// OG image générée à la volée à partir du composant OgImageMeynadier.
-defineOgImageComponent('Meynadier', {
+// OG image générée à la volée à partir du composant OgImage/Meynadier.
+defineOgImage('Meynadier', {
   kicker: 'Brasserie · Pizzeria · Pub',
   title: 'Le Meynadier',
   description: 'Au cœur du vieux Cannes — pizzas signatures, bières pression, cocktails maison.',

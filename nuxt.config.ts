@@ -42,7 +42,7 @@ export default defineNuxtConfig({
   ogImage: {
     enabled: true,
     // Composant par défaut : OgImageMeynadier (papier crème + bois + brass).
-    // Chaque page définit son composant via defineOgImageComponent('Meynadier', …).
+    // Chaque page définit son composant via defineOgImage('Meynadier', …).
     // Les polices (Cormorant Garamond, Inter Tight, Italianno) sont auto-détectées
     // par satori à partir des CSS font-family du composant ; aucune config dédiée.
     defaults: {

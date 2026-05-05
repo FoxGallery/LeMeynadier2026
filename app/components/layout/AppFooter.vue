@@ -117,5 +117,18 @@ const year = new Date().getFullYear()
         </ul>
       </div>
     </div>
+
+    <!-- Signature designer en bas de footer : isolée, discrète, centrée.
+         Une ligne brass fine sépare la zone légale de la signature pour
+         lui donner sa propre respiration sans alourdir le footer. -->
+    <div class="relative">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none mx-auto h-px max-w-[120px] bg-gradient-to-r from-transparent via-brass-500/40 to-transparent"
+      />
+      <div class="mx-auto flex max-w-6xl items-center justify-center px-6 py-5">
+        <CavalliSignature />
+      </div>
+    </div>
   </footer>
 </template>

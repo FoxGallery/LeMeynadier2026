@@ -21,7 +21,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-defineOgImageComponent('Meynadier', {
+defineOgImage('Meynadier', {
   kicker: () => t('nav.menu'),
   title: () => t('seo.menu.title'),
   description: () => t('seo.menu.description'),
@@ -139,10 +139,8 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
         alt=""
         aria-hidden="true"
         preload
-        sizes="100vw"
-        width="2400"
-        height="1800"
-        format="avif,webp"
+        sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
+        format="webp"
         quality="80"
         class="absolute inset-0 -z-30 size-full object-cover object-center opacity-40 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
       />
@@ -251,7 +249,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
                 width="700"
                 height="560"
                 sizes="sm:50vw md:33vw lg:25vw"
-                format="avif,webp"
+                format="webp"
                 class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <!-- Médaillon prix flottant -->

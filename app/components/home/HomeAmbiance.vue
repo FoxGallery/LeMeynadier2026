@@ -53,7 +53,7 @@ const localePath = useLocalePath()
                 width="1200"
                 height="900"
                 sizes="sm:100vw md:600px lg:800px"
-                format="avif,webp"
+                format="webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -66,7 +66,7 @@ const localePath = useLocalePath()
                 width="800"
                 height="600"
                 sizes="sm:50vw md:400px"
-                format="avif,webp"
+                format="webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -79,7 +79,7 @@ const localePath = useLocalePath()
                 width="800"
                 height="600"
                 sizes="sm:50vw md:400px"
-                format="avif,webp"
+                format="webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -92,7 +92,7 @@ const localePath = useLocalePath()
                 width="800"
                 height="600"
                 sizes="sm:50vw md:500px"
-                format="avif,webp"
+                format="webp"
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>

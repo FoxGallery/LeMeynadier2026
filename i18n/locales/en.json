@@ -42,7 +42,8 @@
     "amenityReservation": "Reservation",
     "allRightsReserved": "All rights reserved",
     "legal": "Legal",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "designedBy": "Designed by"
   },
   "lang": {
     "label": "Change language",

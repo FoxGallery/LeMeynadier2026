@@ -41,7 +41,7 @@ const formattedPrice = computed(() => {
         width="600"
         height="450"
         sizes="sm:50vw md:33vw lg:25vw"
-        format="avif,webp"
+        format="webp"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>

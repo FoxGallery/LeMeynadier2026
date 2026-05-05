@@ -86,7 +86,7 @@ function formatPrice(p: number | null) {
               width="700"
               height="560"
               sizes="sm:100vw md:50vw lg:33vw"
-              format="avif,webp"
+              format="webp"
               class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <span

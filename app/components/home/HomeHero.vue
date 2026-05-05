@@ -5,21 +5,27 @@ import { ChevronDown } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
-const heroImage = ref<HTMLImageElement | null>(null)
+// `NuxtImg` est un composant Vue : son `ref` retourne l'instance, pas
+// l'élément DOM. GSAP a besoin du `<img>` natif → on déréférence via `$el`.
+const heroImage = ref<{ $el: HTMLImageElement } | HTMLImageElement | null>(null)
 
 if (import.meta.client) {
   let ctx: gsap.Context | null = null
   onMounted(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    if (!heroImage.value) return
+    const el =
+      heroImage.value && '$el' in heroImage.value
+        ? heroImage.value.$el
+        : (heroImage.value as HTMLImageElement | null)
+    if (!el) return
     gsap.registerPlugin(ScrollTrigger)
     ctx = gsap.context(() => {
       // Parallax léger : l'image se déplace plus lentement que le scroll.
-      gsap.to(heroImage.value, {
+      gsap.to(el, {
         yPercent: 12,
         ease: 'none',
         scrollTrigger: {
-          trigger: heroImage.value,
+          trigger: el,
           start: 'top top',
           end: 'bottom top',
           scrub: true,
@@ -37,17 +43,17 @@ if (import.meta.client) {
     class="relative isolate flex min-h-[100dvh] flex-col overflow-hidden bg-walnut-900 text-cream-50"
   >
     <!-- Photo plein écran (parallax via GSAP scrub) ; @nuxt/image génère
-         AVIF + WebP responsive avec preload du LCP. -->
+         des variantes WebP responsive (AVIF géré via NuxtPicture si besoin),
+         avec preload du LCP. La syntaxe `sizes` utilise les breakpoints
+         définis dans nuxt.config.ts > image.screens. -->
     <NuxtImg
       ref="heroImage"
       src="/images/hero/hero-1.jpg"
       alt=""
       aria-hidden="true"
       preload
-      sizes="100vw"
-      width="2400"
-      height="1800"
-      format="avif,webp"
+      sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
+      format="webp"
       quality="80"
       class="absolute inset-0 -z-30 size-full object-cover object-center opacity-70 motion-safe:scale-110"
     />
