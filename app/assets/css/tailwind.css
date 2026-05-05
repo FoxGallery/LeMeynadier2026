@@ -119,3 +119,58 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * View Transitions API — transitions cinématiques entre pages et langues
+ *
+ * - Cross-fade par défaut sur toute navigation interne
+ * - Logo et monogramme partagent leur identité d'une page à l'autre via
+ *   `view-transition-name` (animation morphée native)
+ * - Désactivé pour `prefers-reduced-motion` (le navigateur ne joue alors
+ *   qu'un fade quasi instantané)
+ *
+ * Compat 2026 : Chrome/Edge ≥ 111, Safari ≥ 18, Firefox ≥ 130 supportent
+ * tous l'API native. Les navigateurs sans support tombent en navigation
+ * classique sans erreur (pas besoin de polyfill).
+ * ────────────────────────────────────────────────────────────────────────── */
+
+/* Identité partagée du wordmark Le Meynadier dans le header.
+ * Permet une transition morph fluide quand la nav change de page. */
+[data-vt="brand"] {
+  view-transition-name: meyn-brand;
+  contain: layout;
+}
+
+/* Animation par défaut : fade + léger glissement vers le haut */
+@keyframes meyn-vt-fade-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes meyn-vt-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+::view-transition-old(root) {
+  animation: meyn-vt-fade-out 0.32s cubic-bezier(0.2, 0.6, 0.1, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: meyn-vt-fade-in 0.42s cubic-bezier(0.2, 0.6, 0.1, 1) both;
+}
+
+/* Le wordmark traverse la transition sans s'animer en fade :
+ * il garde son identité visuelle (effet "stable" et chic). */
+::view-transition-old(meyn-brand),
+::view-transition-new(meyn-brand) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Reduced motion : transitions quasi-instantanées (mais on garde le
+ * fade léger pour ne pas faire de saut brutal). */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.001ms !important;
+  }
+}

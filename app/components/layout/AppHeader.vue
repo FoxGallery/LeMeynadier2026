@@ -50,10 +50,11 @@ watch(
           : 'border-walnut-200/50 shadow-[0_10px_30px_-18px_rgba(63,45,26,0.20)]',
       )"
     >
-      <!-- Logo -->
+      <!-- Logo (wordmark partagé via View Transitions) -->
       <NuxtLinkLocale
         to="/"
         aria-label="Le Meynadier — accueil"
+        data-vt="brand"
         class="group flex items-baseline gap-1.5 whitespace-nowrap pl-3 leading-none focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
       >
         <span class="font-script text-xl text-brass-600 transition-colors group-hover:text-brass-700 sm:text-2xl">
