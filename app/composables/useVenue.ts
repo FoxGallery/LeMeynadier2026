@@ -57,9 +57,10 @@ export function useVenue(): Venue {
       country: 'France',
       countryCode: 'FR',
     },
-    // Coordonnées exactes 1 rue Meynadier · Cannes
-    // (angle Maréchal Joffre, bâtiment "Résidence d'Azur").
-    geo: { lat: 43.5512, lng: 7.0129 },
+    // Coordonnées exactes 1 rue Meynadier · 06400 Cannes (angle 5 rue du
+    // Maréchal Joffre, bâtiment "Résidence d'Azur"). Sourcées via
+    // OpenStreetMap Nominatim (geocoding officiel de l'adresse postale).
+    geo: { lat: 43.5529148, lng: 7.0159906 },
     telephone: '04 93 30 23 12',
     telephoneHref: 'tel:+33493302312',
     email: null,

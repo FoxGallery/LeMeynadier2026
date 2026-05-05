@@ -45,29 +45,31 @@ function buildMarkerEl(): HTMLDivElement {
 onMounted(() => {
   if (!container.value) return
 
-  // Style raster libre depuis OpenStreetMap (pas de clé API, pas de tracking
-  // tiers — privacy-first conforme au cahier des charges §8).
+  // Tuiles CartoDB Positron — style minimaliste, clean, parfait pour
+  // recevoir le filter sepia warm de notre design system.
+  // Pas d'API key requise (CDN public CartoDB). Privacy-first.
   map = new maplibregl.Map({
     container: container.value,
     style: {
       version: 8,
       sources: {
-        osm: {
+        carto: {
           type: 'raster',
           tiles: [
-            'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
+            'https://d.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png',
           ],
           tileSize: 256,
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
         },
       },
-      layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
+      layers: [{ id: 'carto', type: 'raster', source: 'carto' }],
     },
     center: [props.lng, props.lat],
-    zoom: props.zoom ?? 16,
+    zoom: props.zoom ?? 17,
     attributionControl: { compact: true },
   })
 
@@ -94,12 +96,31 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-/* Filter "papier sépia warm" pour donner aux tuiles OSM le ton cream/wood
- * du design system. Appliqué sur le canvas seulement (pas sur les
- * contrôles ni le marker doré). */
+/* Filter "papier sépia warm" pour donner aux tuiles CartoDB Positron
+ * le ton cream/wood du design system. Appliqué sur le canvas seulement
+ * (pas sur les contrôles ni le marker doré). */
+.meyn-map {
+  position: relative;
+}
+
 .meyn-map :deep(.maplibregl-canvas) {
-  filter: sepia(0.42) saturate(0.65) brightness(1.04) contrast(0.96)
-          hue-rotate(-8deg);
+  filter:
+    sepia(0.55)
+    saturate(0.85)
+    brightness(0.99)
+    contrast(0.95)
+    hue-rotate(-12deg);
+}
+
+/* Overlay walnut très subtil pour fondre la map dans la palette */
+.meyn-map::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 60%, rgba(63, 45, 26, 0.10) 100%);
+  z-index: 1;
 }
 
 /* Habillage cohérent du contrôle de zoom MapLibre */
