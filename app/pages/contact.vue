@@ -135,18 +135,24 @@ function formatDayRange(days: string[]) {
             >
               <MapPin class="size-6" />
             </span>
-            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">Adresse</p>
+            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">{{ t('home.practical.address') }}</p>
             <h3 class="mt-2 font-display text-2xl text-walnut-900">
               {{ venue.address.street }}
             </h3>
             <p class="text-walnut-700">
               {{ venue.address.postalCode }} {{ venue.address.locality }}
             </p>
+            <p
+              v-if="venue.locatedIn"
+              class="mt-1 text-xs italic text-walnut-600"
+            >
+              {{ t('common.locatedIn') }} <span class="not-italic font-medium text-walnut-800">{{ venue.locatedIn }}</span>
+            </p>
             <a
               :href="directionsHref"
               class="mt-5 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.22em] text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
             >
-              Itinéraire
+              {{ t('common.directions') }}
               <ArrowUpRight class="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
           </article>
@@ -159,12 +165,12 @@ function formatDayRange(days: string[]) {
             >
               <Clock class="size-6" />
             </span>
-            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">Horaires</p>
+            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">{{ t('home.practical.hours') }}</p>
             <h3 class="mt-2 font-display text-2xl text-walnut-900">
-              7 jours sur 7
+              {{ t('common.everyDay') }}
             </h3>
             <table class="mt-3 w-full text-sm text-walnut-700">
-              <caption class="sr-only">Horaires d'ouverture</caption>
+              <caption class="sr-only">{{ t('home.practical.hours') }}</caption>
               <tbody>
                 <tr v-for="(slot, i) in venue.hours" :key="i">
                   <th scope="row" class="py-1 text-left font-normal">
@@ -176,7 +182,14 @@ function formatDayRange(days: string[]) {
                 </tr>
               </tbody>
             </table>
-            <p class="mt-2 text-[11px] text-walnut-500 italic">(à confirmer)</p>
+            <!-- Bandeau service : terrasse -->
+            <p
+              v-if="venue.amenities.includes('terrace')"
+              class="mt-3 inline-flex items-center gap-1.5 self-start rounded-full bg-leaf/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-leaf"
+            >
+              <span aria-hidden="true">·</span>
+              {{ t('common.amenityTerrace') }}
+            </p>
           </article>
 
           <!-- Téléphone -->
@@ -187,7 +200,7 @@ function formatDayRange(days: string[]) {
             >
               <Phone class="size-6" />
             </span>
-            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">Téléphone</p>
+            <p class="mt-6 text-[10px] uppercase tracking-[0.32em] text-brass-700">{{ t('home.practical.phone') }}</p>
             <h3 class="mt-2 font-display text-2xl text-walnut-900">
               <a
                 v-if="venue.telephoneHref"
@@ -199,7 +212,7 @@ function formatDayRange(days: string[]) {
               <span v-else>{{ venue.telephone }}</span>
             </h3>
             <p class="mt-2 text-walnut-700">
-              Pour les groupes, événements privés, presse — appelez ou écrivez-nous directement.
+              {{ t('contact.phoneIntro') }}
             </p>
             <a
               v-if="venue.email"
@@ -207,9 +220,8 @@ function formatDayRange(days: string[]) {
               class="mt-5 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.22em] text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
             >
               <Mail class="size-3.5" aria-hidden="true" />
-              Écrire un mail
+              {{ t('common.writeUs') }}
             </a>
-            <p v-else class="mt-5 text-[11px] text-walnut-500 italic">(coordonnées mail à venir)</p>
           </article>
         </div>
       </div>

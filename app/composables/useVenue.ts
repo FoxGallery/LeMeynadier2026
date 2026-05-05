@@ -37,6 +37,10 @@ export interface Venue {
   priceRange: string
   hours: OpeningHours[]
   hoursLabel: string
+  /** Services / aménités (terrasse, accessibilité, etc.). */
+  amenities: ('terrace' | 'accessible' | 'wifi' | 'reservation')[]
+  /** Bâtiment dans lequel se trouve l'établissement (Google "Located in"). */
+  locatedIn: string | null
 }
 
 export function useVenue(): Venue {
@@ -46,18 +50,18 @@ export function useVenue(): Venue {
     description:
       'Brasserie · Pizzeria · Pub au cœur du vieux Cannes. Pizzas signatures, bières pression, cocktails maison.',
     address: {
-      street: 'Rue Meynadier',
+      street: '1 rue Meynadier (angle 5 rue du Maréchal Joffre)',
       locality: 'Cannes',
       postalCode: '06400',
       region: "Provence-Alpes-Côte d'Azur",
       country: 'France',
       countryCode: 'FR',
     },
-    // Coordonnées approximatives de la rue Meynadier (à affiner avec
-    // l'adresse exacte numérotée fournie par le client).
-    geo: { lat: 43.5519, lng: 7.0157 },
-    telephone: 'À venir',
-    telephoneHref: null,
+    // Coordonnées exactes 1 rue Meynadier · Cannes
+    // (angle Maréchal Joffre, bâtiment "Résidence d'Azur").
+    geo: { lat: 43.5512, lng: 7.0129 },
+    telephone: '04 93 30 23 12',
+    telephoneHref: 'tel:+33493302312',
     email: null,
     website: 'https://lemeynadier.fr',
     socials: [
@@ -65,11 +69,14 @@ export function useVenue(): Venue {
       { platform: 'Facebook', url: null },
     ],
     cuisine: ['Pizza', 'Italian', 'French', 'Brasserie'],
-    // Fourchette : pizzas 9–15 €, paninis 6,50 €, plats simples.
     priceRange: '€€',
-    // Horaires placeholder à valider — uniformes 7 j/7 pour l'instant.
-    hours: [{ days: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], open: '08:00', close: '23:00' }],
-    hoursLabel: 'Tous les jours · 8h – 23h',
+    // Ouvert 7 j/7 jusqu'à 00h30 (Google Business : "Closes 12:30 AM").
+    hours: [{ days: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], open: '08:00', close: '00:30' }],
+    hoursLabel: 'Tous les jours · 8h – 00h30',
+    // Service : terrasse extérieure
+    amenities: ['terrace'],
+    // Repère "located in" Google Business
+    locatedIn: "Résidence d'Azur",
   }
 }
 

@@ -31,6 +31,11 @@
     "toBeConfirmed": "à confirmer",
     "everyDay": "Tous les jours",
     "noCookies": "Site sans cookie publicitaire",
+    "locatedIn": "Dans",
+    "amenityTerrace": "Terrasse",
+    "amenityAccessible": "Accessible",
+    "amenityWifi": "Wi-Fi",
+    "amenityReservation": "Réservation",
     "allRightsReserved": "Tous droits réservés",
     "legal": "Mentions légales",
     "privacy": "Confidentialité"
@@ -167,8 +172,9 @@
     "section1": {
       "kicker": "Coordonnées",
       "title": "Le Meynadier",
-      "tagline": "Sept jours sur sept, sans interruption — du café du matin au cocktail du soir."
+      "tagline": "Sept jours sur sept, sans interruption — du café du matin au dernier verre."
     },
+    "phoneIntro": "Pour les groupes, événements privés, presse — appelez ou écrivez-nous directement.",
     "map": {
       "kicker": "Sur le",
       "title": "Plan",

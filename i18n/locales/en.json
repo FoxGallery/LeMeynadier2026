@@ -31,6 +31,11 @@
     "toBeConfirmed": "to be confirmed",
     "everyDay": "Every day",
     "noCookies": "No advertising cookies",
+    "locatedIn": "Located in",
+    "amenityTerrace": "Terrace",
+    "amenityAccessible": "Accessible",
+    "amenityWifi": "Wi-Fi",
+    "amenityReservation": "Reservation",
     "allRightsReserved": "All rights reserved",
     "legal": "Legal",
     "privacy": "Privacy"
@@ -167,8 +172,9 @@
     "section1": {
       "kicker": "Contact",
       "title": "Le Meynadier",
-      "tagline": "Seven days a week, non-stop — from morning coffee to evening cocktail."
+      "tagline": "Seven days a week, non-stop — from morning coffee to the last glass."
     },
+    "phoneIntro": "For groups, private events, or press — call or write to us directly.",
     "map": {
       "kicker": "On the",
       "title": "Map",

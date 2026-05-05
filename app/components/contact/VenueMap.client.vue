@@ -87,31 +87,48 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="container"
-    class="aspect-[16/10] w-full overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-200 shadow-(--shadow-paper)"
+    class="meyn-map aspect-[16/10] w-full overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-200 shadow-(--shadow-paper)"
     role="application"
     aria-label="Carte interactive — emplacement du Meynadier"
   />
 </template>
 
 <style scoped>
+/* Filter "papier sépia warm" pour donner aux tuiles OSM le ton cream/wood
+ * du design system. Appliqué sur le canvas seulement (pas sur les
+ * contrôles ni le marker doré). */
+.meyn-map :deep(.maplibregl-canvas) {
+  filter: sepia(0.42) saturate(0.65) brightness(1.04) contrast(0.96)
+          hue-rotate(-8deg);
+}
+
 /* Habillage cohérent du contrôle de zoom MapLibre */
 :deep(.maplibregl-ctrl-group) {
   background-color: var(--color-cream-50);
   border: 1px solid var(--color-walnut-200);
+  border-radius: 9999px;
   box-shadow: var(--shadow-paper);
+  overflow: hidden;
 }
 :deep(.maplibregl-ctrl-group button) {
   color: var(--color-walnut-800);
+  border-color: var(--color-walnut-200);
 }
 :deep(.maplibregl-ctrl-group button:hover) {
   background-color: var(--color-walnut-100);
+  color: var(--color-brass-700);
 }
 :deep(.maplibregl-ctrl-attrib) {
-  background-color: rgba(252, 245, 230, 0.85);
+  background-color: rgba(252, 245, 230, 0.92);
   color: var(--color-walnut-700);
   font-size: 11px;
+  border-top-left-radius: 0.5rem;
+  backdrop-filter: blur(4px);
 }
 :deep(.maplibregl-ctrl-attrib a) {
   color: var(--color-brass-700);
+}
+:deep(.maplibregl-ctrl-attrib a:hover) {
+  color: var(--color-brass-800);
 }
 </style>
