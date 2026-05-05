@@ -8,9 +8,45 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: true,
+  modules: ['@nuxt/fonts'],
   css: ['~/assets/css/tailwind.css'],
   vite: {
     plugins: [tailwindcss()],
+  },
+  fonts: {
+    families: [
+      {
+        name: 'Cormorant Garamond',
+        provider: 'google',
+        weights: [400, 500, 600, 700],
+        styles: ['normal', 'italic'],
+        subsets: ['latin', 'latin-ext'],
+        preload: true,
+      },
+      {
+        name: 'Inter Tight',
+        provider: 'google',
+        weights: [400, 500, 600, 700],
+        styles: ['normal'],
+        subsets: ['latin', 'latin-ext'],
+        preload: true,
+      },
+      {
+        name: 'Italianno',
+        provider: 'google',
+        weights: [400],
+        styles: ['normal'],
+        subsets: ['latin', 'latin-ext'],
+      },
+    ],
+    defaults: {
+      weights: [400, 500, 700],
+      styles: ['normal', 'italic'],
+      subsets: ['latin', 'latin-ext'],
+    },
+    experimental: {
+      processCSSVariables: true,
+    },
   },
   app: {
     head: {
