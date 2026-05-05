@@ -3,15 +3,20 @@ import { cn } from '~/utils/cn'
 
 const props = defineProps<{
   as?: string
-  variant?: 'default' | 'paper'
+  variant?: 'default' | 'paper' | 'wood'
   class?: string
 }>()
 
-const variantClasses = computed(() =>
-  props.variant === 'paper'
-    ? 'bg-cream text-walnut-900 shadow-(--shadow-warm)'
-    : 'bg-walnut-800/60 text-cream backdrop-blur-sm shadow-(--shadow-deep) border border-walnut-700',
-)
+const variantClasses = computed(() => {
+  switch (props.variant) {
+    case 'paper':
+      return 'bg-cream-50 text-walnut-900 shadow-(--shadow-paper) border border-walnut-200'
+    case 'wood':
+      return 'bg-walnut-50 text-walnut-900 border border-walnut-200 shadow-(--shadow-warm)'
+    default:
+      return 'bg-cream-100 text-walnut-800 border border-walnut-200 shadow-(--shadow-paper)'
+  }
+})
 </script>
 
 <template>

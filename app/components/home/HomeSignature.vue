@@ -41,40 +41,40 @@ const pillars: Pillar[] = [
   <section
     id="signature"
     aria-labelledby="signature-title"
-    class="relative bg-walnut-900 py-24"
+    class="relative bg-walnut-50 py-28 text-walnut-800"
   >
     <div class="mx-auto max-w-6xl px-6">
       <header class="text-center">
-        <p class="font-script text-2xl text-brass-500">Notre</p>
-        <h2 id="signature-title" class="mt-1 font-display text-4xl text-cream sm:text-5xl">
+        <p class="font-script text-2xl text-brass-700">Notre</p>
+        <h2 id="signature-title" class="mt-1 font-display text-4xl text-walnut-900 sm:text-5xl">
           Signature
         </h2>
-        <GoldDivider class="mt-6" />
+        <GoldDivider class="mt-6 text-brass-600" />
       </header>
 
       <div class="mt-16 grid gap-8 md:grid-cols-3">
         <article
           v-for="pillar in pillars"
           :key="pillar.title"
-          class="group relative flex flex-col overflow-hidden rounded-(--radius-card) border border-walnut-700 bg-walnut-800/40 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)"
+          class="group relative flex flex-col rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)"
         >
           <span
-            class="inline-flex size-14 items-center justify-center rounded-full border border-brass-500/40 bg-walnut-950 text-brass-500 transition-colors group-hover:bg-brass-500 group-hover:text-walnut-900"
+            class="inline-flex size-14 items-center justify-center rounded-full border border-brass-400/40 bg-walnut-50 text-brass-600 transition-colors group-hover:border-brass-500 group-hover:bg-brass-500 group-hover:text-walnut-950"
             aria-hidden="true"
           >
             <component :is="pillar.icon" class="size-6" />
           </span>
 
-          <h3 class="mt-6 font-display text-2xl text-cream">
+          <h3 class="mt-6 font-display text-2xl text-walnut-900">
             {{ pillar.title }}
           </h3>
-          <p class="mt-3 flex-1 text-walnut-100/80">
+          <p class="mt-3 flex-1 text-walnut-700">
             {{ pillar.description }}
           </p>
 
           <NuxtLink
             :to="pillar.to"
-            class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brass-300 transition-colors hover:text-brass-100 focus-visible:outline-2 focus-visible:outline-brass-500"
+            class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500"
           >
             {{ pillar.cta }}
             <span aria-hidden="true">→</span>

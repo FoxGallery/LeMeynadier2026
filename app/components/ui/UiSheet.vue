@@ -53,11 +53,11 @@ const sideClasses: Record<Side, string> = {
 
     <DialogPortal>
       <DialogOverlay
-        class="fixed inset-0 z-50 bg-walnut-950/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
+        class="fixed inset-0 z-50 bg-walnut-950/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
       />
       <DialogContent
         :class="cn(
-          'fixed z-50 flex flex-col gap-4 border-walnut-700 bg-walnut-900 p-6 text-cream shadow-(--shadow-deep)',
+          'fixed z-50 flex flex-col gap-4 border-walnut-200 bg-cream-50 p-6 text-walnut-800 shadow-(--shadow-deep)',
           'focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out',
           sideClasses[props.side ?? 'right'],
           props.class,
@@ -65,12 +65,12 @@ const sideClasses: Record<Side, string> = {
       >
         <header class="flex items-start justify-between">
           <div class="flex flex-col gap-1">
-            <DialogTitle :class="cn('font-display text-2xl text-cream', props.hideTitle && 'sr-only')">
+            <DialogTitle :class="cn('font-display text-2xl text-walnut-900', props.hideTitle && 'sr-only')">
               {{ props.title }}
             </DialogTitle>
             <DialogDescription
               v-if="props.description"
-              class="text-sm text-walnut-100/80"
+              class="text-sm text-walnut-700"
             >
               {{ props.description }}
             </DialogDescription>
@@ -78,7 +78,7 @@ const sideClasses: Record<Side, string> = {
           <DialogClose
             v-if="!props.hideClose"
             aria-label="Fermer"
-            class="rounded-md p-1 text-walnut-100/80 transition-colors hover:bg-walnut-800 hover:text-cream focus-visible:outline-2 focus-visible:outline-brass-500"
+            class="rounded-md p-1 text-walnut-700 transition-colors hover:bg-cream-200 hover:text-walnut-900 focus-visible:outline-2 focus-visible:outline-brass-600"
           >
             <X class="size-5" aria-hidden="true" />
           </DialogClose>

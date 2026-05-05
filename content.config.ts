@@ -1,4 +1,5 @@
-import { defineCollection, defineContentConfig, z } from '@nuxt/content'
+import { defineCollection, defineContentConfig } from '@nuxt/content'
+import { z } from 'zod'
 
 /* ──────────────────────────────────────────────────────────────────────────
  * Le Meynadier — Configuration @nuxt/content (collections + schémas Zod)

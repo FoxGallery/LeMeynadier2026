@@ -31,16 +31,23 @@ const featured: Featured[] = [
 <template>
   <section
     aria-labelledby="menu-preview-title"
-    class="relative bg-walnut-900 py-24"
+    class="relative overflow-hidden bg-walnut-700 py-28 text-cream-50"
   >
-    <div class="mx-auto max-w-6xl px-6">
+    <WoodGrain :opacity="0.18" :color="'#0d0905'" />
+    <!-- Halo doré chaud diffus en haut, comme une lumière de bar -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(221,193,138,0.20),transparent_70%)]"
+    />
+
+    <div class="relative mx-auto max-w-6xl px-6">
       <header class="text-center">
-        <p class="font-script text-2xl text-brass-500">Aperçu de la</p>
-        <h2 id="menu-preview-title" class="mt-1 font-display text-4xl text-cream sm:text-5xl">
+        <p class="font-script text-2xl text-brass-300">Aperçu de la</p>
+        <h2 id="menu-preview-title" class="mt-1 font-display text-4xl text-cream-50 sm:text-5xl">
           Carte
         </h2>
-        <GoldDivider class="mt-6" />
-        <p class="mx-auto mt-6 max-w-xl text-walnut-100/80">
+        <GoldDivider class="mt-6 text-brass-400" />
+        <p class="mx-auto mt-6 max-w-xl text-cream-100/85">
           Une sélection de favoris — la carte complète vous attend en page suivante.
         </p>
       </header>

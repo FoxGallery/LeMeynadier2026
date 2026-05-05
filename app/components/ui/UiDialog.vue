@@ -41,23 +41,23 @@ defineEmits<{
 
     <DialogPortal>
       <DialogOverlay
-        class="fixed inset-0 z-50 bg-walnut-950/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
+        class="fixed inset-0 z-50 bg-walnut-950/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
       />
       <DialogContent
         :class="cn(
           'fixed left-1/2 top-1/2 z-50 w-[min(92vw,42rem)] -translate-x-1/2 -translate-y-1/2',
-          'rounded-(--radius-card) border border-walnut-700 bg-walnut-900 p-6 text-cream shadow-(--shadow-deep)',
+          'rounded-(--radius-card) border border-walnut-200 bg-cream-50 p-6 text-walnut-800 shadow-(--shadow-deep)',
           'focus:outline-none data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=closed]:zoom-out-95',
           props.class,
         )"
       >
-        <DialogTitle :class="cn('font-display text-2xl text-cream', props.hideTitle && 'sr-only')">
+        <DialogTitle :class="cn('font-display text-2xl text-walnut-900', props.hideTitle && 'sr-only')">
           {{ props.title }}
         </DialogTitle>
         <DialogDescription
           v-if="props.description"
-          class="mt-1 text-sm text-walnut-100/80"
+          class="mt-1 text-sm text-walnut-700"
         >
           {{ props.description }}
         </DialogDescription>
@@ -69,7 +69,7 @@ defineEmits<{
         <DialogClose
           v-if="!props.hideClose"
           aria-label="Fermer"
-          class="absolute right-4 top-4 rounded-md p-1 text-walnut-100/80 transition-colors hover:bg-walnut-800 hover:text-cream focus-visible:outline-2 focus-visible:outline-brass-500"
+          class="absolute right-4 top-4 rounded-md p-1 text-walnut-700 transition-colors hover:bg-cream-200 hover:text-walnut-900 focus-visible:outline-2 focus-visible:outline-brass-600"
         >
           <X class="size-5" aria-hidden="true" />
         </DialogClose>

@@ -7,29 +7,34 @@ const button = cva(
   [
     'relative inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'font-medium tracking-wide select-none transition-all duration-200',
-    'focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2',
+    'focus-visible:outline-2 focus-visible:outline-brass-600 focus-visible:outline-offset-2',
     'disabled:cursor-not-allowed disabled:opacity-50',
   ],
   {
     variants: {
       variant: {
         primary: [
-          'bg-brass-500 text-walnut-900 shadow-(--shadow-warm)',
-          'hover:bg-brass-300 hover:shadow-[0_14px_40px_-10px_rgba(201,164,94,0.45)]',
-          'active:bg-brass-700 active:translate-y-px',
+          'bg-brass-500 text-walnut-950 shadow-(--shadow-warm)',
+          'hover:bg-brass-400 hover:shadow-[0_14px_40px_-10px_rgba(184,138,61,0.5)]',
+          'active:bg-brass-600 active:translate-y-px',
         ],
         outline: [
-          'border border-brass-500/70 bg-transparent text-brass-300',
-          'hover:bg-brass-500 hover:text-walnut-900 hover:border-brass-500',
-          'active:bg-brass-700 active:translate-y-px',
+          'border border-walnut-700/80 bg-transparent text-walnut-800',
+          'hover:bg-walnut-900 hover:text-cream-50 hover:border-walnut-900',
+          'active:bg-walnut-950 active:translate-y-px',
+        ],
+        'hero-outline': [
+          'border border-cream-50/45 bg-transparent text-cream-50',
+          'hover:bg-cream-50 hover:text-walnut-900 hover:border-cream-50',
+          'active:translate-y-px',
         ],
         ghost: [
-          'bg-transparent text-brass-300',
-          'hover:text-brass-100 hover:underline hover:underline-offset-4 hover:decoration-brass-500',
+          'bg-transparent text-walnut-800',
+          'hover:text-brass-700 hover:underline hover:underline-offset-4 hover:decoration-brass-500',
         ],
         link: [
-          'bg-transparent p-0 h-auto text-brass-300 underline-offset-4',
-          'hover:text-brass-100 hover:underline',
+          'bg-transparent p-0 h-auto text-brass-600 underline-offset-4',
+          'hover:text-brass-700 hover:underline',
         ],
       },
       size: {

@@ -6,16 +6,16 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="relative mt-24 border-t border-walnut-800 bg-walnut-950 text-cream/80">
-    <WoodGrain :opacity="0.05" />
+  <footer class="relative overflow-hidden bg-walnut-800 text-cream-100/90">
+    <WoodGrain :opacity="0.16" :color="'#0d0905'" />
 
-    <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
       <!-- Brand -->
       <div class="space-y-3">
-        <p class="font-script text-2xl text-brass-500">Le</p>
-        <p class="-mt-1 font-display text-3xl text-cream">Meynadier</p>
-        <GoldDivider size="sm" ornament="dot" class="!ml-0" />
-        <p class="text-sm leading-relaxed text-walnut-100/70">
+        <p class="font-script text-2xl text-brass-300">Le</p>
+        <p class="-mt-1 font-display text-3xl text-cream-50">Meynadier</p>
+        <GoldDivider size="sm" ornament="dot" class="!ml-0 text-brass-400" />
+        <p class="text-sm leading-relaxed text-cream-100/75">
           Brasserie · Pizzeria · Pub.<br>Au cœur de Cannes.
         </p>
       </div>
@@ -27,25 +27,25 @@ const year = new Date().getFullYear()
         </h2>
         <ul class="space-y-3 text-sm">
           <li class="flex gap-2">
-            <MapPin class="mt-0.5 size-4 shrink-0 text-brass-500" aria-hidden="true" />
+            <MapPin class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
             <span>
               Rue Meynadier<br>06400 Cannes, France
             </span>
           </li>
           <li class="flex items-center gap-2">
-            <Phone class="size-4 shrink-0 text-brass-500" aria-hidden="true" />
+            <Phone class="size-4 shrink-0 text-brass-400" aria-hidden="true" />
             <a
               href="tel:+33000000000"
-              class="text-cream transition-colors hover:text-brass-300"
+              class="text-cream-50 transition-colors hover:text-brass-300"
             >
               À venir
             </a>
           </li>
           <li class="flex items-start gap-2">
-            <Clock class="mt-0.5 size-4 shrink-0 text-brass-500" aria-hidden="true" />
+            <Clock class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
             <span>
               Tous les jours<br>de 8h à 23h
-              <span class="block text-xs text-walnut-300">(horaires à confirmer)</span>
+              <span class="block text-xs text-cream-100/75">(horaires à confirmer)</span>
             </span>
           </li>
         </ul>
@@ -60,7 +60,7 @@ const year = new Date().getFullYear()
           <li v-for="link in links" :key="link.to">
             <NuxtLink
               :to="link.to"
-              class="text-cream/85 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-500"
+              class="text-cream-100/85 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
             >
               {{ link.label }}
             </NuxtLink>
@@ -77,7 +77,7 @@ const year = new Date().getFullYear()
           <a
             href="#"
             aria-label="Instagram (à venir)"
-            class="inline-flex size-10 items-center justify-center rounded-full border border-walnut-700 text-cream/80 transition-colors hover:border-brass-500 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-500"
+            class="inline-flex size-10 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
             <Instagram class="size-4" aria-hidden="true" />
@@ -85,7 +85,7 @@ const year = new Date().getFullYear()
           <a
             href="#"
             aria-label="Facebook (à venir)"
-            class="inline-flex size-10 items-center justify-center rounded-full border border-walnut-700 text-cream/80 transition-colors hover:border-brass-500 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-500"
+            class="inline-flex size-10 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
             <Facebook class="size-4" aria-hidden="true" />
@@ -93,11 +93,11 @@ const year = new Date().getFullYear()
         </div>
 
         <div class="pt-4">
-          <ul class="space-y-1 text-xs text-walnut-100/60">
+          <ul class="space-y-1 text-xs text-cream-100/75">
             <li>
               <NuxtLink
                 to="/mentions-legales"
-                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-500"
+                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
               >
                 Mentions légales
               </NuxtLink>
@@ -105,7 +105,7 @@ const year = new Date().getFullYear()
             <li>
               <NuxtLink
                 to="/confidentialite"
-                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-500"
+                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
               >
                 Confidentialité
               </NuxtLink>
@@ -115,9 +115,9 @@ const year = new Date().getFullYear()
       </div>
     </div>
 
-    <div class="border-t border-walnut-800">
+    <div class="relative border-t border-cream-100/10">
       <div
-        class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 py-6 text-center text-xs text-walnut-100/60 sm:flex-row sm:justify-between"
+        class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 py-6 text-center text-xs text-cream-100/75 sm:flex-row sm:justify-between"
       >
         <p>© {{ year }} Le Meynadier — Cannes. Tous droits réservés.</p>
         <p>Site sans cookie publicitaire.</p>

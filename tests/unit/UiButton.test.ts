@@ -20,7 +20,7 @@ describe('UiButton', () => {
       props: { variant: 'outline' },
       slots: { default: 'Go' },
     })
-    expect(wrapper.classes()).toContain('border-brass-500/70')
+    expect(wrapper.classes()).toContain('border-walnut-700/80')
   })
 
   it('renders as anchor when href provided', () => {

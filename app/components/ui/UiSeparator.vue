@@ -14,7 +14,7 @@ const props = defineProps<{
     :orientation="props.orientation ?? 'horizontal'"
     :decorative="props.decorative ?? true"
     :class="cn(
-      'shrink-0 bg-walnut-700',
+      'shrink-0 bg-walnut-200',
       (props.orientation ?? 'horizontal') === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
       props.class,
     )"

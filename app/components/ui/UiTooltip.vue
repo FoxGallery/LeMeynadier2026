@@ -27,7 +27,7 @@ const props = defineProps<{
           :side="props.side ?? 'top'"
           :side-offset="6"
           :class="cn(
-            'z-50 rounded-md border border-walnut-700 bg-walnut-900 px-3 py-1.5 text-xs text-cream shadow-(--shadow-deep)',
+            'z-50 rounded-md border border-walnut-200 bg-cream-50 px-3 py-1.5 text-xs text-walnut-800 shadow-(--shadow-deep)',
             'data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out',
             props.class,
           )"
