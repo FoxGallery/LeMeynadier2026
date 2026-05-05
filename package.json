@@ -18,6 +18,9 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -34,11 +37,16 @@
     "@biomejs/biome": "^2.4.14",
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
+    "@nuxt/test-utils": "^4.0.3",
     "@tailwindcss/vite": "^4.2.4",
+    "@vitest/coverage-v8": "^4.1.5",
+    "@vue/test-utils": "^2.4.10",
+    "happy-dom": "^20.9.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "tailwindcss": "^4.2.4",
     "typescript": "^5.7.2",
+    "vitest": "^4.1.5",
     "vue-tsc": "^3.2.0"
   },
   "pnpm": {
