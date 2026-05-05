@@ -29,12 +29,12 @@ function isActive(to: string) {
       <NuxtLink
         to="/"
         aria-label="Le Meynadier — accueil"
-        class="group inline-flex flex-col leading-none focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
+        class="group inline-flex items-baseline gap-1.5 whitespace-nowrap leading-none focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
       >
-        <span class="font-script text-xl text-brass-600 transition-colors group-hover:text-brass-700">
+        <span class="font-script text-2xl text-brass-600 transition-colors group-hover:text-brass-700 sm:text-3xl">
           Le
         </span>
-        <span class="-mt-1 font-display text-2xl tracking-tight text-walnut-900 sm:text-3xl">
+        <span class="font-display text-xl tracking-tight text-walnut-900 sm:text-2xl">
           Meynadier
         </span>
       </NuxtLink>
