@@ -1,0 +1,86 @@
+category: paninis
+order: 2
+label:
+  fr: Paninis
+  en: Paninis
+  it: Panini
+description:
+  fr: Pain panini grillé · 6,50 €.
+  en: Grilled panini bread · €6.50.
+  it: Pane panino tostato · 6,50 €.
+
+items:
+  - slug: jambon-mozzarella
+    order: 1
+    name:
+      fr: Jambon Mozzarella
+      en: Ham & Mozzarella
+      it: Prosciutto Mozzarella
+    description:
+      fr: Jambon, mozzarella, sauce pesto.
+      en: Ham, mozzarella, pesto sauce.
+      it: Prosciutto, mozzarella, salsa pesto.
+    price: 6.5
+
+  - slug: merguez-chorizo
+    order: 2
+    name:
+      fr: Merguez Chorizo
+      en: Merguez & Chorizo
+      it: Merguez Chorizo
+    description:
+      fr: Merguez, chorizo, piperade de chorizo (cheddar, mozzarella).
+      en: Merguez, chorizo, chorizo piperade (cheddar, mozzarella).
+      it: Merguez, chorizo, piperade di chorizo (cheddar, mozzarella).
+    price: 6.5
+    tags: [épicé]
+
+  - slug: poulet-curry
+    order: 3
+    name:
+      fr: Poulet Curry
+      en: Curry Chicken
+      it: Pollo al Curry
+    description:
+      fr: Crème curry, sauté de poulet, mozzarella.
+      en: Curry cream, sautéed chicken, mozzarella.
+      it: Crema al curry, pollo saltato, mozzarella.
+    price: 6.5
+
+  - slug: chevre-courgette
+    order: 4
+    name:
+      fr: Chèvre Courgette
+      en: Goat Cheese & Zucchini
+      it: Caprino Zucchina
+    description:
+      fr: Chèvre, courgettes, pesto rouge et mozzarella.
+      en: Goat cheese, zucchini, red pesto and mozzarella.
+      it: Caprino, zucchine, pesto rosso e mozzarella.
+    price: 6.5
+    tags: [végé]
+
+  - slug: burger
+    order: 5
+    name:
+      fr: Burger
+      en: Burger
+      it: Burger
+    description:
+      fr: Bœuf haché, sauce biggy burger, cheddar.
+      en: Ground beef, biggy burger sauce, cheddar.
+      it: Manzo macinato, salsa biggy burger, cheddar.
+    price: 6.5
+
+  - slug: 4-fromages
+    order: 6
+    name:
+      fr: 4 Fromages
+      en: 4 Cheeses
+      it: 4 Formaggi
+    description:
+      fr: Mozzarella, camembert AOP, chèvre et bleu.
+      en: Mozzarella, camembert AOP, goat cheese and blue cheese.
+      it: Mozzarella, camembert AOP, caprino e blu.
+    price: 6.5
+    tags: [végé, fromages]

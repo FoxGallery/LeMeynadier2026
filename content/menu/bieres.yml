@@ -1,0 +1,113 @@
+category: bieres
+order: 3
+label:
+  fr: Bières
+  en: Beers
+  it: Birre
+description:
+  fr: Pression et bouteilles, sélection française et belge.
+  en: Draft and bottled, French and Belgian selection.
+  it: Alla spina e in bottiglia, selezione francese e belga.
+
+items:
+  # Bières pression
+  - slug: falcon-blonde
+    order: 1
+    name:
+      fr: Falcon Blonde (pression)
+      en: Falcon Blonde (draft)
+      it: Falcon Blonde (alla spina)
+    description:
+      fr: Bière blonde demi.
+      en: Blonde lager half-pint.
+      it: Birra bionda piccola.
+    price: null
+    tags: [pression, blonde]
+
+  - slug: affligem-blonde
+    order: 2
+    name:
+      fr: Affligem Blonde (pression)
+      en: Affligem Blonde (draft)
+      it: Affligem Blonde (alla spina)
+    description:
+      fr: Belge blonde d'abbaye.
+      en: Belgian abbey blonde ale.
+      it: Belga bionda d'abbazia.
+    price: null
+    tags: [pression, blonde, belge]
+
+  - slug: pelforth
+    order: 3
+    name:
+      fr: Pelforth (pression)
+      en: Pelforth (draft)
+      it: Pelforth (alla spina)
+    description:
+      fr: Brune française.
+      en: French dark ale.
+      it: Bruna francese.
+    price: null
+    tags: [pression, brune]
+
+  # Bouteilles
+  - slug: heineken
+    order: 10
+    name:
+      fr: Heineken
+      en: Heineken
+      it: Heineken
+    description:
+      fr: 25 cl.
+      en: 25 cl bottle.
+      it: 25 cl.
+    price: null
+    tags: [bouteille, blonde]
+
+  - slug: spitz
+    order: 11
+    name:
+      fr: Spitz
+      en: Spitz
+      it: Spitz
+    price: null
+    tags: [bouteille]
+
+  - slug: coronita
+    order: 12
+    name:
+      fr: Coronita
+      en: Coronita
+      it: Coronita
+    description:
+      fr: Mexicaine, 21 cl.
+      en: Mexican, 21 cl.
+      it: Messicana, 21 cl.
+    price: null
+    tags: [bouteille, blonde]
+
+  - slug: desperados
+    order: 13
+    name:
+      fr: Desperados
+      en: Desperados
+      it: Desperados
+    description:
+      fr: Bière aromatisée tequila.
+      en: Tequila-flavoured beer.
+      it: Birra aromatizzata alla tequila.
+    price: null
+    tags: [bouteille, aromatisée]
+
+  - slug: triple-karmeliet
+    order: 14
+    name:
+      fr: Triple Karmeliet
+      en: Triple Karmeliet
+      it: Triple Karmeliet
+    description:
+      fr: Belge triple, 8,4 %.
+      en: Belgian triple, 8.4%.
+      it: Belga triple, 8,4%.
+    price: null
+    tags: [bouteille, belge, signature]

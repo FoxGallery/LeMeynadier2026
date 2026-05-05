@@ -1,0 +1,128 @@
+category: pizzas
+order: 1
+label:
+  fr: Pizzas
+  en: Pizzas
+  it: Pizze
+description:
+  fr: Pâte fine, four à pizza, sauce tomate maison.
+  en: Thin crust, stone oven, homemade tomato sauce.
+  it: Pasta fina, forno per pizza, salsa di pomodoro fatta in casa.
+
+items:
+  - slug: margarita
+    order: 1
+    name:
+      fr: Margarita
+      en: Margherita
+      it: Margherita
+    description:
+      fr: Sauce tomate, mozzarella, basilic.
+      en: Tomato sauce, mozzarella, basil.
+      it: Salsa di pomodoro, mozzarella, basilico.
+    price: null
+    tags: [classique, végé]
+
+  - slug: reine
+    order: 2
+    name:
+      fr: Reine
+      en: Reine
+      it: Regina
+    description:
+      fr: Sauce tomate à l'origan, mozzarella, jambon, champignons.
+      en: Oregano tomato sauce, mozzarella, ham, mushrooms.
+      it: Salsa di pomodoro all'origano, mozzarella, prosciutto, funghi.
+    price: null
+    tags: [classique]
+
+  - slug: 4-fromages
+    order: 3
+    name:
+      fr: 4 Fromages
+      en: 4 Cheeses
+      it: 4 Formaggi
+    description:
+      fr: Sauce tomate à l'origan, mozzarella et trois fromages.
+      en: Oregano tomato sauce, mozzarella and three cheeses.
+      it: Salsa di pomodoro all'origano, mozzarella e tre formaggi.
+    price: null
+    tags: [végé, fromages]
+
+  - slug: diavola
+    order: 4
+    name:
+      fr: Diavola
+      en: Diavola
+      it: Diavola
+    description:
+      fr: Sauce tomate à l'origan, mozzarella, chorizo, piment.
+      en: Oregano tomato sauce, mozzarella, chorizo, chili.
+      it: Salsa di pomodoro all'origano, mozzarella, chorizo, peperoncino.
+    price: null
+    tags: [épicé]
+
+  - slug: al-pollo
+    order: 5
+    name:
+      fr: Al Pollo
+      en: Al Pollo
+      it: Al Pollo
+    description:
+      fr: Sauce tomate à l'origan, mozzarella, poulet, oignon rouge.
+      en: Oregano tomato sauce, mozzarella, chicken, red onion.
+      it: Salsa di pomodoro all'origano, mozzarella, pollo, cipolla rossa.
+    price: null
+    tags: [poulet]
+
+  - slug: montagnarde
+    order: 6
+    name:
+      fr: Montagnarde
+      en: Montagnarde
+      it: Montanara
+    description:
+      fr: Crème fraîche, mozzarella, jambon cru, raclette, champignons, basilic.
+      en: Crème fraîche, mozzarella, cured ham, raclette, mushrooms, basil.
+      it: Crème fraîche, mozzarella, prosciutto crudo, raclette, funghi, basilico.
+    price: null
+    tags: [signature]
+
+  - slug: orientale
+    order: 7
+    name:
+      fr: Orientale
+      en: Orientale
+      it: Orientale
+    description:
+      fr: Sauce tomate à l'origan, mozzarella, merguez, poivrons.
+      en: Oregano tomato sauce, mozzarella, merguez, peppers.
+      it: Salsa di pomodoro all'origano, mozzarella, merguez, peperoni.
+    price: null
+    tags: [épicé]
+
+  - slug: meridionale
+    order: 8
+    name:
+      fr: Méridionale
+      en: Méridionale
+      it: Meridionale
+    description:
+      fr: Sauce tomate à l'origan, poivrons, courgettes, mozzarella, oignons rouges, pesto, tomates fraîches.
+      en: Oregano tomato sauce, peppers, zucchini, mozzarella, red onions, pesto, fresh tomatoes.
+      it: Salsa di pomodoro all'origano, peperoni, zucchine, mozzarella, cipolle rosse, pesto, pomodori freschi.
+    price: null
+    tags: [végé, signature]
+
+  - slug: raffinee
+    order: 9
+    name:
+      fr: Raffinée
+      en: Raffinée
+      it: Raffinata
+    description:
+      fr: Crème fraîche, mozzarella, jambon cru, mascarpone, huile de truffe et basilic.
+      en: Crème fraîche, mozzarella, cured ham, mascarpone, truffle oil and basil.
+      it: Crème fraîche, mozzarella, prosciutto crudo, mascarpone, olio di tartufo e basilico.
+    price: null
+    tags: [signature, truffe]

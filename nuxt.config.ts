@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   ssr: true,
-  modules: ['@nuxt/fonts'],
+  modules: ['@nuxt/fonts', '@nuxt/content'],
   css: ['~/assets/css/tailwind.css'],
   // Pages dev-only (catalogue du DS) : ignorées en prod
   ignore: isDev ? [] : ['app/pages/dev-*.vue'],

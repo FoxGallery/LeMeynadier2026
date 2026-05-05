@@ -1,0 +1,107 @@
+category: boissons-chaudes
+order: 7
+label:
+  fr: Boissons chaudes
+  en: Hot drinks
+  it: Bevande calde
+
+items:
+  - slug: espresso
+    order: 1
+    name:
+      fr: Espresso
+      en: Espresso
+      it: Espresso
+    price: null
+
+  - slug: cappuccino
+    order: 2
+    name:
+      fr: Cappuccino
+      en: Cappuccino
+      it: Cappuccino
+    price: null
+
+  - slug: double-espresso
+    order: 3
+    name:
+      fr: Double espresso
+      en: Double espresso
+      it: Doppio espresso
+    price: null
+
+  - slug: the
+    order: 4
+    name:
+      fr: Thé
+      en: Tea
+      it: Tè
+    price: null
+
+  - slug: deca
+    order: 5
+    name:
+      fr: Décaféiné
+      en: Decaf
+      it: Decaffeinato
+    price: null
+
+  - slug: double-deca
+    order: 6
+    name:
+      fr: Double décaféiné
+      en: Double decaf
+      it: Doppio decaffeinato
+    price: null
+
+  - slug: cafe-noisette
+    order: 7
+    name:
+      fr: Café noisette
+      en: Macchiato
+      it: Caffè macchiato
+    price: null
+
+  - slug: cafe-allonge
+    order: 8
+    name:
+      fr: Café allongé
+      en: Long black
+      it: Caffè lungo
+    price: null
+
+  - slug: noisette
+    order: 9
+    name:
+      fr: Noisette
+      en: Macchiato (small)
+      it: Macchiato
+    price: null
+
+  - slug: chocolat-chaud
+    order: 10
+    name:
+      fr: Chocolat chaud
+      en: Hot chocolate
+      it: Cioccolata calda
+    price: null
+
+  - slug: cafe-viennois
+    order: 11
+    name:
+      fr: Café viennois
+      en: Viennese coffee
+      it: Caffè viennese
+    description:
+      fr: Espresso, chantilly.
+      en: Espresso, whipped cream.
+      it: Espresso, panna montata.
+    price: null
+
+  - slug: machiato
+    order: 12
+    name:
+      fr: Machiato
+      en: Macchiato
+      it: Macchiato
+    price: null

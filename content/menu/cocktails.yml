@@ -1,0 +1,84 @@
+category: cocktails
+order: 5
+label:
+  fr: Cocktails
+  en: Cocktails
+  it: Cocktail
+description:
+  fr: Recettes maison à siroter au comptoir ou en terrasse.
+  en: House recipes — sip at the bar or on the terrace.
+  it: Ricette della casa — al banco o in terrazza.
+
+items:
+  - slug: pinacolada-shake
+    order: 1
+    name:
+      fr: Pina Colada Shake
+      en: Pina Colada Shake
+      it: Pina Colada Shake
+    description:
+      fr: Ananas, noix de coco, rhum.
+      en: Pineapple, coconut, rum.
+      it: Ananas, cocco, rum.
+    price: null
+
+  - slug: exotic
+    order: 2
+    name:
+      fr: Exotic
+      en: Exotic
+      it: Exotic
+    description:
+      fr: Mangue, fruits de la passion, vodka.
+      en: Mango, passion fruit, vodka.
+      it: Mango, frutto della passione, vodka.
+    price: null
+
+  - slug: spritz
+    order: 3
+    name:
+      fr: Spritz
+      en: Spritz
+      it: Spritz
+    description:
+      fr: Apérol, prosecco, eau gazeuse, orange.
+      en: Aperol, prosecco, sparkling water, orange.
+      it: Aperol, prosecco, acqua frizzante, arancia.
+    price: null
+    tags: [signature]
+
+  - slug: rouge-diesel
+    order: 4
+    name:
+      fr: Rouge Diesel
+      en: Rouge Diesel
+      it: Rouge Diesel
+    description:
+      fr: Bière, sirop fraise, vodka.
+      en: Beer, strawberry syrup, vodka.
+      it: Birra, sciroppo di fragola, vodka.
+    price: null
+
+  - slug: dragon
+    order: 5
+    name:
+      fr: Dragon
+      en: Dragon
+      it: Dragon
+    description:
+      fr: Fruit du dragon, gingembre, ananas, vodka.
+      en: Dragon fruit, ginger, pineapple, vodka.
+      it: Frutto del drago, zenzero, ananas, vodka.
+    price: null
+
+  - slug: tabula
+    order: 6
+    name:
+      fr: Tabula
+      en: Tabula
+      it: Tabula
+    description:
+      fr: Fraise, banane, cognac.
+      en: Strawberry, banana, cognac.
+      it: Fragola, banana, cognac.
+    price: null

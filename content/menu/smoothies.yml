@@ -1,0 +1,154 @@
+category: smoothies
+order: 6
+label:
+  fr: Smoothies, frappés & milkshakes
+  en: Smoothies, frappés & milkshakes
+  it: Smoothie, frappé & milkshake
+
+items:
+  # Smoothies — 5,50 €
+  - slug: tugada
+    order: 1
+    name:
+      fr: Tugada
+      en: Tugada
+      it: Tugada
+    description:
+      fr: Banane, fraise, banana frais.
+      en: Banana, strawberry, fresh banana.
+      it: Banana, fragola, banana fresca.
+    price: 5.5
+    tags: [smoothie]
+
+  - slug: red-bowl
+    order: 2
+    name:
+      fr: Red Bowl
+      en: Red Bowl
+      it: Red Bowl
+    description:
+      fr: Grenade, framboise, acerola.
+      en: Pomegranate, raspberry, acerola.
+      it: Melograno, lampone, acerola.
+    price: 5.5
+    tags: [smoothie]
+
+  - slug: fruits-on-the-beach
+    order: 3
+    name:
+      fr: Fruits on the Beach
+      en: Fruits on the Beach
+      it: Fruits on the Beach
+    description:
+      fr: Mangue, fruit de la passion, orange.
+      en: Mango, passion fruit, orange.
+      it: Mango, frutto della passione, arancia.
+    price: 5.5
+    tags: [smoothie]
+
+  - slug: coco-celine
+    order: 4
+    name:
+      fr: Coco Céline
+      en: Coco Céline
+      it: Coco Céline
+    description:
+      fr: Coco, ananas, noix de coco.
+      en: Coconut, pineapple, coconut.
+      it: Cocco, ananas, cocco.
+    price: 5.5
+    tags: [smoothie]
+
+  - slug: pink-paradise
+    order: 5
+    name:
+      fr: Pink Paradise
+      en: Pink Paradise
+      it: Pink Paradise
+    description:
+      fr: Fruit du dragon, goyave, ananas.
+      en: Dragon fruit, guava, pineapple.
+      it: Frutto del drago, guava, ananas.
+    price: 5.5
+    tags: [smoothie, signature]
+
+  # Frappés — 4,50 €
+  - slug: cafe-frappe
+    order: 10
+    name:
+      fr: Café frappé
+      en: Iced coffee frappé
+      it: Caffè frappé
+    price: 4.5
+    tags: [frappé]
+
+  - slug: vanilla-frappe
+    order: 11
+    name:
+      fr: Vanilla frappé
+      en: Vanilla frappé
+      it: Frappé alla vaniglia
+    price: 4.5
+    tags: [frappé]
+
+  - slug: choky-frappe
+    order: 12
+    name:
+      fr: Choky frappé
+      en: Choky frappé
+      it: Choky frappé
+    description:
+      fr: Avec topping au choix · chocolat, caramel, café · +1 €.
+      en: With your choice of topping · chocolate, caramel, coffee · +€1.
+      it: Con topping a scelta · cioccolato, caramello, caffè · +1 €.
+    price: 4.5
+    tags: [frappé, chocolat]
+
+  # Milkshakes — 6,50 €
+  - slug: florida
+    order: 20
+    name:
+      fr: Florida
+      en: Florida
+      it: Florida
+    description:
+      fr: Fraise, banane.
+      en: Strawberry, banana.
+      it: Fragola, banana.
+    price: 6.5
+    tags: [milkshake]
+
+  - slug: california
+    order: 21
+    name:
+      fr: California
+      en: California
+      it: California
+    description:
+      fr: Fruits rouges.
+      en: Red fruits.
+      it: Frutti rossi.
+    price: 6.5
+    tags: [milkshake]
+
+  - slug: manhattan
+    order: 22
+    name:
+      fr: Manhattan
+      en: Manhattan
+      it: Manhattan
+    description:
+      fr: Chocolat.
+      en: Chocolate.
+      it: Cioccolato.
+    price: 6.5
+    tags: [milkshake, chocolat]
+
+  - slug: vanille
+    order: 23
+    name:
+      fr: Vanille
+      en: Vanilla
+      it: Vaniglia
+    price: 6.5
+    tags: [milkshake]

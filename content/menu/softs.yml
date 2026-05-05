@@ -1,0 +1,194 @@
+category: softs
+order: 8
+label:
+  fr: Boissons fraîches
+  en: Soft drinks
+  it: Bibite fresche
+description:
+  fr: Sur place et à emporter.
+  en: To stay or to go.
+  it: Sul posto o da asporto.
+
+items:
+  # Sur place — 4 €
+  - slug: coca-cola
+    order: 1
+    name:
+      fr: Coca-Cola
+      en: Coca-Cola
+      it: Coca-Cola
+    price: 4
+    tags: [soda]
+
+  - slug: coca-zero
+    order: 2
+    name:
+      fr: Coca-Cola Zero
+      en: Coca-Cola Zero
+      it: Coca-Cola Zero
+    price: 4
+    tags: [soda]
+
+  - slug: ice-tea
+    order: 3
+    name:
+      fr: Ice Tea
+      en: Iced Tea
+      it: Iced Tea
+    price: 4
+    tags: [soda]
+
+  - slug: orangina
+    order: 4
+    name:
+      fr: Orangina
+      en: Orangina
+      it: Orangina
+    price: 4
+    tags: [soda]
+
+  - slug: schweppes-agrumes
+    order: 5
+    name:
+      fr: Schweppes Agrumes
+      en: Schweppes Citrus
+      it: Schweppes Agrumi
+    price: 4
+    tags: [soda]
+
+  - slug: perrier
+    order: 6
+    name:
+      fr: Perrier
+      en: Perrier
+      it: Perrier
+    price: 4
+    tags: [eau, gazeuse]
+
+  - slug: sprite
+    order: 7
+    name:
+      fr: Sprite
+      en: Sprite
+      it: Sprite
+    price: 4
+    tags: [soda]
+
+  - slug: fanta
+    order: 8
+    name:
+      fr: Fanta
+      en: Fanta
+      it: Fanta
+    price: 4
+    tags: [soda]
+
+  - slug: diabolo-menthe
+    order: 9
+    name:
+      fr: Diabolo menthe
+      en: Mint Diabolo
+      it: Diabolo menta
+    description:
+      fr: Aussi grenadine, citron, fraise, etc.
+      en: Also grenadine, lemon, strawberry, etc.
+      it: Anche grenadine, limone, fragola, ecc.
+    price: 4
+    tags: [diabolo]
+
+  - slug: jus-orange
+    order: 10
+    name:
+      fr: Jus d'orange
+      en: Orange juice
+      it: Succo d'arancia
+    description:
+      fr: Aussi ananas, pomme, multifruits, etc.
+      en: Also pineapple, apple, multifruit, etc.
+      it: Anche ananas, mela, multifrutta, ecc.
+    price: 4
+    tags: [jus]
+
+  - slug: red-bull
+    order: 11
+    name:
+      fr: Red Bull
+      en: Red Bull
+      it: Red Bull
+    description:
+      fr: 25 cl.
+      en: 25 cl.
+      it: 25 cl.
+    price: 4
+    tags: [énergie]
+
+  - slug: sirop-eau
+    order: 12
+    name:
+      fr: Sirop à l'eau
+      en: Cordial with water
+      it: Sciroppo con acqua
+    description:
+      fr: Menthe, grenadine, pêche, citron, etc.
+      en: Mint, grenadine, peach, lemon, etc.
+      it: Menta, grenadine, pesca, limone, ecc.
+    price: 2.5
+    tags: [sirop]
+
+  # À emporter
+  - slug: eau-emporter
+    order: 20
+    name:
+      fr: Eau (à emporter)
+      en: Water (takeaway)
+      it: Acqua (da asporto)
+    price: 2
+    tags: [emporter, eau]
+
+  - slug: eau-petillante-emporter
+    order: 21
+    name:
+      fr: Eau pétillante (à emporter)
+      en: Sparkling water (takeaway)
+      it: Acqua frizzante (da asporto)
+    description:
+      fr: Mossto.
+      en: Mossto.
+      it: Mossto.
+    price: 2.5
+    tags: [emporter, eau, gazeuse]
+
+  - slug: red-bull-emporter
+    order: 22
+    name:
+      fr: Red Bull (à emporter)
+      en: Red Bull (takeaway)
+      it: Red Bull (da asporto)
+    description:
+      fr: Monster 4,50 €.
+      en: Monster €4.50.
+      it: Monster 4,50 €.
+    price: 4
+    tags: [emporter, énergie]
+
+  - slug: canette-soda-emporter
+    order: 23
+    name:
+      fr: Canette (à emporter)
+      en: Can (takeaway)
+      it: Lattina (da asporto)
+    description:
+      fr: Coca, Orangina, Perrier, etc.
+      en: Coke, Orangina, Perrier, etc.
+      it: Coca, Orangina, Perrier, ecc.
+    price: 3
+    tags: [emporter, soda]
+
+  - slug: bouteille-vin-emporter
+    order: 24
+    name:
+      fr: Bouteille de vin 75 cl (à emporter)
+      en: Wine bottle 75 cl (takeaway)
+      it: Bottiglia di vino 75 cl (da asporto)
+    price: null
+    tags: [emporter, vin]
