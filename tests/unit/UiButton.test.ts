@@ -10,17 +10,26 @@ describe('UiButton', () => {
     expect(wrapper.text()).toContain('Click me')
   })
 
-  it('applies primary variant by default', () => {
+  it('applies primary variant by default (walnut deep wood)', () => {
     const wrapper = mount(UiButton, { slots: { default: 'Go' } })
-    expect(wrapper.classes()).toContain('bg-brass-500')
+    expect(wrapper.classes()).toContain('bg-walnut-900')
+    expect(wrapper.classes()).toContain('text-cream-50')
   })
 
-  it('applies outline variant', () => {
+  it('applies outline variant (hairline walnut)', () => {
     const wrapper = mount(UiButton, {
       props: { variant: 'outline' },
       slots: { default: 'Go' },
     })
-    expect(wrapper.classes()).toContain('border-walnut-700/80')
+    expect(wrapper.classes()).toContain('border-walnut-800/80')
+  })
+
+  it('applies gold variant (brass full)', () => {
+    const wrapper = mount(UiButton, {
+      props: { variant: 'gold' },
+      slots: { default: 'Go' },
+    })
+    expect(wrapper.classes()).toContain('bg-brass-500')
   })
 
   it('renders as anchor when href provided', () => {

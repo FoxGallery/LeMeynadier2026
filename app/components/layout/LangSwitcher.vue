@@ -41,12 +41,12 @@ function pick(code: Locale['code']) {
       type="button"
       :aria-label="`Changer de langue · langue actuelle : ${locales.find((l) => l.code === current)?.label}`"
       :class="cn(
-        'inline-flex items-center gap-1.5 rounded-(--radius-pill) transition-colors',
-        'focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2',
+        'inline-flex items-center gap-1.5 transition-colors',
+        'focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4',
         props.onDark
-          ? 'border border-cream-50/30 text-cream-100 hover:text-brass-300'
-          : 'border border-walnut-300 text-walnut-800 hover:text-brass-600',
-        props.compact ? 'p-1 text-xs' : 'px-3 py-1.5 text-sm',
+          ? 'text-cream-100/85 hover:text-brass-300'
+          : 'text-walnut-800 hover:text-brass-700',
+        props.compact ? 'p-1 text-xs' : 'text-xs uppercase tracking-[0.22em]',
         props.class,
       )"
     >

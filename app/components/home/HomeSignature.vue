@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Beer, Pizza, Wine } from 'lucide-vue-next'
-
 interface Pillar {
-  icon: typeof Pizza
+  number: string
+  image: string
   title: string
   description: string
   to: string
@@ -11,26 +10,29 @@ interface Pillar {
 
 const pillars: Pillar[] = [
   {
-    icon: Pizza,
+    number: '01',
+    image: '/images/signature/pizza.jpg',
     title: 'Pizzas signatures',
     description:
-      'Pâte fine cuite au four, sauce tomate maison, ingrédients frais. Neuf recettes signatures, du classique Margarita à la généreuse Raffinée.',
+      "Pâte fine, four à pizza, sauce tomate maison, ingrédients frais. Neuf recettes signatures, du classique Margarita à la généreuse Raffinée à l'huile de truffe.",
     to: '/carte#pizzas',
     cta: 'Voir les pizzas',
   },
   {
-    icon: Beer,
-    title: 'Bières pression',
+    number: '02',
+    image: '/images/signature/beer.jpg',
+    title: 'Bières & vins',
     description:
-      'Trois pressions au comptoir — Falcon, Affligem, Pelforth — et une sélection de bouteilles belges et internationales.',
+      'Trois pressions au comptoir — Pelforth, Affligem, Monaco — sélection de bouteilles belges et internationales, vins du Domaine Source Marine.',
     to: '/carte#bieres',
-    cta: 'Voir les bières',
+    cta: 'Voir la sélection',
   },
   {
-    icon: Wine,
-    title: 'Cocktails & vins',
+    number: '03',
+    image: '/images/signature/cocktail.jpg',
+    title: 'Cocktails maison',
     description:
-      'Cocktails maison signatures, vins du Domaine Source Marine et Côtes du Rhône, smoothies frais — pour tous les moments.',
+      'Spritz, Pina Colada, Dragon, Tabula — recettes maison à siroter au comptoir ou sur la terrasse, du déjeuner au dernier verre.',
     to: '/carte#cocktails',
     cta: 'Voir les cocktails',
   },
@@ -41,44 +43,62 @@ const pillars: Pillar[] = [
   <section
     id="signature"
     aria-labelledby="signature-title"
-    class="relative bg-walnut-50 py-28 text-walnut-800"
+    class="relative bg-walnut-50 py-32"
   >
     <div class="mx-auto max-w-6xl px-6">
-      <header class="text-center">
-        <p class="font-script text-2xl text-brass-700">Notre</p>
-        <h2 id="signature-title" class="mt-1 font-display text-4xl text-walnut-900 sm:text-5xl">
-          Signature
-        </h2>
-        <GoldDivider class="mt-6 text-brass-600" />
-      </header>
+      <SectionLabel
+        number="01 · 02 · 03"
+        kicker="Notre"
+        title="Signature"
+        tagline="Trois piliers, une promesse : produits frais, recettes maison, ambiance chaleureuse — comme on les aime depuis toujours."
+      />
 
-      <div class="mt-16 grid gap-8 md:grid-cols-3">
+      <div class="mt-20 grid gap-10 md:grid-cols-3">
         <article
           v-for="pillar in pillars"
           :key="pillar.title"
-          class="group relative flex flex-col rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)"
+          class="group flex flex-col"
         >
-          <span
-            class="inline-flex size-14 items-center justify-center rounded-full border border-brass-400/40 bg-walnut-50 text-brass-600 transition-colors group-hover:border-brass-500 group-hover:bg-brass-500 group-hover:text-walnut-950"
-            aria-hidden="true"
-          >
-            <component :is="pillar.icon" class="size-6" />
-          </span>
-
-          <h3 class="mt-6 font-display text-2xl text-walnut-900">
-            {{ pillar.title }}
-          </h3>
-          <p class="mt-3 flex-1 text-walnut-700">
-            {{ pillar.description }}
-          </p>
-
+          <!-- Image avec masque doré au hover -->
           <NuxtLink
             :to="pillar.to"
-            class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500"
+            class="relative block aspect-[4/5] overflow-hidden rounded-(--radius-card) ring-1 ring-walnut-200 shadow-(--shadow-paper) focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-4"
           >
-            {{ pillar.cta }}
-            <span aria-hidden="true">→</span>
+            <img
+              :src="pillar.image"
+              :alt="pillar.title"
+              loading="lazy"
+              decoding="async"
+              class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+            >
+            <div
+              aria-hidden="true"
+              class="absolute inset-0 bg-gradient-to-t from-walnut-950/60 via-walnut-950/0 to-transparent transition-opacity duration-500 group-hover:opacity-80"
+            />
+            <span
+              aria-hidden="true"
+              class="absolute left-5 top-5 inline-flex size-12 items-center justify-center rounded-full border border-cream-50/60 bg-walnut-950/40 font-display text-sm font-medium tabular-nums text-cream-50 backdrop-blur-sm"
+            >
+              {{ pillar.number }}
+            </span>
           </NuxtLink>
+
+          <div class="mt-6">
+            <h3 class="font-display text-2xl text-walnut-900 sm:text-3xl">
+              {{ pillar.title }}
+            </h3>
+            <p class="mt-3 text-walnut-700">
+              {{ pillar.description }}
+            </p>
+
+            <NuxtLink
+              :to="pillar.to"
+              class="mt-5 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-brass-700 transition-colors hover:text-brass-800 focus-visible:outline-2 focus-visible:outline-brass-500 focus-visible:outline-offset-2"
+            >
+              <span class="h-px w-6 bg-current transition-[width] group-hover:w-10" />
+              {{ pillar.cta }}
+            </NuxtLink>
+          </div>
         </article>
       </div>
     </div>

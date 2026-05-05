@@ -24,79 +24,21 @@ useHead({
 interface Photo {
   src: string
   alt: string
-  /** Span sur la grille masonry : 1, 2 ou 3 (en hauteur). */
-  span?: 1 | 2 | 3
-  /** Couleur de placeholder en attendant la photo réelle. */
-  placeholderFrom?: string
-  placeholderTo?: string
+  span?: 1 | 2
 }
 
-// Placeholders en attendant les photos optimisées (à substituer dans
-// public/images/galerie/ avec @nuxt/image AVIF/WebP responsive).
 const photos: Photo[] = [
+  { src: '/images/gallery/g1.jpg', alt: 'Salle du Meynadier, ambiance lumineuse', span: 2 },
   {
-    src: '',
+    src: '/images/gallery/g2.jpg',
     alt: 'Comptoir bois noyer du Meynadier, accents laiton et guirlandes lumineuses',
-    span: 2,
-    placeholderFrom: 'from-walnut-300',
-    placeholderTo: 'to-walnut-600',
   },
-  {
-    src: '',
-    alt: 'Terrasse du Meynadier sur la rue Meynadier à Cannes',
-    span: 1,
-    placeholderFrom: 'from-walnut-200',
-    placeholderTo: 'to-walnut-400',
-  },
-  {
-    src: '',
-    alt: 'Pizza signature Margarita à pâte fine',
-    span: 1,
-    placeholderFrom: 'from-brass-300',
-    placeholderTo: 'to-walnut-500',
-  },
-  {
-    src: '',
-    alt: 'Cocktail Spritz et plat de paninis grillés',
-    span: 2,
-    placeholderFrom: 'from-walnut-400',
-    placeholderTo: 'to-walnut-700',
-  },
-  {
-    src: '',
-    alt: 'Bières pression Falcon Blonde, Affligem et Pelforth',
-    span: 1,
-    placeholderFrom: 'from-walnut-300',
-    placeholderTo: 'to-walnut-500',
-  },
-  {
-    src: '',
-    alt: 'Détail des plantes vertes sur le comptoir bois noyer',
-    span: 1,
-    placeholderFrom: 'from-leaf',
-    placeholderTo: 'to-walnut-700',
-  },
-  {
-    src: '',
-    alt: 'Carte signature Augusta sur table en bois',
-    span: 2,
-    placeholderFrom: 'from-walnut-700',
-    placeholderTo: 'to-walnut-900',
-  },
-  {
-    src: '',
-    alt: 'Verre de vin rosé du Domaine Source Marine',
-    span: 1,
-    placeholderFrom: 'from-burgundy',
-    placeholderTo: 'to-walnut-600',
-  },
-  {
-    src: '',
-    alt: 'Étagère bouteilles : Triple Karmeliet, Heineken, Coronita',
-    span: 1,
-    placeholderFrom: 'from-walnut-500',
-    placeholderTo: 'to-walnut-800',
-  },
+  { src: '/images/gallery/g3.jpg', alt: 'Plantes vertes sur le comptoir bois noyer' },
+  { src: '/images/gallery/g4.jpg', alt: 'Pizza signature à pâte fine' },
+  { src: '/images/gallery/g5.jpg', alt: 'Bar luxe et tabourets bois', span: 2 },
+  { src: '/images/gallery/g6.jpg', alt: 'Cocktail signature' },
+  { src: '/images/gallery/g7.jpg', alt: 'Pub feutré, lumière chaude' },
+  { src: '/images/gallery/g8.jpg', alt: "Détail d'ambiance — jeu de lumière" },
 ]
 
 const open = ref(false)
@@ -142,25 +84,22 @@ const active = computed(() => photos[activeIndex.value])
 <template>
   <article class="bg-walnut-50 text-walnut-800">
     <!-- Hero éditorial -->
-    <section class="bg-cream-100 pb-16 pt-32">
-      <div class="mx-auto max-w-3xl px-6 text-center">
-        <p class="font-script text-3xl text-brass-700">En</p>
-        <h1 class="mt-2 font-display text-5xl text-walnut-900 sm:text-6xl">
-          Images
-        </h1>
-        <GoldDivider class="mt-6 text-brass-600" />
-        <p class="mx-auto mt-6 max-w-xl text-walnut-700">
-          Bois noyer, lumière chaude, plantes vertes — l'ambiance du Meynadier en quelques
-          plans. Cliquez sur une image pour l'ouvrir.
-        </p>
+    <section class="bg-walnut-100 pb-16 pt-32">
+      <div class="mx-auto max-w-3xl px-6">
+        <SectionLabel
+          :level="1"
+          kicker="En"
+          title="Images"
+          tagline="Bois noyer, lumière chaude, plantes vertes — l'ambiance du Meynadier en quelques plans. Cliquez sur une image pour l'ouvrir."
+        />
       </div>
     </section>
 
     <!-- Grille masonry -->
-    <section class="pb-24">
+    <section class="py-20">
       <div class="mx-auto max-w-6xl px-6">
         <ul
-          class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4"
+          class="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
           aria-label="Galerie photos"
         >
           <li
@@ -179,27 +118,12 @@ const active = computed(() => photos[activeIndex.value])
               @click="openAt(idx)"
             >
               <img
-                v-if="photo.src"
                 :src="photo.src"
                 :alt="photo.alt"
                 loading="lazy"
                 decoding="async"
-                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
               >
-              <div
-                v-else
-                :class="[
-                  'flex size-full items-center justify-center bg-gradient-to-br',
-                  photo.placeholderFrom,
-                  photo.placeholderTo,
-                ]"
-                role="presentation"
-                aria-hidden="true"
-              >
-                <span class="text-xs uppercase tracking-widest text-cream-50/85">
-                  Photo {{ idx + 1 }}
-                </span>
-              </div>
               <div
                 aria-hidden="true"
                 class="absolute inset-0 bg-walnut-950/0 transition-colors duration-300 group-hover:bg-walnut-950/15"
@@ -207,11 +131,6 @@ const active = computed(() => photos[activeIndex.value])
             </button>
           </li>
         </ul>
-
-        <p class="mt-8 text-center text-xs text-walnut-600">
-          Photos placeholder — vraies images optimisées (AVIF / WebP) à intégrer
-          dans <code>public/images/galerie/</code>.
-        </p>
       </div>
     </section>
 
@@ -219,7 +138,7 @@ const active = computed(() => photos[activeIndex.value])
     <DialogRoot :open="open" :modal="true" @update:open="open = $event">
       <DialogPortal>
         <DialogOverlay
-          class="fixed inset-0 z-50 bg-walnut-950/85 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
+          class="fixed inset-0 z-50 bg-walnut-950/90 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
         />
         <DialogContent
           class="fixed inset-0 z-50 flex items-center justify-center p-4 focus:outline-none"
@@ -231,33 +150,17 @@ const active = computed(() => photos[activeIndex.value])
             {{ active?.alt }}
           </DialogDescription>
 
-          <!-- Image / placeholder -->
           <div
             class="relative max-h-[90vh] max-w-[92vw] overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:zoom-in-95"
           >
             <img
-              v-if="active?.src"
+              v-if="active"
               :src="active.src"
               :alt="active.alt"
               class="block max-h-[90vh] max-w-[92vw] object-contain"
             >
-            <div
-              v-else
-              :class="[
-                'flex aspect-[4/3] w-[min(92vw,60rem)] items-center justify-center bg-gradient-to-br',
-                active?.placeholderFrom,
-                active?.placeholderTo,
-              ]"
-              role="presentation"
-              aria-hidden="true"
-            >
-              <span class="px-6 text-center text-sm uppercase tracking-widest text-cream-50/90">
-                {{ active?.alt }}
-              </span>
-            </div>
           </div>
 
-          <!-- Boutons navigation -->
           <button
             type="button"
             aria-label="Photo précédente"
@@ -275,7 +178,6 @@ const active = computed(() => photos[activeIndex.value])
             <ChevronRight class="size-6" aria-hidden="true" />
           </button>
 
-          <!-- Compteur + bouton fermer -->
           <div class="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-walnut-900/60 px-4 py-1.5 text-xs uppercase tracking-widest text-cream-50 backdrop-blur-sm">
             {{ activeIndex + 1 }} · {{ photos.length }}
           </div>

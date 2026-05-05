@@ -1,126 +1,127 @@
 <script setup lang="ts">
 import { Clock, Facebook, Instagram, MapPin, Phone } from 'lucide-vue-next'
 
+const venue = useVenue()
 const links = useNavLinks()
 const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="relative overflow-hidden bg-walnut-800 text-cream-100/90">
-    <WoodGrain :opacity="0.16" :color="'#0d0905'" />
+  <footer class="relative overflow-hidden bg-walnut-900 text-cream-100/85">
+    <!-- Filet doré décoratif en haut -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brass-500/50 to-transparent"
+    />
+    <WoodGrain :opacity="0.08" :color="'#0d0905'" />
 
-    <div class="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Brand -->
-      <div class="space-y-3">
-        <p class="font-script text-2xl text-brass-300">Le</p>
-        <p class="-mt-1 font-display text-3xl text-cream-50">Meynadier</p>
-        <GoldDivider size="sm" ornament="dot" class="!ml-0 text-brass-400" />
-        <p class="text-sm leading-relaxed text-cream-100/75">
-          Brasserie · Pizzeria · Pub.<br>Au cœur de Cannes.
-        </p>
+    <div class="relative mx-auto max-w-6xl px-6 py-12">
+      <!-- Top : brand inline + nav inline -->
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <!-- Brand inline -->
+        <div class="flex items-center gap-4">
+          <Monogram :size="36" class="text-brass-400" />
+          <div class="flex items-baseline gap-1.5 leading-none">
+            <span class="font-script text-xl text-brass-300">Le</span>
+            <span class="font-display text-xl tracking-tight text-cream-50">Meynadier</span>
+          </div>
+          <span class="hidden h-4 w-px bg-cream-100/20 sm:block" aria-hidden="true" />
+          <span class="hidden text-[11px] uppercase tracking-[0.22em] text-cream-100/60 sm:inline">
+            Brasserie · Pizzeria · Pub
+          </span>
+        </div>
+
+        <!-- Nav -->
+        <nav aria-label="Navigation pied de page" class="flex flex-wrap items-center gap-x-7 gap-y-2">
+          <NuxtLink
+            v-for="link in links"
+            :key="link.to"
+            :to="link.to"
+            class="text-[11px] uppercase tracking-[0.22em] text-cream-100/85 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400 focus-visible:outline-offset-4"
+          >
+            {{ link.label }}
+          </NuxtLink>
+        </nav>
       </div>
 
-      <!-- Coordonnées -->
-      <div class="space-y-4">
-        <h2 class="font-display text-lg uppercase tracking-widest text-brass-300">
-          Nous trouver
-        </h2>
-        <ul class="space-y-3 text-sm">
-          <li class="flex gap-2">
+      <!-- Filet -->
+      <div class="my-8 h-px bg-cream-100/10" aria-hidden="true" />
+
+      <!-- Bottom : 3 infos courtes inline + réseaux -->
+      <div class="flex flex-col gap-6 text-sm lg:flex-row lg:items-start lg:justify-between">
+        <ul class="flex flex-col gap-x-10 gap-y-3 sm:flex-row sm:flex-wrap">
+          <li class="flex items-start gap-2">
             <MapPin class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
-            <span>
-              Rue Meynadier<br>06400 Cannes, France
+            <span class="leading-relaxed">
+              {{ venue.address.street }}, {{ venue.address.postalCode }} {{ venue.address.locality }}
             </span>
-          </li>
-          <li class="flex items-center gap-2">
-            <Phone class="size-4 shrink-0 text-brass-400" aria-hidden="true" />
-            <a
-              href="tel:+33000000000"
-              class="text-cream-50 transition-colors hover:text-brass-300"
-            >
-              À venir
-            </a>
           </li>
           <li class="flex items-start gap-2">
             <Clock class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
-            <span>
-              Tous les jours<br>de 8h à 23h
-              <span class="block text-xs text-cream-100/75">(horaires à confirmer)</span>
+            <span class="leading-relaxed">
+              7 j/7 · 8h – 23h
+              <span class="text-cream-100/55">(à confirmer)</span>
             </span>
           </li>
-        </ul>
-      </div>
-
-      <!-- Navigation -->
-      <nav aria-label="Navigation pied de page" class="space-y-4">
-        <h2 class="font-display text-lg uppercase tracking-widest text-brass-300">
-          Découvrir
-        </h2>
-        <ul class="space-y-2 text-sm">
-          <li v-for="link in links" :key="link.to">
-            <NuxtLink
-              :to="link.to"
-              class="text-cream-100/85 transition-colors hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
+          <li class="flex items-start gap-2">
+            <Phone class="mt-0.5 size-4 shrink-0 text-brass-400" aria-hidden="true" />
+            <a
+              v-if="venue.telephoneHref"
+              :href="venue.telephoneHref"
+              class="leading-relaxed text-cream-50 hover:text-brass-300"
             >
-              {{ link.label }}
-            </NuxtLink>
+              {{ venue.telephone }}
+            </a>
+            <span v-else class="leading-relaxed">{{ venue.telephone }}</span>
           </li>
         </ul>
-      </nav>
 
-      <!-- Réseaux + légal -->
-      <div class="space-y-4">
-        <h2 class="font-display text-lg uppercase tracking-widest text-brass-300">
-          Suivez-nous
-        </h2>
-        <div class="flex items-center gap-3">
+        <div class="flex shrink-0 items-center gap-2">
           <a
             href="#"
             aria-label="Instagram (à venir)"
-            class="inline-flex size-10 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
+            class="inline-flex size-9 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:bg-brass-500 hover:text-walnut-950 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
-            <Instagram class="size-4" aria-hidden="true" />
+            <Instagram class="size-3.5" aria-hidden="true" />
           </a>
           <a
             href="#"
             aria-label="Facebook (à venir)"
-            class="inline-flex size-10 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:text-brass-300 focus-visible:outline-2 focus-visible:outline-brass-400"
+            class="inline-flex size-9 items-center justify-center rounded-full border border-cream-100/20 text-cream-100/80 transition-colors hover:border-brass-400 hover:bg-brass-500 hover:text-walnut-950 focus-visible:outline-2 focus-visible:outline-brass-400"
             rel="me"
           >
-            <Facebook class="size-4" aria-hidden="true" />
+            <Facebook class="size-3.5" aria-hidden="true" />
           </a>
-        </div>
-
-        <div class="pt-4">
-          <ul class="space-y-1 text-xs text-cream-100/75">
-            <li>
-              <NuxtLink
-                to="/mentions-legales"
-                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
-              >
-                Mentions légales
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                to="/confidentialite"
-                class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
-              >
-                Confidentialité
-              </NuxtLink>
-            </li>
-          </ul>
         </div>
       </div>
     </div>
 
+    <!-- Bandeau bas compact : copyright + légal -->
     <div class="relative border-t border-cream-100/10">
       <div
-        class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 py-6 text-center text-xs text-cream-100/75 sm:flex-row sm:justify-between"
+        class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 py-4 text-center text-[11px] tracking-wide text-cream-100/65 sm:flex-row sm:justify-between"
       >
-        <p>© {{ year }} Le Meynadier — Cannes. Tous droits réservés.</p>
-        <p>Site sans cookie publicitaire.</p>
+        <p>© {{ year }} Le Meynadier · Cannes · Tous droits réservés.</p>
+        <ul class="flex items-center gap-x-5">
+          <li>
+            <NuxtLink
+              to="/mentions-legales"
+              class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
+            >
+              Mentions légales
+            </NuxtLink>
+          </li>
+          <li aria-hidden="true">·</li>
+          <li>
+            <NuxtLink
+              to="/confidentialite"
+              class="inline-block py-1.5 hover:text-brass-300 hover:underline focus-visible:outline-2 focus-visible:outline-brass-400"
+            >
+              Confidentialité
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </div>
   </footer>
