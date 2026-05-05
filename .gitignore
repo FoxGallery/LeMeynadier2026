@@ -24,3 +24,11 @@ dist/
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Coverage
+coverage/
