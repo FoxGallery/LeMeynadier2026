@@ -203,7 +203,10 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
         />
 
         <!-- Grille de cards luxe avec photo -->
-        <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          v-reveal:children="{ y: 24, stagger: 0.06, duration: 0.7 }"
+          class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           <article
             v-for="item in activeCategory.items.filter((i) => i.available !== false)"
             :key="item.slug"

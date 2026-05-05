@@ -53,7 +53,7 @@ const pillars: Pillar[] = [
         tagline="Trois piliers, une promesse : produits frais, recettes maison, ambiance chaleureuse — comme on les aime depuis toujours."
       />
 
-      <div class="mt-20 grid gap-10 md:grid-cols-3">
+      <div v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }" class="mt-20 grid gap-10 md:grid-cols-3">
         <article
           v-for="pillar in pillars"
           :key="pillar.title"

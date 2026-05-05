@@ -198,7 +198,10 @@ const quote = computed(() => {
           kicker="En quelques"
           title="Chiffres"
         />
-        <dl class="mt-12 grid gap-8 text-center sm:grid-cols-3">
+        <dl
+          v-reveal:children="{ y: 24, stagger: 0.1, duration: 0.8 }"
+          class="mt-12 grid gap-8 text-center sm:grid-cols-3"
+        >
           <div class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper)">
             <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">Sur la carte</dt>
             <dd class="mt-3 font-display text-5xl text-walnut-900">9</dd>

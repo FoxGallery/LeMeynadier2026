@@ -62,7 +62,7 @@ function formatPrice(p: number | null) {
         tagline="Une sélection de favoris — la carte complète vous attend en page suivante."
       />
 
-      <div class="mt-20 grid gap-8 md:grid-cols-3">
+      <div v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }" class="mt-20 grid gap-8 md:grid-cols-3">
         <article
           v-for="item in featured"
           :key="item.name"

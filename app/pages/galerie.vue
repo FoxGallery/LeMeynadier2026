@@ -204,6 +204,7 @@ if (import.meta.client) {
         />
 
         <ul
+          v-reveal:children="{ y: 24, stagger: 0.05, duration: 0.7 }"
           class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
           aria-label="Galerie photos"
         >

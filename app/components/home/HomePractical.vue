@@ -21,7 +21,7 @@ const directionsHref = `geo:${venue.geo.lat},${venue.geo.lng}?q=${encodeURICompo
         tagline="Sept jours sur sept — du café du matin au cocktail du soir."
       />
 
-      <div class="mt-20 grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div v-reveal:children="{ y: 32, stagger: 0.15, duration: 1 }" class="mt-20 grid gap-12 lg:grid-cols-2 lg:gap-20">
         <!-- Aperçu carte (cliquable vers Contact) -->
         <NuxtLink
           to="/contact"

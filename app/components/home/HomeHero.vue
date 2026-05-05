@@ -1,5 +1,32 @@
 <script setup lang="ts">
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ChevronDown } from 'lucide-vue-next'
+
+const heroImage = ref<HTMLImageElement | null>(null)
+
+if (import.meta.client) {
+  let ctx: gsap.Context | null = null
+  onMounted(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!heroImage.value) return
+    gsap.registerPlugin(ScrollTrigger)
+    ctx = gsap.context(() => {
+      // Parallax léger : l'image se déplace plus lentement que le scroll.
+      gsap.to(heroImage.value, {
+        yPercent: 12,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroImage.value,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+    })
+  })
+  onBeforeUnmount(() => ctx?.revert())
+}
 </script>
 
 <template>
@@ -7,12 +34,13 @@ import { ChevronDown } from 'lucide-vue-next'
     aria-labelledby="hero-title"
     class="relative isolate flex min-h-[100dvh] flex-col overflow-hidden bg-walnut-900 text-cream-50"
   >
-    <!-- Photo plein écran -->
+    <!-- Photo plein écran (parallax via GSAP scrub) -->
     <img
+      ref="heroImage"
       src="/images/hero/hero-1.jpg"
       alt=""
       aria-hidden="true"
-      class="absolute inset-0 -z-30 size-full object-cover object-center opacity-70 motion-safe:scale-105 motion-safe:[animation:meyn-zoom-slow_28s_ease-in-out_infinite_alternate]"
+      class="absolute inset-0 -z-30 size-full object-cover object-center opacity-70 motion-safe:scale-110"
     >
     <!-- Voile sombre + halo doré + vignette -->
     <div

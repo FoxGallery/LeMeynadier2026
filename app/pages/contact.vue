@@ -114,7 +114,10 @@ function formatDayRange(days: string[]) {
           tagline="Sept jours sur sept, sans interruption — du café du matin au cocktail du soir."
         />
 
-        <div class="mt-16 grid gap-6 md:grid-cols-3">
+        <div
+          v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }"
+          class="mt-16 grid gap-6 md:grid-cols-3"
+        >
           <!-- Adresse -->
           <article class="group relative flex flex-col rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)">
             <span
@@ -265,7 +268,10 @@ function formatDayRange(days: string[]) {
           kicker="À deux pas du"
           title="vieux Cannes"
         />
-        <ul class="mt-12 grid gap-6 sm:grid-cols-3">
+        <ul
+          v-reveal:children="{ y: 24, stagger: 0.1, duration: 0.8 }"
+          class="mt-12 grid gap-6 sm:grid-cols-3"
+        >
           <li class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-6 text-center shadow-(--shadow-paper)">
             <p class="text-[10px] uppercase tracking-[0.3em] text-brass-700">Marché</p>
             <p class="mt-2 font-display text-2xl text-walnut-900">Forville</p>
