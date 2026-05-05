@@ -133,9 +133,47 @@
     }
   },
   "history": {
+    "hero": {
+      "kicker": "La nostra",
+      "title": "Storia",
+      "tagline": "Il pub della vecchia Cannes."
+    },
+    "section1": {
+      "kicker": "Lo spirito del",
+      "title": "Luogo",
+      "tagline": "Sulla via pedonale più animata di Cannes, Le Meynadier accoglie cannois e visitatori senza interruzione — dal caffè mattutino al cocktail della sera."
+    },
+    "section2": {
+      "kicker": "Una cucina",
+      "title": "Generosa",
+      "tagline": "Pizze signature dalla pasta sottile, panini alla griglia, insalate di stagione — pensate per essere buone, abbondanti, senza fronzoli.",
+      "p1": "Al banco: tre alla spina — Pelforth Blonde, Affligem Blonde, Monaco — completate da una selezione internazionale in bottiglia tra cui la Triple Karmeliet, un classico belga generoso.",
+      "p2": "Vini del Domaine Source Marine e Côtes du Rhône al bicchiere, in mezza bottiglia o in bottiglia. Cocktail della casa, smoothie freschi, frappé e milkshake per i pomeriggi soleggiati di Cannes."
+    },
+    "quote": {
+      "text": "Trasformare una via commerciale in un luogo di ritrovo — dal caffè mattutino all'ultimo cocktail.",
+      "author": "Le Meynadier"
+    },
+    "section3": {
+      "kicker": "Sette giorni",
+      "title": "Su sette",
+      "tagline": "Tutto l'anno, senza interruzione — dal caffè mattutino all'ultimo bicchiere.",
+      "p1": "A due passi dal mercato Forville e dalla Croisette, Le Meynadier è l'indirizzo per un pranzo veloce, un aperitivo tra amici, una cena complice.",
+      "p2": "Legno di noce massiccio, accenti d'ottone, ghirlande luminose, terrazza animata — un decoro caloroso che ricorda l'entroterra mediterraneo."
+    },
+    "stats": {
+      "kicker": "In qualche",
+      "title": "Cifra",
+      "menu": "Sul menu",
+      "menuValue": "pizze signature",
+      "bar": "Al banco",
+      "barValue": "birre alla spina",
+      "open": "Apertura",
+      "openValue": "8:00 — 00:30"
+    },
     "cta": {
       "title": "Un tavolo da noi?",
-      "subtitle": "Su rue Meynadier, a due passi dal mercato Forville. Tutti i giorni, dalle 8 alle 23.",
+      "subtitle": "Su rue Meynadier, a due passi dal mercato Forville. Tutti i giorni, dalle 8:00 alle 00:30.",
       "menu": "Scopri il menu",
       "find": "Contatti"
     }

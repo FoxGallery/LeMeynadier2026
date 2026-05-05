@@ -133,9 +133,47 @@
     }
   },
   "history": {
+    "hero": {
+      "kicker": "Our",
+      "title": "Story",
+      "tagline": "The pub of old Cannes."
+    },
+    "section1": {
+      "kicker": "The spirit of the",
+      "title": "Place",
+      "tagline": "On the busiest pedestrian street of Cannes, Le Meynadier welcomes locals and visitors non-stop — from morning coffee to evening cocktail."
+    },
+    "section2": {
+      "kicker": "A generous",
+      "title": "Cuisine",
+      "tagline": "Thin-crust signature pizzas, grilled paninis, seasonal salads — designed to be good, generous, without fuss.",
+      "p1": "At the bar: three drafts — Pelforth Blonde, Affligem Blonde, Monaco — completed by an international bottle selection including Triple Karmeliet, a generous Belgian classic.",
+      "p2": "Wines from Domaine Source Marine and Côtes du Rhône by the glass, half-bottle or bottle. House cocktails, fresh smoothies, frappés and milkshakes for sunny Cannes afternoons."
+    },
+    "quote": {
+      "text": "Turn a shopping street into a meeting point — from morning coffee to the last cocktail.",
+      "author": "Le Meynadier"
+    },
+    "section3": {
+      "kicker": "Seven days",
+      "title": "A week",
+      "tagline": "Year-round, non-stop — from morning coffee to the last glass.",
+      "p1": "Two steps from Forville Market and the Croisette, Le Meynadier is the spot for a quick lunch, drinks with friends, an intimate dinner.",
+      "p2": "Solid walnut wood, brass accents, fairy lights, lively terrace — a warm decor reminiscent of Mediterranean hinterlands."
+    },
+    "stats": {
+      "kicker": "In a few",
+      "title": "Numbers",
+      "menu": "On the menu",
+      "menuValue": "signature pizzas",
+      "bar": "At the bar",
+      "barValue": "drafts",
+      "open": "Opening",
+      "openValue": "8 am — 12:30 am"
+    },
     "cta": {
       "title": "A table here?",
-      "subtitle": "On rue Meynadier, two steps from Forville Market. Every day, 8 am – 11 pm.",
+      "subtitle": "On rue Meynadier, two steps from Forville Market. Every day, 8 am – 12:30 am.",
       "menu": "Discover the menu",
       "find": "Find us"
     }

@@ -133,9 +133,47 @@
     }
   },
   "history": {
+    "hero": {
+      "kicker": "Notre",
+      "title": "Histoire",
+      "tagline": "Le pub du vieux Cannes."
+    },
+    "section1": {
+      "kicker": "L'esprit du",
+      "title": "Lieu",
+      "tagline": "Sur la rue piétonne la plus vivante de Cannes, le Meynadier accueille les Cannois et les visiteurs sans interruption — du café du matin au cocktail du soir."
+    },
+    "section2": {
+      "kicker": "Une cuisine",
+      "title": "Généreuse",
+      "tagline": "Pizzas signatures à la pâte fine, paninis grillés, salades de saison — pensé pour que ce soit bon, copieux, sans chichi.",
+      "p1": "Côté bar : trois bières pression — Pelforth Blonde, Affligem Blonde, Monaco — complétées d'une sélection internationale en bouteilles dont la Triple Karmeliet, référence belge généreuse.",
+      "p2": "Vins du Domaine Source Marine et Côtes du Rhône au verre, à la demi-bouteille ou à la bouteille. Cocktails maison, smoothies frais, frappés et milkshakes pour les après-midi cannois."
+    },
+    "quote": {
+      "text": "Faire d'une rue commerçante un point de ralliement — du café à l'ouverture au cocktail du soir.",
+      "author": "Le Meynadier"
+    },
+    "section3": {
+      "kicker": "Sept jours",
+      "title": "Sur sept",
+      "tagline": "Toute l'année, sans interruption — du café du matin au dernier verre.",
+      "p1": "À deux pas du marché Forville et de la Croisette, Le Meynadier est l'adresse pour un déjeuner sur le pouce, un apéro entre amis, un dîner complice.",
+      "p2": "Bois noyer massif, accents laiton, guirlandes lumineuses, terrasse animée — un décor chaleureux qui rappelle les arrière-pays méditerranéens."
+    },
+    "stats": {
+      "kicker": "En quelques",
+      "title": "Chiffres",
+      "menu": "Sur la carte",
+      "menuValue": "pizzas signatures",
+      "bar": "Au comptoir",
+      "barValue": "bières pression",
+      "open": "Ouverture",
+      "openValue": "8h — 00h30"
+    },
     "cta": {
       "title": "Une table chez nous ?",
-      "subtitle": "Sur la rue Meynadier, à deux pas du marché Forville. Tous les jours, de 8h à 23h.",
+      "subtitle": "Sur la rue Meynadier, à deux pas du marché Forville. Tous les jours, de 8h à 00h30.",
       "menu": "Découvrir la carte",
       "find": "Nous trouver"
     }

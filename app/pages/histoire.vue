@@ -7,40 +7,23 @@ defineI18nRoute({
   },
 })
 
-const { data: page } = await useAsyncData('page-histoire', () =>
-  queryCollection('pages').path('/pages/histoire').first(),
-)
+const { t } = useI18n()
+const localePath = useLocalePath()
 
 useHead({
-  title: page.value?.title ?? 'Notre histoire',
+  title: t('history.hero.title'),
   meta: [
     {
       name: 'description',
-      content:
-        page.value?.description ??
-        'Le Meynadier — brasserie au cœur du vieux Cannes, sur la rue Meynadier.',
+      content: t('history.hero.tagline'),
     },
   ],
-})
-
-const hero = computed(() => {
-  const h = page.value?.hero as { kicker?: string; title?: string; tagline?: string } | undefined
-  return {
-    kicker: h?.kicker ?? 'Notre',
-    title: h?.title ?? 'Histoire',
-    tagline: h?.tagline ?? 'Le pub du vieux Cannes.',
-  }
-})
-
-const quote = computed(() => {
-  const q = page.value?.quote as { text?: string; author?: string } | undefined
-  return q?.text ? q : null
 })
 </script>
 
 <template>
   <article class="bg-walnut-50 text-walnut-800">
-    <!-- Hero immersif — cohérent avec / et /carte -->
+    <!-- Hero immersif -->
     <section class="relative isolate flex min-h-[80dvh] flex-col items-center justify-center overflow-hidden bg-walnut-900 text-cream-50">
       <img
         src="/images/ambiance/ambiance-1.jpg"
@@ -60,17 +43,14 @@ const quote = computed(() => {
       <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
         <Monogram :size="56" class="text-brass-400" />
         <p class="mt-5 font-script text-2xl text-brass-300 sm:text-3xl">
-          {{ hero.kicker }}
+          {{ t('history.hero.kicker') }}
         </p>
         <h1 class="mt-1 font-display text-5xl leading-[0.95] tracking-tight text-cream-50 sm:text-7xl md:text-8xl">
-          {{ hero.title }}
+          {{ t('history.hero.title') }}
         </h1>
         <GoldDivider size="md" ornament="diamond" class="mt-8 text-brass-400" />
-        <p
-          v-if="hero.tagline"
-          class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg"
-        >
-          {{ hero.tagline }}
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-cream-100/85 sm:text-lg">
+          {{ t('history.hero.tagline') }}
         </p>
       </div>
     </section>
@@ -78,31 +58,29 @@ const quote = computed(() => {
     <!-- Section éditoriale 01 : photo overlap + intro -->
     <section class="relative bg-walnut-50 pb-24 pt-20">
       <div class="mx-auto max-w-5xl px-6">
-        <!-- Photo grand format en overlap léger sur le hero -->
         <figure class="-mt-32 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-walnut-200/70">
           <img
             src="/images/ambiance/ambiance-2.jpg"
-            alt="Comptoir bois noyer du Meynadier, accents laiton et plantes vertes"
+            :alt="t('history.section1.title')"
             loading="lazy"
             decoding="async"
             class="aspect-[16/9] w-full object-cover"
           >
         </figure>
 
-        <!-- Intro éditoriale -->
         <div class="mx-auto mt-16 max-w-2xl">
           <SectionLabel
             number="01"
-            kicker="L'esprit du"
-            title="Lieu"
+            :kicker="t('history.section1.kicker')"
+            :title="t('history.section1.title')"
             align="left"
-            tagline="Sur la rue piétonne la plus vivante de Cannes, le Meynadier accueille les Cannois et les visiteurs sans interruption — du café du matin au cocktail du soir."
+            :tagline="t('history.section1.tagline')"
           />
         </div>
       </div>
     </section>
 
-    <!-- Section éditoriale 02 : magazine 2 colonnes (texte + photo) -->
+    <!-- Section éditoriale 02 : magazine 2 colonnes -->
     <section class="relative overflow-hidden bg-walnut-100 py-24">
       <WoodGrain :opacity="0.08" :color="'#3f2d1a'" />
       <div class="relative mx-auto max-w-6xl px-6">
@@ -110,30 +88,20 @@ const quote = computed(() => {
           <div class="lg:col-span-7">
             <SectionLabel
               number="02"
-              kicker="Une cuisine"
-              title="Généreuse"
+              :kicker="t('history.section2.kicker')"
+              :title="t('history.section2.title')"
               align="left"
-              tagline="Pizzas signatures à la pâte fine, paninis grillés, salades de saison — pensé pour que ce soit bon, copieux, sans chichi."
+              :tagline="t('history.section2.tagline')"
             />
             <div class="mt-8 max-w-xl space-y-5 text-base leading-relaxed text-walnut-700">
-              <p>
-                Côté bar : trois bières pression — <strong class="text-walnut-900">Pelforth Blonde</strong>,
-                <strong class="text-walnut-900">Affligem Blonde</strong>, <strong class="text-walnut-900">Monaco</strong> —
-                complétées d'une sélection internationale en bouteilles dont la
-                <strong class="text-walnut-900">Triple Karmeliet</strong>, référence belge généreuse.
-              </p>
-              <p>
-                Vins du <strong class="text-walnut-900">Domaine Source Marine</strong> et
-                <strong class="text-walnut-900">Côtes du Rhône</strong> au verre, à la demi-bouteille
-                ou à la bouteille. Cocktails maison, smoothies frais, frappés et milkshakes
-                pour les après-midi cannois.
-              </p>
+              <p>{{ t('history.section2.p1') }}</p>
+              <p>{{ t('history.section2.p2') }}</p>
             </div>
           </div>
           <figure class="overflow-hidden rounded-(--radius-card) shadow-(--shadow-paper) ring-1 ring-walnut-200/70 lg:col-span-5">
             <img
               src="/images/ambiance/ambiance-3.jpg"
-              alt="Plantes vertes et détails du comptoir"
+              :alt="t('history.section2.title')"
               loading="lazy"
               decoding="async"
               class="aspect-[4/5] w-full object-cover"
@@ -144,7 +112,7 @@ const quote = computed(() => {
     </section>
 
     <!-- Pull-quote éditorial -->
-    <section v-if="quote" class="relative overflow-hidden bg-walnut-700 py-24 text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-700 py-24 text-cream-50">
       <WoodGrain :opacity="0.18" :color="'#0d0905'" />
       <div
         aria-hidden="true"
@@ -153,10 +121,10 @@ const quote = computed(() => {
       <div class="relative mx-auto max-w-3xl px-6 text-center">
         <Monogram :size="40" class="mx-auto text-brass-400" />
         <blockquote class="mt-8 font-display text-3xl leading-snug italic text-cream-50 sm:text-4xl md:text-5xl">
-          « {{ quote.text }} »
+          « {{ t('history.quote.text') }} »
         </blockquote>
-        <footer v-if="quote.author" class="mt-6 text-xs uppercase tracking-[0.32em] text-brass-300">
-          — {{ quote.author }}
+        <footer class="mt-6 text-xs uppercase tracking-[0.32em] text-brass-300">
+          — {{ t('history.quote.author') }}
         </footer>
       </div>
     </section>
@@ -168,7 +136,7 @@ const quote = computed(() => {
           <figure class="overflow-hidden rounded-(--radius-card) shadow-(--shadow-paper) ring-1 ring-walnut-200/70 lg:order-1 lg:col-span-5">
             <img
               src="/images/ambiance/ambiance-4.jpg"
-              alt="Terrasse animée à Cannes"
+              :alt="t('history.section3.title')"
               loading="lazy"
               decoding="async"
               class="aspect-[4/5] w-full object-cover"
@@ -177,59 +145,52 @@ const quote = computed(() => {
           <div class="lg:order-2 lg:col-span-7">
             <SectionLabel
               number="03"
-              kicker="Sept jours"
-              title="Sur sept"
+              :kicker="t('history.section3.kicker')"
+              :title="t('history.section3.title')"
               align="left"
-              tagline="Toute l'année, sans interruption — du café du matin au dernier verre."
+              :tagline="t('history.section3.tagline')"
             />
             <div class="mt-8 max-w-xl space-y-5 text-base leading-relaxed text-walnut-700">
-              <p>
-                À deux pas du <strong class="text-walnut-900">marché Forville</strong> et de la
-                <strong class="text-walnut-900">Croisette</strong>, Le Meynadier est l'adresse
-                pour un déjeuner sur le pouce, un apéro entre amis, un dîner complice.
-              </p>
-              <p>
-                Bois noyer massif, accents laiton, guirlandes lumineuses, terrasse animée —
-                un décor chaleureux qui rappelle les arrière-pays méditerranéens.
-              </p>
+              <p>{{ t('history.section3.p1') }}</p>
+              <p>{{ t('history.section3.p2') }}</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Trio mini-stats / signatures -->
+    <!-- Trio mini-stats -->
     <section class="bg-walnut-100 py-20">
       <div class="mx-auto max-w-5xl px-6">
         <SectionLabel
           number="04"
-          kicker="En quelques"
-          title="Chiffres"
+          :kicker="t('history.stats.kicker')"
+          :title="t('history.stats.title')"
         />
         <dl
           v-reveal:children="{ y: 24, stagger: 0.1, duration: 0.8 }"
           class="mt-12 grid gap-8 text-center sm:grid-cols-3"
         >
           <div class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper)">
-            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">Sur la carte</dt>
+            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">{{ t('history.stats.menu') }}</dt>
             <dd class="mt-3 font-display text-5xl text-walnut-900">9</dd>
-            <p class="mt-2 text-sm text-walnut-700">pizzas signatures</p>
+            <p class="mt-2 text-sm text-walnut-700">{{ t('history.stats.menuValue') }}</p>
           </div>
           <div class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper)">
-            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">Au comptoir</dt>
+            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">{{ t('history.stats.bar') }}</dt>
             <dd class="mt-3 font-display text-5xl text-walnut-900">3</dd>
-            <p class="mt-2 text-sm text-walnut-700">bières pression</p>
+            <p class="mt-2 text-sm text-walnut-700">{{ t('history.stats.barValue') }}</p>
           </div>
           <div class="rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper)">
-            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">Ouverture</dt>
+            <dt class="text-[11px] uppercase tracking-[0.3em] text-brass-700">{{ t('history.stats.open') }}</dt>
             <dd class="mt-3 font-display text-5xl text-walnut-900">7<span class="text-brass-600">/</span>7</dd>
-            <p class="mt-2 text-sm text-walnut-700">8h — 23h</p>
+            <p class="mt-2 text-sm text-walnut-700">{{ t('history.stats.openValue') }}</p>
           </div>
         </dl>
       </div>
     </section>
 
-    <!-- CTA final cohérent / et /carte -->
+    <!-- CTA final -->
     <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
@@ -239,14 +200,14 @@ const quote = computed(() => {
       <div class="relative mx-auto max-w-2xl px-6">
         <Monogram :size="48" class="mx-auto text-brass-400" />
         <h2 class="mt-5 font-display text-3xl text-cream-50 sm:text-4xl">
-          Une table chez nous ?
+          {{ t('history.cta.title') }}
         </h2>
         <p class="mt-4 text-cream-100/80">
-          Sur la rue Meynadier, à deux pas du marché Forville. Tous les jours, de 8h à 23h.
+          {{ t('history.cta.subtitle') }}
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <UiButton variant="gold" to="/carte">Découvrir la carte</UiButton>
-          <UiButton variant="hero-outline" to="/contact">Nous trouver</UiButton>
+          <UiButton variant="gold" :to="localePath('/carte')">{{ t('history.cta.menu') }}</UiButton>
+          <UiButton variant="hero-outline" :to="localePath('/contact')">{{ t('history.cta.find') }}</UiButton>
         </div>
       </div>
     </section>
