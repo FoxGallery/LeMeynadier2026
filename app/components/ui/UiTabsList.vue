@@ -1,0 +1,21 @@
+<script setup lang="ts">
+import { TabsList } from 'reka-ui'
+import { cn } from '~/utils/cn'
+
+const props = defineProps<{
+  loop?: boolean
+  class?: string
+}>()
+</script>
+
+<template>
+  <TabsList
+    :loop="props.loop ?? true"
+    :class="cn(
+      'inline-flex flex-wrap items-center gap-1 rounded-(--radius-pill) border border-walnut-700 bg-walnut-800/60 p-1 backdrop-blur-sm',
+      props.class,
+    )"
+  >
+    <slot />
+  </TabsList>
+</template>
