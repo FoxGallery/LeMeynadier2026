@@ -1,0 +1,25 @@
+/toview
+.DS_Store
+
+# Node
+node_modules/
+.pnpm-store/
+
+# Nuxt
+.nuxt/
+.output/
+dist/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
