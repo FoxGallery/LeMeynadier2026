@@ -180,7 +180,7 @@ if (import.meta.client) {
     >
       <div class="mx-auto flex max-w-7xl items-stretch overflow-x-auto px-4 sm:px-6">
         <button
-          v-for="(key, filterKey) in filterKeys"
+          v-for="(key, filterKey, idx) in filterKeys"
           :key="filterKey"
           type="button"
           :aria-current="activeFilter === filterKey ? 'true' : undefined"
@@ -192,9 +192,17 @@ if (import.meta.client) {
           ]"
           @click="activeFilter = filterKey; activeIndex = 0"
         >
-          <span>{{ t(key) }}</span>
+          <span class="flex items-center gap-2">
+            <span
+              class="font-display tabular-nums transition-colors"
+              :class="activeFilter === filterKey ? 'text-brass-700' : 'text-brass-700/50'"
+            >
+              {{ String(idx + 1).padStart(2, '0') }}
+            </span>
+            <span>{{ t(key) }}</span>
+          </span>
           <span
-            v-if="activeFilter === key"
+            v-if="activeFilter === filterKey"
             aria-hidden="true"
             class="meyn-tab-underline"
           />
