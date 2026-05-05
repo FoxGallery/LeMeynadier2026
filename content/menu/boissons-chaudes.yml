@@ -12,7 +12,7 @@ items:
       fr: Espresso
       en: Espresso
       it: Espresso
-    price: null
+    price: 2
 
   - slug: cappuccino
     order: 2
@@ -20,7 +20,7 @@ items:
       fr: Cappuccino
       en: Cappuccino
       it: Cappuccino
-    price: null
+    price: 3.7
 
   - slug: double-espresso
     order: 3
@@ -28,7 +28,7 @@ items:
       fr: Double espresso
       en: Double espresso
       it: Doppio espresso
-    price: null
+    price: 4
 
   - slug: the
     order: 4
@@ -36,7 +36,7 @@ items:
       fr: Thé
       en: Tea
       it: Tè
-    price: null
+    price: 2
 
   - slug: deca
     order: 5
@@ -44,50 +44,58 @@ items:
       fr: Décaféiné
       en: Decaf
       it: Decaffeinato
-    price: null
+    price: 2.2
 
-  - slug: double-deca
+  - slug: deca-noisette
     order: 6
     name:
-      fr: Double décaféiné
-      en: Double decaf
-      it: Doppio decaffeinato
-    price: null
-
-  - slug: cafe-noisette
-    order: 7
-    name:
-      fr: Café noisette
-      en: Macchiato
-      it: Caffè macchiato
-    price: null
+      fr: Décaféiné noisette
+      en: Decaf macchiato
+      it: Decaffeinato macchiato
+    price: 2.5
 
   - slug: cafe-allonge
-    order: 8
+    order: 7
     name:
       fr: Café allongé
       en: Long black
       it: Caffè lungo
-    price: null
+    price: 2.5
 
   - slug: noisette
-    order: 9
+    order: 8
     name:
       fr: Noisette
-      en: Macchiato (small)
+      en: Macchiato
       it: Macchiato
-    price: null
+    price: 2.2
 
-  - slug: chocolat-chaud
+  - slug: chai-latte
+    order: 9
+    name:
+      fr: Chai latte
+      en: Chai latte
+      it: Chai latte
+    price: 4.5
+
+  - slug: matcha-glace
     order: 10
     name:
-      fr: Chocolat chaud
-      en: Hot chocolate
-      it: Cioccolata calda
-    price: null
+      fr: Matcha chaud ou glacé
+      en: Matcha (hot or iced)
+      it: Matcha (caldo o ghiacciato)
+    price: 5
+
+  - slug: cafe-latte
+    order: 11
+    name:
+      fr: Café latte
+      en: Café latte
+      it: Caffè latte
+    price: 4
 
   - slug: cafe-viennois
-    order: 11
+    order: 12
     name:
       fr: Café viennois
       en: Viennese coffee
@@ -96,12 +104,74 @@ items:
       fr: Espresso, chantilly.
       en: Espresso, whipped cream.
       it: Espresso, panna montata.
-    price: null
+    price: 4
 
-  - slug: machiato
-    order: 12
+  - slug: chocolat-viennois
+    order: 13
     name:
-      fr: Machiato
-      en: Macchiato
-      it: Macchiato
-    price: null
+      fr: Chocolat viennois
+      en: Viennese chocolate
+      it: Cioccolata viennese
+    description:
+      fr: Chocolat chaud, chantilly.
+      en: Hot chocolate, whipped cream.
+      it: Cioccolata calda, panna montata.
+    price: 4
+
+  - slug: chocolat-chaud
+    order: 14
+    name:
+      fr: Chocolat chaud
+      en: Hot chocolate
+      it: Cioccolata calda
+    price: 4
+
+  - slug: latte-macchiato
+    order: 15
+    name:
+      fr: Latte macchiato
+      en: Latte macchiato
+      it: Latte macchiato
+    price: 4
+
+  - slug: aromatise
+    order: 16
+    name:
+      fr: Aromatisé
+      en: Flavoured
+      it: Aromatizzato
+    description:
+      fr: Sirop au choix.
+      en: Choice of syrup.
+      it: Sciroppo a scelta.
+    price: 4.5
+
+  - slug: mochaccino
+    order: 17
+    name:
+      fr: Mochaccino
+      en: Mochaccino
+      it: Mochaccino
+    price: 5
+
+  - slug: accompagnement-sirop
+    order: 30
+    name:
+      fr: Accompagnement sirop
+      en: Syrup add-on
+      it: Sciroppo aggiunto
+    description:
+      fr: Speculoos, noisette, café, vanille, caramel.
+      en: Speculoos, hazelnut, coffee, vanilla, caramel.
+      it: Speculoos, nocciola, caffè, vaniglia, caramello.
+    price: 0.8
+    tags: [supplément]
+
+  - slug: accompagnement-chantilly
+    order: 31
+    name:
+      fr: Accompagnement chantilly
+      en: Whipped cream add-on
+      it: Panna montata aggiunta
+    price: 0.8
+    tags: [supplément]

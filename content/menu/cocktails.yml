@@ -17,10 +17,10 @@ items:
       en: Pina Colada Shake
       it: Pina Colada Shake
     description:
-      fr: Ananas, noix de coco, rhum.
-      en: Pineapple, coconut, rum.
-      it: Ananas, cocco, rum.
-    price: null
+      fr: Ananas, noix de coco, vodka, rhum.
+      en: Pineapple, coconut, vodka, rum.
+      it: Ananas, cocco, vodka, rum.
+    price: 12
 
   - slug: exotic
     order: 2
@@ -32,19 +32,19 @@ items:
       fr: Mangue, fruits de la passion, vodka.
       en: Mango, passion fruit, vodka.
       it: Mango, frutto della passione, vodka.
-    price: null
+    price: 12
 
   - slug: spritz
     order: 3
     name:
-      fr: Spritz
-      en: Spritz
-      it: Spritz
+      fr: Spirit Spritz
+      en: Spirit Spritz
+      it: Spirit Spritz
     description:
       fr: Apérol, prosecco, eau gazeuse, orange.
       en: Aperol, prosecco, sparkling water, orange.
       it: Aperol, prosecco, acqua frizzante, arancia.
-    price: null
+    price: 8.5
     tags: [signature]
 
   - slug: rouge-diesel
@@ -54,9 +54,9 @@ items:
       en: Rouge Diesel
       it: Rouge Diesel
     description:
-      fr: Bière, sirop fraise, vodka.
-      en: Beer, strawberry syrup, vodka.
-      it: Birra, sciroppo di fragola, vodka.
+      fr: Bière, fruits rouges, vodka.
+      en: Beer, red fruits, vodka.
+      it: Birra, frutti rossi, vodka.
     price: null
 
   - slug: dragon
@@ -69,7 +69,7 @@ items:
       fr: Fruit du dragon, gingembre, ananas, vodka.
       en: Dragon fruit, ginger, pineapple, vodka.
       it: Frutto del drago, zenzero, ananas, vodka.
-    price: null
+    price: 12
 
   - slug: tabula
     order: 6
@@ -81,4 +81,4 @@ items:
       fr: Fraise, banane, cognac.
       en: Strawberry, banana, cognac.
       it: Fragola, banana, cognac.
-    price: null
+    price: 13

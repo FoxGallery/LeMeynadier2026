@@ -29,9 +29,9 @@ items:
       en: Merguez & Chorizo
       it: Merguez Chorizo
     description:
-      fr: Merguez, chorizo, piperade de chorizo (cheddar, mozzarella).
-      en: Merguez, chorizo, chorizo piperade (cheddar, mozzarella).
-      it: Merguez, chorizo, piperade di chorizo (cheddar, mozzarella).
+      fr: Piperade de chorizo, merguez, cheddar, mozzarella.
+      en: Chorizo piperade, merguez, cheddar, mozzarella.
+      it: Piperade di chorizo, merguez, cheddar, mozzarella.
     price: 6.5
     tags: [épicé]
 

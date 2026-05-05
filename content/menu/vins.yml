@@ -5,9 +5,9 @@ label:
   en: Wines
   it: Vini
 description:
-  fr: Verre, demi-bouteille ou bouteille.
-  en: By the glass, half-bottle or bottle.
-  it: Al bicchiere, mezza bottiglia o bottiglia.
+  fr: Verre, pichet ou bouteille.
+  en: By the glass, jug or bottle.
+  it: Al bicchiere, in caraffa o in bottiglia.
 
 items:
   - slug: rose-domaine-source-marine
@@ -17,10 +17,10 @@ items:
       en: Rosé · IGP Gard Domaine Source Marine
       it: Rosato · IGP Gard Domaine Source Marine
     description:
-      fr: Verre 12 cl, demi-bouteille 50 cl ou bouteille 75 cl.
-      en: 12 cl glass, 50 cl half-bottle or 75 cl bottle.
-      it: Bicchiere 12 cl, mezza bottiglia 50 cl o bottiglia 75 cl.
-    price: null
+      fr: Verre 12 cl 4 € · Pichet 50 cl · Bouteille 75 cl 18 €.
+      en: 12 cl glass 4 € · 50 cl jug · 75 cl bottle 18 €.
+      it: Bicchiere 12 cl 4 € · Caraffa 50 cl · Bottiglia 75 cl 18 €.
+    price: 4
     tags: [rosé, igp]
 
   - slug: blanc-domaine-source-marine
@@ -30,10 +30,10 @@ items:
       en: White · IGP Gard Domaine Source Marine
       it: Bianco · IGP Gard Domaine Source Marine
     description:
-      fr: Verre 12 cl, demi-bouteille 50 cl ou bouteille 75 cl.
-      en: 12 cl glass, 50 cl half-bottle or 75 cl bottle.
-      it: Bicchiere 12 cl, mezza bottiglia 50 cl o bottiglia 75 cl.
-    price: null
+      fr: Verre 12 cl 4 € · Pichet 50 cl · Bouteille 75 cl 18 €.
+      en: 12 cl glass 4 € · 50 cl jug · 75 cl bottle 18 €.
+      it: Bicchiere 12 cl 4 € · Caraffa 50 cl · Bottiglia 75 cl 18 €.
+    price: 4
     tags: [blanc, igp]
 
   - slug: rouge-domaine-source-marine
@@ -43,10 +43,10 @@ items:
       en: Red · IGP Gard Domaine Source Marine
       it: Rosso · IGP Gard Domaine Source Marine
     description:
-      fr: Verre 12 cl, demi-bouteille 50 cl ou bouteille 75 cl.
-      en: 12 cl glass, 50 cl half-bottle or 75 cl bottle.
-      it: Bicchiere 12 cl, mezza bottiglia 50 cl o bottiglia 75 cl.
-    price: null
+      fr: Verre 12 cl 4 € · Pichet 50 cl · Bouteille 75 cl 18 €.
+      en: 12 cl glass 4 € · 50 cl jug · 75 cl bottle 18 €.
+      it: Bicchiere 12 cl 4 € · Caraffa 50 cl · Bottiglia 75 cl 18 €.
+    price: 4
     tags: [rouge, igp]
 
   - slug: cotes-du-rhone
@@ -59,5 +59,5 @@ items:
       fr: Rouge AOP, verre 12 cl.
       en: Red AOP, 12 cl glass.
       it: Rosso AOP, bicchiere 12 cl.
-    price: null
+    price: 4.5
     tags: [rouge, aop]

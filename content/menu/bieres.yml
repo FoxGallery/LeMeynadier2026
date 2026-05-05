@@ -11,17 +11,17 @@ description:
 
 items:
   # Bières pression
-  - slug: falcon-blonde
+  - slug: pelforth-blonde
     order: 1
     name:
-      fr: Falcon Blonde (pression)
-      en: Falcon Blonde (draft)
-      it: Falcon Blonde (alla spina)
+      fr: Pelforth Blonde (pression)
+      en: Pelforth Blonde (draft)
+      it: Pelforth Blonde (alla spina)
     description:
-      fr: Bière blonde demi.
-      en: Blonde lager half-pint.
-      it: Birra bionda piccola.
-    price: null
+      fr: Demi 4 € · Pinte 6 €.
+      en: Half 4 € · Pint 6 €.
+      it: Piccola 4 € · Pinta 6 €.
+    price: 4
     tags: [pression, blonde]
 
   - slug: affligem-blonde
@@ -31,24 +31,37 @@ items:
       en: Affligem Blonde (draft)
       it: Affligem Blonde (alla spina)
     description:
-      fr: Belge blonde d'abbaye.
-      en: Belgian abbey blonde ale.
-      it: Belga bionda d'abbazia.
-    price: null
+      fr: Belge blonde d'abbaye. Demi 5 € · Pinte 8 €.
+      en: Belgian abbey blonde ale. Half 5 € · Pint 8 €.
+      it: Belga bionda d'abbazia. Piccola 5 € · Pinta 8 €.
+    price: 5
     tags: [pression, blonde, belge]
 
-  - slug: pelforth
+  - slug: pression-monaco
     order: 3
     name:
-      fr: Pelforth (pression)
-      en: Pelforth (draft)
-      it: Pelforth (alla spina)
+      fr: Pression Monaco
+      en: Monaco (draft)
+      it: Monaco (alla spina)
     description:
-      fr: Brune française.
-      en: French dark ale.
-      it: Bruna francese.
-    price: null
-    tags: [pression, brune]
+      fr: Bière, sirop grenadine, limonade. Demi 5 € · Pinte 9,50 €.
+      en: Beer with grenadine syrup and lemonade. Half 5 € · Pint 9.50 €.
+      it: Birra con sciroppo di granatina e limonata. Piccola 5 € · Pinta 9,50 €.
+    price: 5
+    tags: [pression, panaché]
+
+  - slug: supplement-sirop
+    order: 4
+    name:
+      fr: Supplément sirop
+      en: Syrup add-on
+      it: Supplemento sciroppo
+    description:
+      fr: À ajouter à votre demi ou pinte.
+      en: Add to your half or pint.
+      it: Da aggiungere alla piccola o alla pinta.
+    price: 0.5
+    tags: [pression, supplément]
 
   # Bouteilles
   - slug: heineken
@@ -58,20 +71,24 @@ items:
       en: Heineken
       it: Heineken
     description:
-      fr: 25 cl.
-      en: 25 cl bottle.
-      it: 25 cl.
+      fr: Bouteille 33 cl.
+      en: 33 cl bottle.
+      it: Bottiglia 33 cl.
     price: null
     tags: [bouteille, blonde]
 
-  - slug: spitz
+  - slug: leffe-blonde
     order: 11
     name:
-      fr: Spitz
-      en: Spitz
-      it: Spitz
-    price: null
-    tags: [bouteille]
+      fr: Leffe Blonde
+      en: Leffe Blonde
+      it: Leffe Blonde
+    description:
+      fr: Bouteille 33 cl, belge blonde d'abbaye.
+      en: 33 cl bottle, Belgian abbey blonde.
+      it: Bottiglia 33 cl, belga bionda d'abbazia.
+    price: 5
+    tags: [bouteille, blonde, belge]
 
   - slug: coronita
     order: 12
@@ -80,9 +97,9 @@ items:
       en: Coronita
       it: Coronita
     description:
-      fr: Mexicaine, 21 cl.
-      en: Mexican, 21 cl.
-      it: Messicana, 21 cl.
+      fr: Mexicaine, 25 cl.
+      en: Mexican, 25 cl.
+      it: Messicana, 25 cl.
     price: null
     tags: [bouteille, blonde]
 
@@ -93,9 +110,9 @@ items:
       en: Desperados
       it: Desperados
     description:
-      fr: Bière aromatisée tequila.
-      en: Tequila-flavoured beer.
-      it: Birra aromatizzata alla tequila.
+      fr: Bière aromatisée tequila, 33 cl.
+      en: Tequila-flavoured beer, 33 cl.
+      it: Birra aromatizzata alla tequila, 33 cl.
     price: null
     tags: [bouteille, aromatisée]
 
@@ -106,8 +123,8 @@ items:
       en: Triple Karmeliet
       it: Triple Karmeliet
     description:
-      fr: Belge triple, 8,4 %.
-      en: Belgian triple, 8.4%.
-      it: Belga triple, 8,4%.
+      fr: Belge triple, 33 cl, 8,4 %.
+      en: Belgian triple, 33 cl, 8.4 %.
+      it: Belga triple, 33 cl, 8,4 %.
     price: null
     tags: [bouteille, belge, signature]

@@ -17,10 +17,10 @@ items:
       en: Margherita
       it: Margherita
     description:
-      fr: Sauce tomate, mozzarella, basilic.
-      en: Tomato sauce, mozzarella, basil.
-      it: Salsa di pomodoro, mozzarella, basilico.
-    price: null
+      fr: Sauce tomate à l'origan, mozzarella et basilic.
+      en: Oregano tomato sauce, mozzarella and basil.
+      it: Salsa di pomodoro all'origano, mozzarella e basilico.
+    price: 9
     tags: [classique, végé]
 
   - slug: reine
@@ -33,20 +33,20 @@ items:
       fr: Sauce tomate à l'origan, mozzarella, jambon, champignons.
       en: Oregano tomato sauce, mozzarella, ham, mushrooms.
       it: Salsa di pomodoro all'origano, mozzarella, prosciutto, funghi.
-    price: null
+    price: 10.5
     tags: [classique]
 
-  - slug: 4-fromages
+  - slug: 3-fromages
     order: 3
     name:
-      fr: 4 Fromages
-      en: 4 Cheeses
-      it: 4 Formaggi
+      fr: 3 Fromages
+      en: 3 Cheeses
+      it: 3 Formaggi
     description:
-      fr: Sauce tomate à l'origan, mozzarella et trois fromages.
-      en: Oregano tomato sauce, mozzarella and three cheeses.
-      it: Salsa di pomodoro all'origano, mozzarella e tre formaggi.
-    price: null
+      fr: Sauce tomate à l'origan, mozzarella, emmental, chèvre et basilic.
+      en: Oregano tomato sauce, mozzarella, emmental, goat cheese and basil.
+      it: Salsa di pomodoro all'origano, mozzarella, emmental, caprino e basilico.
+    price: 12
     tags: [végé, fromages]
 
   - slug: diavola
@@ -56,10 +56,10 @@ items:
       en: Diavola
       it: Diavola
     description:
-      fr: Sauce tomate à l'origan, mozzarella, chorizo, piment.
-      en: Oregano tomato sauce, mozzarella, chorizo, chili.
-      it: Salsa di pomodoro all'origano, mozzarella, chorizo, peperoncino.
-    price: null
+      fr: Sauce tomate à l'origan, mozzarella, chorizo, poivrons et basilic.
+      en: Oregano tomato sauce, mozzarella, chorizo, peppers and basil.
+      it: Salsa di pomodoro all'origano, mozzarella, chorizo, peperoni e basilico.
+    price: 12
     tags: [épicé]
 
   - slug: al-pollo
@@ -69,10 +69,10 @@ items:
       en: Al Pollo
       it: Al Pollo
     description:
-      fr: Sauce tomate à l'origan, mozzarella, poulet, oignon rouge.
-      en: Oregano tomato sauce, mozzarella, chicken, red onion.
-      it: Salsa di pomodoro all'origano, mozzarella, pollo, cipolla rossa.
-    price: null
+      fr: Sauce tomate à l'origan, mozzarella, émincé de poulet rôti, oignons rouges et basilic.
+      en: Oregano tomato sauce, mozzarella, sliced roast chicken, red onions and basil.
+      it: Salsa di pomodoro all'origano, mozzarella, pollo arrosto a fettine, cipolle rosse e basilico.
+    price: 12.5
     tags: [poulet]
 
   - slug: montagnarde
@@ -82,10 +82,10 @@ items:
       en: Montagnarde
       it: Montanara
     description:
-      fr: Crème fraîche, mozzarella, jambon cru, raclette, champignons, basilic.
-      en: Crème fraîche, mozzarella, cured ham, raclette, mushrooms, basil.
-      it: Crème fraîche, mozzarella, prosciutto crudo, raclette, funghi, basilico.
-    price: null
+      fr: Crème fraîche, mozzarella, jambon cru, raclette, champignons et basilic.
+      en: Crème fraîche, mozzarella, cured ham, raclette, mushrooms and basil.
+      it: Crème fraîche, mozzarella, prosciutto crudo, raclette, funghi e basilico.
+    price: 13
     tags: [signature]
 
   - slug: orientale
@@ -95,10 +95,10 @@ items:
       en: Orientale
       it: Orientale
     description:
-      fr: Sauce tomate à l'origan, mozzarella, merguez, poivrons.
-      en: Oregano tomato sauce, mozzarella, merguez, peppers.
-      it: Salsa di pomodoro all'origano, mozzarella, merguez, peperoni.
-    price: null
+      fr: Sauce tomate à l'origan, mozzarella, merguez, poivrons et basilic.
+      en: Oregano tomato sauce, mozzarella, merguez, peppers and basil.
+      it: Salsa di pomodoro all'origano, mozzarella, merguez, peperoni e basilico.
+    price: 13
     tags: [épicé]
 
   - slug: meridionale
@@ -108,10 +108,10 @@ items:
       en: Méridionale
       it: Meridionale
     description:
-      fr: Sauce tomate à l'origan, poivrons, courgettes, mozzarella, oignons rouges, pesto, tomates fraîches.
-      en: Oregano tomato sauce, peppers, zucchini, mozzarella, red onions, pesto, fresh tomatoes.
-      it: Salsa di pomodoro all'origano, peperoni, zucchine, mozzarella, cipolle rosse, pesto, pomodori freschi.
-    price: null
+      fr: Sauce tomate à l'origan, poivrons, courgettes, mozzarella, oignons rouges, pesto rouge, tomates séchées et basilic.
+      en: Oregano tomato sauce, peppers, zucchini, mozzarella, red onions, red pesto, sun-dried tomatoes and basil.
+      it: Salsa di pomodoro all'origano, peperoni, zucchine, mozzarella, cipolle rosse, pesto rosso, pomodori secchi e basilico.
+    price: 14
     tags: [végé, signature]
 
   - slug: raffinee
@@ -121,8 +121,8 @@ items:
       en: Raffinée
       it: Raffinata
     description:
-      fr: Crème fraîche, mozzarella, jambon cru, mascarpone, huile de truffe et basilic.
-      en: Crème fraîche, mozzarella, cured ham, mascarpone, truffle oil and basil.
-      it: Crème fraîche, mozzarella, prosciutto crudo, mascarpone, olio di tartufo e basilico.
-    price: null
+      fr: Crème fraîche, mozzarella, jambon cuit fumé, mascarpone, huile de truffe et basilic.
+      en: Crème fraîche, mozzarella, smoked cooked ham, mascarpone, truffle oil and basil.
+      it: Crème fraîche, mozzarella, prosciutto cotto affumicato, mascarpone, olio di tartufo e basilico.
+    price: 15
     tags: [signature, truffe]

@@ -84,6 +84,21 @@ export default defineContentConfig({
     pages: defineCollection({
       type: 'page',
       source: 'pages/**/*.md',
+      schema: z.object({
+        hero: z
+          .object({
+            kicker: z.string().optional(),
+            title: z.string().optional(),
+            tagline: z.string().optional(),
+          })
+          .optional(),
+        quote: z
+          .object({
+            text: z.string(),
+            author: z.string().optional(),
+          })
+          .optional(),
+      }),
     }),
   },
 })

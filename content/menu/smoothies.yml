@@ -20,12 +20,12 @@ items:
     price: 5.5
     tags: [smoothie]
 
-  - slug: red-bowl
+  - slug: red-boost
     order: 2
     name:
-      fr: Red Bowl
-      en: Red Bowl
-      it: Red Bowl
+      fr: Red Boost
+      en: Red Boost
+      it: Red Boost
     description:
       fr: Grenade, framboise, acerola.
       en: Pomegranate, raspberry, acerola.
@@ -53,9 +53,9 @@ items:
       en: Coco Céline
       it: Coco Céline
     description:
-      fr: Coco, ananas, noix de coco.
-      en: Coconut, pineapple, coconut.
-      it: Cocco, ananas, cocco.
+      fr: Ananas, noix de coco.
+      en: Pineapple, coconut.
+      it: Ananas, cocco.
     price: 5.5
     tags: [smoothie]
 
@@ -98,9 +98,9 @@ items:
       en: Choky frappé
       it: Choky frappé
     description:
-      fr: Avec topping au choix · chocolat, caramel, café · +1 €.
-      en: With your choice of topping · chocolate, caramel, coffee · +€1.
-      it: Con topping a scelta · cioccolato, caramello, caffè · +1 €.
+      fr: Topping au choix · chocolat, caramel, café.
+      en: With your choice of topping · chocolate, caramel, coffee.
+      it: Con topping a scelta · cioccolato, caramello, caffè.
     price: 4.5
     tags: [frappé, chocolat]
 
@@ -144,11 +144,28 @@ items:
     price: 6.5
     tags: [milkshake, chocolat]
 
-  - slug: vanille
+  - slug: seattle
     order: 23
     name:
-      fr: Vanille
-      en: Vanilla
-      it: Vaniglia
+      fr: Seattle
+      en: Seattle
+      it: Seattle
+    description:
+      fr: Café.
+      en: Coffee.
+      it: Caffè.
+    price: 6.5
+    tags: [milkshake, café]
+
+  - slug: hawaii
+    order: 24
+    name:
+      fr: Hawaii
+      en: Hawaii
+      it: Hawaii
+    description:
+      fr: Vanille.
+      en: Vanilla.
+      it: Vaniglia.
     price: 6.5
     tags: [milkshake]
