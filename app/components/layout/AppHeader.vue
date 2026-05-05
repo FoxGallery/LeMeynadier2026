@@ -13,6 +13,7 @@ import { cn } from '~/utils/cn'
 
 const past = useScrollPast(40)
 const route = useRoute()
+const { hidden: headerHidden } = useHeaderVisibility()
 
 const menuOpen = ref(false)
 
@@ -40,7 +41,10 @@ watch(
 
 <template>
   <header
-    class="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 sm:pt-6"
+    :class="cn(
+      'pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4 transition-all duration-500 ease-out sm:pt-6',
+      headerHidden ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100',
+    )"
   >
     <!-- Pill navbar centrée flottante -->
     <div

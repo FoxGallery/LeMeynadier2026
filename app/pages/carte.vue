@@ -76,6 +76,29 @@ function formatPrice(p: number | null) {
 
 const { resolve: resolveImage } = useMenuImage()
 
+// Cacher la navbar quand la barre d'onglets devient sticky au top.
+const { hidden: headerHidden } = useHeaderVisibility()
+const tabsSentinel = ref<HTMLElement | null>(null)
+
+if (import.meta.client) {
+  let io: IntersectionObserver | null = null
+  onMounted(() => {
+    if (!tabsSentinel.value) return
+    io = new IntersectionObserver(
+      ([entry]) => {
+        // Sentinel disparu = barre tabs stickée → cache la navbar.
+        headerHidden.value = entry ? !entry.isIntersecting : false
+      },
+      { threshold: 0, rootMargin: '0px' },
+    )
+    io.observe(tabsSentinel.value)
+  })
+  onBeforeUnmount(() => {
+    io?.disconnect()
+    headerHidden.value = false
+  })
+}
+
 const activeIndex = computed(() =>
   categories.value.findIndex((c) => c.category === activeTab.value),
 )
@@ -116,44 +139,49 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       </div>
     </section>
 
-    <!-- Onglets : pill ultra-minimaliste cohérente avec la navbar -->
-    <div
+    <!-- Sentinel invisible pour détecter quand la barre s'apprête à se stick.
+         Quand il sort du viewport (scroll past), on cache la navbar. -->
+    <div ref="tabsSentinel" aria-hidden="true" class="h-px" />
+
+    <!-- Barre d'onglets pleine largeur, carrée, qui se fond avec le hero
+         et remplace la navbar au scroll -->
+    <nav
       v-if="activeTab && categories.length"
-      class="pointer-events-none sticky top-24 z-30 flex justify-center px-4 sm:top-28"
+      aria-label="Catégories de la carte"
+      class="meyn-tabs sticky top-0 z-40 border-b border-walnut-200/70 bg-walnut-50/95 backdrop-blur-md"
     >
-      <nav
-        aria-label="Catégories de la carte"
-        class="meyn-tabs pointer-events-auto flex max-w-[calc(100vw-2rem)] items-center gap-0 overflow-x-auto rounded-full border border-walnut-200/70 bg-walnut-50/92 p-1 shadow-[0_18px_50px_-22px_rgba(63,45,26,0.30)] backdrop-blur-md"
-      >
+      <div class="mx-auto flex max-w-7xl items-stretch overflow-x-auto px-4 sm:px-6">
         <button
           v-for="(cat, idx) in categories"
           :key="cat.category"
           type="button"
           :aria-current="activeTab === cat.category ? 'true' : undefined"
           :class="[
-            'meyn-tab shrink-0 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300',
+            'meyn-tab group relative shrink-0 px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-300',
             activeTab === cat.category
-              ? 'text-cream-50'
-              : 'text-walnut-700 hover:text-walnut-900',
+              ? 'text-walnut-900'
+              : 'text-walnut-600 hover:text-walnut-900',
           ]"
           @click="activeTab = cat.category"
         >
-          <span
-            class="relative z-10 mr-2 font-display tabular-nums transition-colors"
-            :class="activeTab === cat.category ? 'text-brass-300' : 'text-brass-700/60'"
-          >
-            {{ String(idx + 1).padStart(2, '0') }}
+          <span class="flex items-center gap-2">
+            <span
+              class="font-display tabular-nums transition-colors"
+              :class="activeTab === cat.category ? 'text-brass-700' : 'text-brass-700/50'"
+            >
+              {{ String(idx + 1).padStart(2, '0') }}
+            </span>
+            <span>{{ localized(cat.label) }}</span>
           </span>
-          <span class="relative z-10">{{ localized(cat.label) }}</span>
-          <!-- Indicateur de fond animé -->
+          <!-- Underline laiton sur l'actif -->
           <span
             v-if="activeTab === cat.category"
             aria-hidden="true"
-            class="meyn-tab-indicator"
+            class="meyn-tab-underline"
           />
         </button>
-      </nav>
-    </div>
+      </div>
+    </nav>
 
     <!-- Catégorie active -->
     <section
@@ -271,7 +299,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
   to   { transform: scale(1.10); }
 }
 
-/* ── Onglets carte : pill épurée, indicator animé, pas de focus outline visible ── */
+/* ── Onglets carte : barre pleine largeur, underline laiton sur l'actif ── */
 .meyn-tab {
   position: relative;
   isolation: isolate;
@@ -281,38 +309,38 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
   outline: none;
 }
 
-/* Sous-ligne brass discrète au focus clavier (a11y sans cadre) */
+/* Sous-ligne brass au focus clavier (a11y sans cadre disgracieux) */
 .meyn-tab:focus-visible::before {
   content: '';
   position: absolute;
   left: 1rem;
   right: 1rem;
-  bottom: 0.25rem;
-  height: 1px;
-  background: var(--color-brass-500);
-  z-index: 10;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-brass-400);
+  z-index: 5;
 }
 
-.meyn-tab-indicator {
+.meyn-tab-underline {
   position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: 9999px;
-  background: var(--color-walnut-900);
-  box-shadow: 0 6px 14px -8px rgba(63, 45, 26, 0.50);
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-brass-600);
   animation: meyn-tab-in 0.35s cubic-bezier(0.2, 0.6, 0.1, 1) both;
 }
 
 @keyframes meyn-tab-in {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scaleX(0.6); }
+  to   { opacity: 1; transform: scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .meyn-tab-indicator { animation: none; }
+  .meyn-tab-underline { animation: none; }
 }
 
-/* Scrollbar cachée pour la pill onglets sur mobile */
-.meyn-tabs::-webkit-scrollbar { display: none; }
-.meyn-tabs { scrollbar-width: none; }
+/* Scrollbar cachée sur la barre d'onglets (mobile) */
+.meyn-tabs > div::-webkit-scrollbar { display: none; }
+.meyn-tabs > div { scrollbar-width: none; }
 </style>
