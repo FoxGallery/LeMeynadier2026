@@ -108,6 +108,14 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+
+  /* Anti drag-save sur les images : empêche le glisser-déposer vers
+   * le bureau pour récupérer une photo. Couplé au plugin
+   * `no-source.client.ts` qui bloque l'événement dragstart en JS. */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
