@@ -64,11 +64,11 @@ if (import.meta.client) {
     />
     <div
       aria-hidden="true"
-      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_55%_45%_at_50%_35%,rgba(221,193,138,0.22),transparent_70%)]"
+      class="absolute inset-0 -z-20 meyn-glow-hero"
     />
     <div
       aria-hidden="true"
-      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(13,9,5,0.6)_100%)]"
+      class="absolute inset-0 -z-10 meyn-vignette"
     />
 
     <!-- Contenu centré (flex-1 pour prendre l'espace, scroll indicator collé en bas) -->

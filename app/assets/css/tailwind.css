@@ -110,6 +110,39 @@
   }
 }
 
+/* ──────────────────────────────────────────────────────────────────────────
+ * Glows / vignettes radiaux : utilitaires nommés.
+ *
+ * On évite la syntaxe `bg-[radial-gradient(...)]` arbitraire car le minifier
+ * LightningCSS (Vite) compresse `ellipse 50% 45% at 50% 50%` en
+ * `radial-gradient(50% 45%, …)` — forme historique ambiguë (size vs position)
+ * que PostCSS signale comme syntaxe obsolète.
+ *
+ * Pour survivre à toute optimisation, on utilise :
+ *   - `circle <size>` pour les glows symétriques (le keyword `circle` est
+ *     conservé car non-default — défaut = ellipse)
+ *   - `closest-side at <position>` pour les vignettes (keyword préservé,
+ *     le `at` est conservé quand position ≠ centre)
+ * ────────────────────────────────────────────────────────────────────────── */
+@utility meyn-glow-hero {
+  background-image: radial-gradient(closest-side at 50% 35%, rgba(221, 193, 138, 0.22), transparent 70%);
+}
+@utility meyn-glow-hero-soft {
+  background-image: radial-gradient(closest-side at 50% 35%, rgba(221, 193, 138, 0.20), transparent 70%);
+}
+@utility meyn-glow-section {
+  background-image: radial-gradient(circle 50%, rgba(221, 193, 138, 0.14), transparent 70%);
+}
+@utility meyn-glow-section-warm {
+  background-image: radial-gradient(circle 50%, rgba(221, 193, 138, 0.15), transparent 70%);
+}
+@utility meyn-glow-ambiance {
+  background-image: radial-gradient(circle 45%, rgba(221, 193, 138, 0.10), transparent 70%);
+}
+@utility meyn-vignette {
+  background-image: radial-gradient(closest-side at 50% 50.1%, transparent 55%, rgba(13, 9, 5, 0.6) 100%);
+}
+
 /* Respect prefers-reduced-motion globalement */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

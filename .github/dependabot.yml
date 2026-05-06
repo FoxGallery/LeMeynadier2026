@@ -1,0 +1,72 @@
+version: 2
+
+# Surveillance automatique des dépendances : npm pour les packages applicatifs,
+# github-actions pour les workflows CI/CD. Pull-requests groupées hebdo
+# pour ne pas spammer les notifications mais garder un cycle court.
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    labels:
+      - dependencies
+      - type:devops
+    commit-message:
+      prefix: chore(deps)
+      prefix-development: chore(deps-dev)
+      include: scope
+    groups:
+      nuxt-ecosystem:
+        patterns:
+          - 'nuxt'
+          - '@nuxt/*'
+          - '@nuxtjs/*'
+          - 'nuxt-*'
+      vue-ecosystem:
+        patterns:
+          - 'vue'
+          - 'vue-*'
+          - '@vue/*'
+          - 'reka-ui'
+      tooling:
+        patterns:
+          - '@biomejs/*'
+          - 'typescript'
+          - 'vitest'
+          - '@vitest/*'
+          - 'happy-dom'
+          - 'husky'
+          - 'lint-staged'
+          - '@commitlint/*'
+      playwright:
+        patterns:
+          - '@playwright/*'
+          - 'playwright'
+          - '@axe-core/*'
+      tailwind:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'tailwind-*'
+      types:
+        patterns:
+          - '@types/*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - type:devops
+    commit-message:
+      prefix: chore(ci)
+      include: scope

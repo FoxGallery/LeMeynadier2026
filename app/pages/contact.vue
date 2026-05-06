@@ -109,7 +109,7 @@ function formatDayRange(days: string[]) {
       />
       <div
         aria-hidden="true"
-        class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_55%_45%_at_50%_35%,rgba(221,193,138,0.20),transparent_70%)]"
+        class="absolute inset-0 -z-20 meyn-glow-hero-soft"
       />
 
       <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 pb-16 text-center">
@@ -329,7 +329,7 @@ function formatDayRange(days: string[]) {
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
         aria-hidden="true"
-        class="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_50%_50%,rgba(221,193,138,0.14),transparent_70%)]"
+        class="absolute inset-0 meyn-glow-section"
       />
       <div class="relative mx-auto max-w-2xl px-6">
         <Monogram :size="48" class="mx-auto text-brass-400" />

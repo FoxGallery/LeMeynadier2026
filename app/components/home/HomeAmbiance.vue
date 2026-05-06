@@ -11,7 +11,7 @@ const localePath = useLocalePath()
     <WoodGrain :opacity="0.18" :color="'#0d0905'" />
     <div
       aria-hidden="true"
-      class="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_50%,rgba(221,193,138,0.10),transparent_70%)]"
+      class="absolute inset-0 meyn-glow-ambiance"
     />
 
     <div class="relative mx-auto max-w-6xl px-6">

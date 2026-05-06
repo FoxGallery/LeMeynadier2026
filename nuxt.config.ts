@@ -41,10 +41,15 @@ export default defineNuxtConfig({
   },
   ogImage: {
     enabled: true,
-    // Composant par défaut : OgImageMeynadier (papier crème + bois + brass).
+    // Mode zero-runtime : toutes les images OG sont rendues à la build (SSG)
+    // et écrites en PNG statiques. Désactive le endpoint dynamique côté
+    // serveur — pas de risque de génération arbitraire, pas besoin de
+    // NUXT_OG_IMAGE_SECRET, et compatible hébergement FTP mutualisé.
+    zeroRuntime: true,
+    // Composant par défaut : OgImage/Meynadier (papier crème + bois + brass).
     // Chaque page définit son composant via defineOgImage('Meynadier', …).
     // Les polices (Cormorant Garamond, Inter Tight, Italianno) sont auto-détectées
-    // par satori à partir des CSS font-family du composant ; aucune config dédiée.
+    // par satori à partir des CSS font-family du composant.
     defaults: {
       width: 1200,
       height: 630,
@@ -125,6 +130,83 @@ export default defineNuxtConfig({
   ignore: isDev ? [] : ['app/pages/dev-*.vue'],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      sourcemap: false,
+      // Le bundle vendor Nuxt + GSAP + MapLibre dépasse naturellement 500 KB
+      // (utile en SSG : c'est mis en cache 1 an via .htaccess). On relève
+      // donc le seuil au lieu de splitter artificiellement (qui dégraderait
+      // le LCP en multipliant les requêtes).
+      chunkSizeWarningLimit: 1500,
+      // Filtre les avertissements rollup non actionnables côté projet :
+      // - SOURCEMAP_BROKEN : Tailwind v4 / nuxt:module-preload-polyfill /
+      //   i18n-macros-transform émettent leur transform sans sourcemap.
+      //   Comme on désactive les sourcemaps en build (SSG), c'est cosmétique.
+      // - "A comment" sur @vueuse/core : commentaires de bundle tiers
+      //   préservés, non actionnables.
+      // - "Sourcemap is likely to be incorrect" : variante Vite du même
+      //   problème de sourcemap orphelin (issue connue Tailwind v4).
+      rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          // Couvre les codes connus + match par message car Tailwind v4 et
+          // i18n-macros loggent via `this.warn(string)` (sans code).
+          const code = warning.code ?? ''
+          if (code === 'SOURCEMAP_BROKEN' || code === 'PLUGIN_WARNING') {
+            const msg = typeof warning.message === 'string' ? warning.message : ''
+            if (msg.includes('Sourcemap is likely to be incorrect') || msg.includes('A comment')) {
+              return
+            }
+          }
+          const plain = typeof warning.message === 'string' ? warning.message : ''
+          if (plain.includes('Sourcemap is likely to be incorrect')) return
+          if (plain.includes('A comment')) return
+          defaultHandler(warning)
+        },
+      },
+    },
+    css: {
+      devSourcemap: isDev,
+    },
+  },
+  hooks: {
+    // Vite émet certains avertissements (Tailwind v4 / i18n-macros / Nuxt
+    // module-preload) via son logger interne, hors du canal rollup.onwarn.
+    // On installe notre customLogger au moment où Nuxt construit la config
+    // Vite (via `vite:extendConfig`) pour s'assurer qu'il prend le pas sur
+    // celui appliqué par défaut par @nuxt/vite-builder.
+    'vite:extendConfig'(viteConfig) {
+      // Strip des codes ANSI (couleurs terminal) émis par Vite : ESC + […m.
+      // On construit l ESC via String.fromCharCode(27) pour éviter le caractère
+      // de contrôle litéral dans la source (refusé par Biome).
+      const ESC = String.fromCharCode(27)
+      const stripAnsi = (s: string) => s.replace(new RegExp(`${ESC}[[0-9;]*m`, 'g'), '')
+      const noisy = (m: unknown) => {
+        const s = stripAnsi(typeof m === 'string' ? m : String(m))
+        return (
+          s.includes('Sourcemap is likely to be incorrect') || /\(\d+:\d+\): A comment\b/.test(s)
+        )
+      }
+      Object.assign(viteConfig as Record<string, unknown>, {
+        customLogger: {
+          info: (msg: string) => {
+            if (!noisy(msg)) console.log(msg)
+          },
+          warn: (msg: string) => {
+            if (!noisy(msg)) console.warn(msg)
+          },
+          warnOnce: (msg: string) => {
+            if (!noisy(msg)) console.warn(msg)
+          },
+          error: (msg: string) => console.error(msg),
+          clearScreen: () => {},
+          hasErrorLogged: () => false,
+          hasWarned: false,
+        },
+      })
+    },
+  },
+  sourcemap: {
+    server: false,
+    client: false,
   },
   fonts: {
     families: [

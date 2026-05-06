@@ -1,0 +1,103 @@
+# =============================================================================
+# Le Meynadier — durcissement HTTP (Apache mutualisé)
+#
+# Cible : hébergeur partagé Apache 2.4 + mod_rewrite + mod_headers + mod_deflate
+# + mod_expires. Si un module manque, le bloc <IfModule> correspondant est
+# silencieusement ignoré — pas d'erreur 500 à craindre.
+#
+# À tester après déploiement avec :
+#   - https://securityheaders.com  (note attendue ≥ A)
+#   - https://observatory.mozilla.org  (note attendue ≥ B)
+# =============================================================================
+
+# ----- Compression Brotli/gzip ------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css \
+    text/javascript application/javascript application/json application/xml \
+    application/xhtml+xml image/svg+xml font/ttf font/otf application/rss+xml
+</IfModule>
+
+# ----- Cache long pour les assets versionnés (hash dans le nom) ---------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # HTML : pas de cache long, on veut les nouvelles versions immédiatement
+  ExpiresByType text/html                   "access plus 0 seconds"
+  # Assets fingerprintés (build hash) → 1 an immutable
+  ExpiresByType text/css                    "access plus 1 year"
+  ExpiresByType application/javascript      "access plus 1 year"
+  ExpiresByType image/jpeg                  "access plus 6 months"
+  ExpiresByType image/png                   "access plus 6 months"
+  ExpiresByType image/webp                  "access plus 6 months"
+  ExpiresByType image/avif                  "access plus 6 months"
+  ExpiresByType image/svg+xml               "access plus 1 month"
+  ExpiresByType font/woff2                  "access plus 1 year"
+  ExpiresByType font/woff                   "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Cache-Control immutable pour les fichiers versionnés Nuxt (_nuxt/, _ipx/).
+  <FilesMatch "\.(?:css|js|woff2?|ttf|otf|avif|webp|jpe?g|png|gif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # HTML toujours fresh
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # ----- En-têtes de sécurité -------------------------------------------------
+  # HSTS : force HTTPS + sous-domaines pendant 1 an. Activer après vérification
+  # que le certificat couvre bien tous les sous-domaines, sinon limiter le scope.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Empêche le clickjacking (iframe).
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # MIME-sniffing désactivé (force le respect du Content-Type).
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Referrer minimal sur navigation cross-origin.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions-Policy : on coupe les API sensibles dont on ne se sert pas.
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  # CSP — autorise self + Google Fonts (utilisés par @nuxt/fonts) + tuiles
+  # CartoDB Positron (carte MapLibre) + Schema.org JSON-LD inline (scripts
+  # inline OK : le tag est rendu en SSG, pas d'eval). Si une ressource externe
+  # est ajoutée plus tard, l'inscrire explicitement.
+  Header always set Content-Security-Policy "\
+default-src 'self'; \
+script-src 'self' 'unsafe-inline'; \
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+font-src 'self' https://fonts.gstatic.com data:; \
+img-src 'self' data: https://*.basemaps.cartocdn.com https://tile.openstreetmap.org; \
+connect-src 'self' https://*.basemaps.cartocdn.com https://tile.openstreetmap.org; \
+frame-ancestors 'self'; \
+form-action 'self'; \
+base-uri 'self'; \
+object-src 'none'"
+
+  # Cross-Origin policies — défense en profondeur.
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# ----- Réécriture vers HTTPS (au cas où l'hébergeur ne le fait pas) ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # SPA fallback : si une URL ne correspond pas à un fichier statique réel,
+  # on laisse Nuxt gérer le routage côté client. Comme on est en SSG, chaque
+  # route a son `index.html` → ce bloc est surtout un filet de sécurité.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ /index.html [L]
+</IfModule>
+
+# ----- Sécurisation des fichiers sensibles -----------------------------------
+<FilesMatch "(^\.|\.(env|git|md|json|lock|yml|yaml|ts|vue)$)">
+  Require all denied
+</FilesMatch>
