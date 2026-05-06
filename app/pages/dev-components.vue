@@ -42,7 +42,7 @@ const sampleItems = [
     <StringLights class="!h-16" :count="11" />
     <WoodGrain :opacity="0.05" />
 
-    <div class="mx-auto max-w-6xl space-y-16 px-6 py-24">
+    <div class="mx-auto max-w-6xl space-y-16 px-6 py-14 sm:py-20 lg:py-24">
       <header>
         <p class="font-script text-3xl text-brass-500">Design system</p>
         <h1 class="mt-1 font-display text-5xl text-cream">Composants</h1>

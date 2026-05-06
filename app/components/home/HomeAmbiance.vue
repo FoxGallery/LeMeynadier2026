@@ -6,7 +6,7 @@ const localePath = useLocalePath()
 <template>
   <section
     aria-labelledby="ambiance-title"
-    class="relative overflow-hidden bg-walnut-700 py-32 text-cream-50"
+    class="relative overflow-hidden bg-walnut-700 py-16 sm:py-24 lg:py-32 text-cream-50"
   >
     <WoodGrain :opacity="0.18" :color="'#0d0905'" />
     <div
@@ -41,10 +41,13 @@ const localePath = useLocalePath()
           </UiButton>
         </div>
 
-        <!-- Mosaïque éditoriale -->
+        <!-- Mosaïque éditoriale.
+             Mobile : 2 colonnes empilées (chaque tuile en aspect ratio fixe
+             pour rester lisible, image principale full-width).
+             Desktop (sm+) : grille magazine 6×8 avec col/row-spans variables. -->
         <div class="lg:col-span-7">
-          <div class="grid grid-cols-6 grid-rows-8 gap-3 sm:gap-4">
-            <div class="col-span-4 row-span-5 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-6 sm:grid-rows-8 sm:gap-4">
+            <div class="col-span-2 aspect-[4/3] overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10 sm:col-span-4 sm:row-span-5 sm:aspect-auto">
               <NuxtImg
                 src="/images/ambiance/ambiance-1.jpg"
                 alt=""
@@ -57,7 +60,7 @@ const localePath = useLocalePath()
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div class="col-span-2 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
+            <div class="aspect-square overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10 sm:col-span-2 sm:row-span-3 sm:aspect-auto">
               <NuxtImg
                 src="/images/ambiance/ambiance-2.jpg"
                 alt=""
@@ -70,7 +73,7 @@ const localePath = useLocalePath()
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div class="col-span-2 row-span-2 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
+            <div class="aspect-square overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10 sm:col-span-2 sm:row-span-2 sm:aspect-auto">
               <NuxtImg
                 src="/images/ambiance/ambiance-3.jpg"
                 alt=""
@@ -83,7 +86,7 @@ const localePath = useLocalePath()
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div class="col-span-3 row-span-3 overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10">
+            <div class="aspect-square overflow-hidden rounded-(--radius-card) shadow-(--shadow-deep) ring-1 ring-cream-100/10 sm:col-span-3 sm:row-span-3 sm:aspect-auto">
               <NuxtImg
                 src="/images/ambiance/ambiance-4.jpg"
                 alt=""
@@ -96,7 +99,7 @@ const localePath = useLocalePath()
                 class="size-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div class="col-span-3 row-span-3 flex items-center justify-center overflow-hidden rounded-(--radius-card) bg-walnut-800 ring-1 ring-cream-100/10 shadow-(--shadow-deep)">
+            <div class="flex aspect-square items-center justify-center overflow-hidden rounded-(--radius-card) bg-walnut-800 ring-1 ring-cream-100/10 shadow-(--shadow-deep) sm:col-span-3 sm:row-span-3 sm:aspect-auto">
               <div class="text-center">
                 <Monogram :size="56" class="mx-auto text-brass-400" />
                 <p class="mt-3 font-script text-2xl text-brass-300">Le Meynadier</p>

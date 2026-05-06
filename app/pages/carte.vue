@@ -138,7 +138,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
         src="/images/menu/margarita.jpg"
         alt=""
         aria-hidden="true"
-        preload
+        loading="eager"
         sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
         format="webp"
         quality="80"
@@ -215,7 +215,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       v-if="activeCategory"
       :key="activeCategory.category"
       :class="[
-        'relative py-20',
+        'relative py-12 sm:py-16 lg:py-20',
         activeIndex % 2 === 0 ? 'bg-walnut-50' : 'bg-walnut-100',
       ]"
     >
@@ -232,7 +232,7 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
         <!-- Grille de cards luxe avec photo -->
         <div
           v-reveal:children="{ y: 24, stagger: 0.06, duration: 0.7 }"
-          class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          class="mt-10 sm:mt-14 lg:mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           <article
             v-for="item in activeCategory.items.filter((i) => i.available !== false)"
@@ -299,12 +299,12 @@ const activeCategory = computed(() => categories.value[activeIndex.value])
       </div>
     </section>
 
-    <div v-else-if="!categories.length" class="py-32 text-center text-walnut-600">
+    <div v-else-if="!categories.length" class="py-16 sm:py-24 lg:py-32 text-center text-walnut-600">
       Carte en cours de chargement…
     </div>
 
     <!-- CTA final cohérent avec la home -->
-    <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-900 py-12 sm:py-16 lg:py-20 text-center text-cream-50">
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
         aria-hidden="true"

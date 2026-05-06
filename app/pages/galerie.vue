@@ -151,7 +151,7 @@ if (import.meta.client) {
         src="/images/gallery/g7.jpg"
         alt=""
         aria-hidden="true"
-        preload
+        loading="eager"
         sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
         format="webp"
         quality="80"
@@ -220,7 +220,7 @@ if (import.meta.client) {
     </nav>
 
     <!-- Grille masonry -->
-    <section class="relative bg-walnut-50 py-20 pt-12">
+    <section class="relative bg-walnut-50 py-12 sm:py-16 lg:py-20 pt-12">
       <div class="mx-auto max-w-6xl px-6">
         <SectionLabel
           number="01"
@@ -231,7 +231,7 @@ if (import.meta.client) {
 
         <ul
           v-reveal:children="{ y: 24, stagger: 0.05, duration: 0.7 }"
-          class="mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
+          class="mt-10 sm:mt-14 lg:mt-16 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
           aria-label="Galerie photos"
         >
           <li
@@ -280,7 +280,7 @@ if (import.meta.client) {
     </section>
 
     <!-- CTA final cohérent / /carte /histoire -->
-    <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-900 py-12 sm:py-16 lg:py-20 text-center text-cream-50">
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
         aria-hidden="true"

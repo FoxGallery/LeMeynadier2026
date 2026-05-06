@@ -97,7 +97,7 @@ function formatDayRange(days: string[]) {
         src="/images/hero/hero-3.jpg"
         alt=""
         aria-hidden="true"
-        preload
+        loading="eager"
         sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
         format="webp"
         quality="80"
@@ -126,7 +126,7 @@ function formatDayRange(days: string[]) {
     </section>
 
     <!-- Coordonnées en cards luxe -->
-    <section class="relative bg-walnut-50 py-24">
+    <section class="relative bg-walnut-50 py-14 sm:py-20 lg:py-24">
       <div class="mx-auto max-w-6xl px-6">
         <SectionLabel
           number="01"
@@ -137,7 +137,7 @@ function formatDayRange(days: string[]) {
 
         <div
           v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }"
-          class="mt-16 grid gap-6 md:grid-cols-3"
+          class="mt-10 sm:mt-14 lg:mt-16 grid gap-6 md:grid-cols-3"
         >
           <!-- Adresse -->
           <article class="group relative flex flex-col rounded-(--radius-card) border border-walnut-200/70 bg-cream-50 p-8 shadow-(--shadow-paper) transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/50 hover:shadow-(--shadow-warm)">
@@ -240,7 +240,7 @@ function formatDayRange(days: string[]) {
     </section>
 
     <!-- Carte interactive plein largeur (cohérent magazine) -->
-    <section class="relative bg-walnut-100 py-24">
+    <section class="relative bg-walnut-100 py-14 sm:py-20 lg:py-24">
       <WoodGrain :opacity="0.06" :color="'#3f2d1a'" />
       <div class="relative mx-auto max-w-7xl px-6">
         <SectionLabel
@@ -294,7 +294,7 @@ function formatDayRange(days: string[]) {
     </section>
 
     <!-- À deux pas — repères locaux -->
-    <section class="bg-walnut-50 py-24">
+    <section class="bg-walnut-50 py-14 sm:py-20 lg:py-24">
       <div class="mx-auto max-w-5xl px-6">
         <SectionLabel
           number="03"
@@ -325,7 +325,7 @@ function formatDayRange(days: string[]) {
     </section>
 
     <!-- CTA final cohérent / /carte /histoire /galerie -->
-    <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-900 py-12 sm:py-16 lg:py-20 text-center text-cream-50">
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
         aria-hidden="true"

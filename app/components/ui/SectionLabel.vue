@@ -63,7 +63,7 @@ const headingTag = computed(() => `h${props.level ?? 2}`)
         'mt-1 font-display text-balance leading-[1.05] tracking-tight',
         alignValue === 'center' ? 'mx-auto' : '',
         toneValue === 'light' ? 'text-cream-50' : 'text-walnut-900',
-        props.level === 1 ? 'text-5xl sm:text-6xl' : 'text-4xl sm:text-5xl',
+        props.level === 1 ? 'text-4xl sm:text-5xl lg:text-6xl' : 'text-3xl sm:text-4xl lg:text-5xl',
       )"
     >
       {{ props.title }}

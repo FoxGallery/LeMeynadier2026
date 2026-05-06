@@ -61,7 +61,7 @@ function formatPrice(p: number | null) {
 <template>
   <section
     aria-labelledby="menu-preview-title"
-    class="relative bg-walnut-50 py-32"
+    class="relative bg-walnut-50 py-16 sm:py-24 lg:py-32"
   >
     <div class="mx-auto max-w-6xl px-6">
       <SectionLabel
@@ -71,7 +71,7 @@ function formatPrice(p: number | null) {
         :tagline="t('home.menuPreview.tagline')"
       />
 
-      <div v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }" class="mt-20 grid gap-8 md:grid-cols-3">
+      <div v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }" class="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3 lg:mt-20">
         <article
           v-for="item in featured"
           :key="item.nameKey"
@@ -119,7 +119,7 @@ function formatPrice(p: number | null) {
         </article>
       </div>
 
-      <div class="mt-16 text-center">
+      <div class="mt-12 text-center sm:mt-16">
         <UiButton variant="primary" size="lg" :to="localePath('/carte')">
           {{ t('home.menuPreview.cta') }}
         </UiButton>

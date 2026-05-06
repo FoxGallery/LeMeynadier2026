@@ -61,9 +61,11 @@ const button = cva(
         ],
       },
       size: {
-        sm: 'h-10 rounded-full px-5 text-[11px]',
+        // h-11 (44px) respecte la cible tactile mobile WCAG 2.5.5.
+        sm: 'h-11 rounded-full px-5 text-[11px]',
         md: 'h-12 rounded-full px-7 text-xs',
-        lg: 'h-14 rounded-full px-9 text-sm',
+        // Sur mobile on garde h-12 pour ne pas envahir l'écran ; sm+ → h-14.
+        lg: 'h-12 rounded-full px-7 text-xs sm:h-14 sm:px-9 sm:text-sm',
       },
     },
     compoundVariants: [

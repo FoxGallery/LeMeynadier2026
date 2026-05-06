@@ -43,7 +43,7 @@ const pillars: Pillar[] = [
   <section
     id="signature"
     aria-labelledby="signature-title"
-    class="relative bg-walnut-50 py-32"
+    class="relative bg-walnut-50 py-16 sm:py-24 lg:py-32"
   >
     <div class="mx-auto max-w-6xl px-6">
       <SectionLabel
@@ -55,7 +55,7 @@ const pillars: Pillar[] = [
 
       <div
         v-reveal:children="{ y: 32, stagger: 0.12, duration: 1 }"
-        class="mt-20 grid items-stretch gap-8 md:grid-cols-3"
+        class="mt-12 grid items-stretch gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3 lg:mt-20"
       >
         <article
           v-for="pillar in pillars"

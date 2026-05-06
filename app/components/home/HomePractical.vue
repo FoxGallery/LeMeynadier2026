@@ -36,7 +36,7 @@ if (import.meta.client) {
 <template>
   <section
     aria-labelledby="practical-title"
-    class="relative overflow-hidden bg-walnut-100 py-32"
+    class="relative overflow-hidden bg-walnut-100 py-16 sm:py-24 lg:py-32"
   >
     <WoodGrain :opacity="0.10" :color="'#3f2d1a'" />
 
@@ -48,7 +48,7 @@ if (import.meta.client) {
         :tagline="t('home.practical.tagline')"
       />
 
-      <div v-reveal:children="{ y: 32, stagger: 0.15, duration: 1 }" class="mt-20 grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div v-reveal:children="{ y: 32, stagger: 0.15, duration: 1 }" class="mt-12 grid gap-10 sm:mt-16 sm:gap-12 lg:mt-20 lg:grid-cols-2 lg:gap-20">
         <!-- Vraie mini-map MapLibre cliquable vers /contact -->
         <NuxtLink
           :to="localePath('/contact')"

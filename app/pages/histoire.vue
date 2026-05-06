@@ -34,7 +34,7 @@ defineOgImage('Meynadier', {
         src="/images/ambiance/ambiance-1.jpg"
         alt=""
         aria-hidden="true"
-        preload
+        loading="eager"
         sizes="xs:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:1920px"
         format="webp"
         quality="80"
@@ -94,7 +94,7 @@ defineOgImage('Meynadier', {
     </section>
 
     <!-- Section éditoriale 02 : magazine 2 colonnes -->
-    <section class="relative overflow-hidden bg-walnut-100 py-24">
+    <section class="relative overflow-hidden bg-walnut-100 py-14 sm:py-20 lg:py-24">
       <WoodGrain :opacity="0.08" :color="'#3f2d1a'" />
       <div class="relative mx-auto max-w-6xl px-6">
         <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
@@ -129,7 +129,7 @@ defineOgImage('Meynadier', {
     </section>
 
     <!-- Pull-quote éditorial -->
-    <section class="relative overflow-hidden bg-walnut-700 py-24 text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-700 py-14 sm:py-20 lg:py-24 text-cream-50">
       <WoodGrain :opacity="0.18" :color="'#0d0905'" />
       <div
         aria-hidden="true"
@@ -147,7 +147,7 @@ defineOgImage('Meynadier', {
     </section>
 
     <!-- Section éditoriale 03 : magazine inversé -->
-    <section class="relative bg-walnut-50 py-24">
+    <section class="relative bg-walnut-50 py-14 sm:py-20 lg:py-24">
       <div class="mx-auto max-w-6xl px-6">
         <div class="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <figure class="overflow-hidden rounded-(--radius-card) shadow-(--shadow-paper) ring-1 ring-walnut-200/70 lg:order-1 lg:col-span-5">
@@ -181,7 +181,7 @@ defineOgImage('Meynadier', {
     </section>
 
     <!-- Trio mini-stats -->
-    <section class="bg-walnut-100 py-20">
+    <section class="bg-walnut-100 py-12 sm:py-16 lg:py-20">
       <div class="mx-auto max-w-5xl px-6">
         <SectionLabel
           number="04"
@@ -212,7 +212,7 @@ defineOgImage('Meynadier', {
     </section>
 
     <!-- CTA final -->
-    <section class="relative overflow-hidden bg-walnut-900 py-20 text-center text-cream-50">
+    <section class="relative overflow-hidden bg-walnut-900 py-12 sm:py-16 lg:py-20 text-center text-cream-50">
       <WoodGrain :opacity="0.10" :color="'#0d0905'" />
       <div
         aria-hidden="true"
