@@ -441,10 +441,22 @@ docs: ajoute la procédure de déploiement FTP manuel
 4. Attendre la CI verte *(quality, test, build, e2e)*
 5. Merge en **squash + linear history**
 
-### Édition de la carte *(M8 — `CONTENT.md` à venir)*
+### Édition de la carte et du contenu
 
-La carte est versionnée en YAML dans `content/menu/`. Édition possible directement via l'éditeur
-GitHub web pour les non-développeurs : créer une branche, modifier le YAML, ouvrir une PR.
+Voir [`docs/CONTENT.md`](./docs/CONTENT.md) — guide complet d'édition pour
+la carte (YAML par catégorie), les pages éditoriales, les libellés i18n,
+les coordonnées (`useVenue.ts`), les photos, et les conventions de commit.
+
+### Déploiement & rollback
+
+Voir [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md) — workflow GitHub Action
+FTPS (push staging / tag prod), secrets à configurer, rollback rapide
+via re-deploy de tag, vérifications post-mise-en-prod.
+
+### QA & checklist de release
+
+Voir [`docs/QA.md`](./docs/QA.md) — runbook smoke test FR/EN/IT, tests
+Lighthouse, axe a11y, link-checker, procédure incident.
 
 ---
 
@@ -458,6 +470,9 @@ GitHub web pour les non-développeurs : créer une branche, modifier le YAML, ou
 *Brasserie · Pizzeria · Pub*
 
 [Cahier des charges](./CAHIER-DES-CHARGES.md) ·
-[Milestones](https://github.com/FoxGallery/LeMeynadier2026/milestones)
+[Milestones](https://github.com/FoxGallery/LeMeynadier2026/milestones) ·
+[Deployment](./docs/DEPLOYMENT.md) ·
+[Content](./docs/CONTENT.md) ·
+[QA](./docs/QA.md)
 
 </div>

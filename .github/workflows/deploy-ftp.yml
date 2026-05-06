@@ -1,0 +1,141 @@
+name: Deploy FTP
+
+# Déclencheurs
+# - push sur `staging` → déploiement de pré-production (sous-dossier `/preview/`)
+# - push d'un tag `v*` (ex `v1.0.0`) → déploiement en production (racine)
+# - workflow_dispatch → exécution manuelle, choix de l'environnement
+#
+# Secrets requis (Settings > Secrets and variables > Actions) :
+#   FTP_HOST              ex `ftp.lemeynadier.fr`
+#   FTP_USER              utilisateur FTP fourni par l'hébergeur
+#   FTP_PASSWORD          mot de passe FTP
+#   FTP_PROD_PATH         chemin distant prod (ex `/www/` ou `/`)
+#   FTP_STAGING_PATH      chemin distant staging (ex `/www/preview/`)
+#
+# Le déploiement utilise `SamKirkland/FTP-Deploy-Action` qui synchronise
+# en mode incrémental (uniquement les fichiers modifiés via state hash),
+# limite drastiquement la bande passante et préserve les fichiers ajoutés
+# manuellement (.htaccess, sous-dossiers tiers).
+
+on:
+  push:
+    branches: [staging]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environnement de déploiement'
+        type: choice
+        required: true
+        default: staging
+        options:
+          - staging
+          - production
+
+concurrency:
+  # Éviter deux déploiements simultanés vers le même environnement
+  group: deploy-${{ github.event.inputs.environment || (startsWith(github.ref, 'refs/tags/v') && 'production') || 'staging' }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+  PNPM_VERSION: '10.20.0'
+
+jobs:
+  resolve-target:
+    name: Résoudre la cible
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.target.outputs.environment }}
+      remote_path: ${{ steps.target.outputs.remote_path }}
+    steps:
+      - id: target
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            ENV="${{ github.event.inputs.environment }}"
+          elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            ENV="production"
+          else
+            ENV="staging"
+          fi
+          echo "environment=$ENV" >> "$GITHUB_OUTPUT"
+          if [ "$ENV" = "production" ]; then
+            echo "remote_path=${{ secrets.FTP_PROD_PATH }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "remote_path=${{ secrets.FTP_STAGING_PATH }}" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    name: Build statique
+    needs: resolve-target
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build SSG
+        run: pnpm generate
+
+      - name: Sanity check (404 + sitemap + .htaccess)
+        run: |
+          test -f .output/public/index.html
+          test -f .output/public/200.html || test -f .output/public/index.html
+          test -f .output/public/.htaccess
+          test -f .output/public/sitemap_index.xml
+          test -f .output/public/robots.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ needs.resolve-target.outputs.environment }}
+          path: .output/public/
+          retention-days: 14
+
+  deploy:
+    name: Déploiement FTP (${{ needs.resolve-target.outputs.environment }})
+    needs: [resolve-target, build]
+    runs-on: ubuntu-latest
+    environment: ${{ needs.resolve-target.outputs.environment }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist-${{ needs.resolve-target.outputs.environment }}
+          path: dist/
+
+      - name: Synchronisation FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ needs.resolve-target.outputs.remote_path }}
+          local-dir: ./dist/
+          # Mode passif obligatoire pour les hébergeurs mutualisés (NAT).
+          protocol: ftps
+          port: 21
+          # Préserve les fichiers gérés hors-CI (logs, scripts hébergeur).
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.well-known/acme-challenge/**
+          dangerous-clean-slate: false
+          # Log lisible : montre uniquement les fichiers téléversés/supprimés.
+          log-level: standard
+
+      - name: Récap
+        run: |
+          echo "✅ Déployé vers ${{ needs.resolve-target.outputs.environment }}"
+          echo "Hôte distant : ${{ secrets.FTP_HOST }}"
+          echo "Chemin distant : ${{ needs.resolve-target.outputs.remote_path }}"
+          echo "Commit : ${{ github.sha }}"
+          echo "Ref : ${{ github.ref }}"
