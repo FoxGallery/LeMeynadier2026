@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Le Meynadier — Compte rendu technique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter+Tight:wght@400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --walnut-50:#f6ecd9; --walnut-100:#ecdcbf; --walnut-200:#ddc59a; --walnut-300:#c5a370;
+      --walnut-400:#a07f4d; --walnut-500:#7a5a33; --walnut-600:#5d4326; --walnut-700:#3f2d1a;
+      --walnut-800:#2c1f12; --walnut-900:#1a1209; --walnut-950:#0d0905;
+      --brass-100:#f4e7c2; --brass-300:#ddc18a; --brass-400:#c9a45e; --brass-500:#b88a3d;
+      --brass-600:#976f29; --brass-700:#6f521d; --brass-800:#4d3815;
+      --cream-50:#fcf5e6; --cream-100:#f9eed5; --cream-200:#f1e3c0;
+      --leaf:#4d6837; --terracotta:#b25e34; --burgundy:#6e2222;
+
+      --font-display:'Cormorant Garamond', Georgia, serif;
+      --font-body:'Inter Tight', system-ui, sans-serif;
+      --font-script:'Italianno', cursive;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @page:first {
+      margin: 0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      font-family: var(--font-body);
+      color: var(--walnut-900);
+      background: var(--walnut-50);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; color: var(--walnut-900); margin: 0; }
+
+    /* Pages A4 — chaque .page = une page A4 strict.
+       Layout flex column : header / contenu (flex:1, overflow hidden) /
+       footer naturel en bas. Le contenu ne peut donc jamais empiéter sur le
+       page-footer car il est dans le flux normal. */
+    .page {
+      width: 210mm; min-height: 297mm; height: 297mm;
+      padding: 18mm 18mm 12mm 18mm;
+      page-break-after: always;
+      page-break-inside: avoid;
+      position: relative;
+      background: var(--walnut-50);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .page:last-of-type { page-break-after: auto; }
+    .page > .page-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ───── COVER ───── */
+    .cover {
+      padding: 0;
+      background: var(--walnut-900);
+      color: var(--cream-50);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .cover .frame {
+      position: absolute;
+      inset: 14mm;
+      border: 0.4mm solid var(--brass-500);
+      border-radius: 4mm;
+    }
+    .cover .frame::after {
+      content: '';
+      position: absolute;
+      inset: 2mm;
+      border: 0.2mm solid rgba(184,138,61,0.4);
+      border-radius: 3mm;
+    }
+    .cover .glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(221,193,138,0.25), transparent 70%);
+    }
+    .cover .vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(13,9,5,0.6) 100%);
+    }
+    .cover-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%;
+      padding: 0 30mm;
+    }
+
+    .monogram {
+      width: 28mm; height: 28mm;
+      margin-bottom: 10mm;
+      color: var(--brass-400);
+    }
+
+    .cover-kicker {
+      font-family: var(--font-script);
+      color: var(--brass-300);
+      font-size: 32pt;
+      line-height: 1;
+      margin-bottom: 4mm;
+    }
+
+    .cover-title {
+      font-family: var(--font-display);
+      font-size: 84pt;
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--cream-50);
+      margin: 0;
+    }
+
+    .cover-divider {
+      display: flex; align-items: center; gap: 6mm;
+      margin: 8mm 0;
+    }
+    .cover-divider .line { width: 18mm; height: 0.4mm; background: var(--brass-500); }
+    .cover-divider .diamond {
+      width: 3mm; height: 3mm;
+      transform: rotate(45deg);
+      border: 0.4mm solid var(--brass-400);
+    }
+
+    .cover-subtitle {
+      font-family: var(--font-display);
+      font-size: 22pt;
+      font-style: italic;
+      color: var(--cream-100);
+      letter-spacing: 0.01em;
+      margin-bottom: 18mm;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 14mm;
+      font-size: 8pt;
+      color: var(--cream-100);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+    .cover-meta strong { color: var(--brass-300); font-weight: 500; }
+
+    .cover-footer {
+      position: absolute;
+      bottom: 18mm; left: 0; right: 0;
+      text-align: center;
+      font-size: 7pt;
+      color: var(--cream-100);
+      opacity: 0.7;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    /* ───── INNER PAGES ───── */
+    .page-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-bottom: 4mm;
+      margin-bottom: 8mm;
+      border-bottom: 0.2mm solid var(--walnut-300);
+      font-size: 8pt;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--walnut-700);
+    }
+    .page-header .brand-mark {
+      display: flex; align-items: baseline; gap: 1.5mm;
+    }
+    .page-header .brand-mark .le {
+      font-family: var(--font-script);
+      font-size: 14pt;
+      color: var(--brass-700);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .page-header .brand-mark .name {
+      font-family: var(--font-display);
+      font-size: 11pt;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--walnut-900);
+    }
+
+    .page-footer {
+      flex: 0 0 auto;
+      display: flex; justify-content: space-between;
+      font-size: 7pt;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--walnut-600);
+      border-top: 0.2mm solid var(--walnut-300);
+      padding-top: 3mm;
+      margin-top: 4mm;
+    }
+
+    /* Section label (numéro · kicker · title · divider) */
+    .section-label {
+      display: flex; flex-direction: column; align-items: flex-start;
+      margin-bottom: 9mm;
+    }
+    .section-label .num {
+      font-family: var(--font-display);
+      font-size: 9pt;
+      letter-spacing: 0.32em;
+      color: var(--brass-700);
+      margin-bottom: 1mm;
+    }
+    .section-label .kicker {
+      font-family: var(--font-script);
+      font-size: 22pt;
+      color: var(--brass-700);
+      line-height: 1;
+      margin-bottom: 1mm;
+    }
+    .section-label .title {
+      font-size: 30pt;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--walnut-900);
+      margin-bottom: 3mm;
+    }
+    .section-label .divider {
+      display: flex; align-items: center; gap: 3mm;
+    }
+    .section-label .divider .line { width: 12mm; height: 0.3mm; background: var(--brass-600); }
+    .section-label .divider .diamond {
+      width: 2mm; height: 2mm; transform: rotate(45deg);
+      border: 0.3mm solid var(--brass-600);
+    }
+    .section-label .tagline {
+      font-size: 11pt;
+      line-height: 1.5;
+      color: var(--walnut-700);
+      max-width: 130mm;
+      margin-top: 4mm;
+    }
+
+    /* Generic paragraph */
+    p { line-height: 1.6; color: var(--walnut-800); font-size: 10pt; margin: 0 0 3mm 0; }
+
+    /* Stat row : grand chiffre + label */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4mm;
+      margin: 4mm 0;
+    }
+    .stat-card {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-radius: 2.5mm;
+      padding: 5mm 4mm;
+      text-align: center;
+    }
+    .stat-card .v {
+      font-family: var(--font-display);
+      font-size: 30pt;
+      line-height: 1;
+      color: var(--walnut-900);
+      letter-spacing: -0.01em;
+      font-weight: 500;
+    }
+    .stat-card .v .unit { font-size: 14pt; color: var(--brass-700); margin-left: 1mm; }
+    .stat-card .l {
+      margin-top: 2mm;
+      font-size: 7pt;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--brass-700);
+      font-weight: 500;
+    }
+
+    /* Highlight cards (pillars) */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+      margin: 4mm 0;
+    }
+    .pillar {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-left: 0.6mm solid var(--brass-500);
+      border-radius: 1mm 2.5mm 2.5mm 1mm;
+      padding: 5mm;
+    }
+    .pillar h4 {
+      font-size: 14pt;
+      margin-bottom: 2mm;
+      color: var(--walnut-900);
+    }
+    .pillar p { font-size: 9pt; color: var(--walnut-700); line-height: 1.5; }
+    .pillar .num {
+      font-family: var(--font-display);
+      font-size: 8pt;
+      color: var(--brass-700);
+      letter-spacing: 0.32em;
+      display: block;
+      margin-bottom: 1mm;
+    }
+
+    /* Tables */
+    table.elegant {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9pt;
+      margin: 4mm 0;
+    }
+    table.elegant thead {
+      background: var(--walnut-100);
+    }
+    table.elegant thead th {
+      padding: 3mm 4mm;
+      text-align: left;
+      font-weight: 500;
+      font-size: 7.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--walnut-800);
+      border-bottom: 0.3mm solid var(--brass-500);
+    }
+    table.elegant tbody td {
+      padding: 2.5mm 4mm;
+      border-bottom: 0.1mm solid var(--walnut-200);
+      vertical-align: top;
+    }
+    table.elegant tbody tr:last-child td { border-bottom: 0; }
+    table.elegant td .badge {
+      display: inline-block;
+      font-size: 7pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--brass-500);
+      color: var(--walnut-950);
+      padding: 0.5mm 2mm;
+      border-radius: 1mm;
+      font-weight: 500;
+    }
+    table.elegant td .badge.subtle {
+      background: var(--walnut-200);
+      color: var(--walnut-800);
+    }
+    table.elegant td.mono { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 8.5pt; color: var(--walnut-700); }
+
+    /* Bar chart custom */
+    .bars {
+      display: flex; flex-direction: column; gap: 3mm;
+      margin: 4mm 0;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 50mm 1fr 22mm;
+      gap: 4mm;
+      align-items: center;
+      font-size: 9pt;
+    }
+    .bar-row .label { color: var(--walnut-800); font-weight: 500; }
+    .bar-row .track {
+      height: 5mm;
+      background: var(--walnut-100);
+      border-radius: 1mm;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-row .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brass-600), var(--brass-400));
+      border-radius: 1mm;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 2mm;
+      color: var(--walnut-950);
+      font-size: 7pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .bar-row .value { font-family: var(--font-display); font-size: 11pt; color: var(--walnut-900); text-align: right; tabular-nums: true; font-variant-numeric: tabular-nums; }
+
+    /* Donut chart pure SVG */
+    .donut-row {
+      display: grid;
+      grid-template-columns: 50mm 1fr;
+      gap: 6mm;
+      align-items: center;
+      margin: 4mm 0;
+    }
+    .donut { width: 50mm; height: 50mm; }
+    .donut .track { stroke: var(--walnut-200); fill: none; }
+    .donut .fill { stroke: var(--brass-500); fill: none; transition: stroke-dashoffset 1s; }
+    .donut .label-v { font-family: var(--font-display); font-size: 16pt; fill: var(--walnut-900); font-weight: 500; }
+    .donut .label-s { font-size: 6pt; fill: var(--walnut-600); letter-spacing: 0.22em; text-transform: uppercase; }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2mm 6mm;
+      margin: 3mm 0;
+    }
+    .checklist li {
+      list-style: none;
+      padding-left: 6mm;
+      position: relative;
+      font-size: 9.5pt;
+      color: var(--walnut-800);
+      line-height: 1.5;
+      page-break-inside: avoid;
+    }
+    .checklist li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--brass-600);
+      font-weight: 700;
+    }
+    .checklist li strong { color: var(--walnut-900); font-weight: 500; }
+
+    /* Quote / pull-quote */
+    .pull-quote {
+      border-left: 0.4mm solid var(--brass-500);
+      padding-left: 5mm;
+      margin: 5mm 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 14pt;
+      line-height: 1.4;
+      color: var(--walnut-800);
+    }
+
+    /* Eco metric (mini horizontal stack) */
+    .eco-metric {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2mm;
+      padding: 4mm 5mm;
+      background: linear-gradient(135deg, var(--walnut-100), var(--cream-100));
+      border-radius: 2mm;
+      border: 0.2mm solid var(--brass-300);
+      margin-bottom: 3mm;
+    }
+    .eco-metric .head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 4mm;
+    }
+    .eco-metric .name { font-size: 9pt; font-weight: 500; color: var(--walnut-900); letter-spacing: 0.02em; }
+    .eco-metric .arrow { font-family: var(--font-display); font-size: 11pt; color: var(--brass-700); }
+    .eco-metric .gain { font-family: var(--font-display); font-size: 13pt; color: var(--leaf); font-weight: 500; }
+    .eco-metric .desc { font-size: 8pt; color: var(--walnut-700); line-height: 1.5; }
+
+    /* Section title sub */
+    .sub-title {
+      font-size: 13pt;
+      margin: 6mm 0 3mm 0;
+      color: var(--walnut-900);
+      letter-spacing: -0.005em;
+    }
+
+    /* TOC */
+    .toc { display: flex; flex-direction: column; gap: 3.5mm; }
+    .toc-item {
+      display: grid;
+      grid-template-columns: 14mm 1fr 12mm;
+      align-items: baseline;
+      gap: 3mm;
+      padding: 3mm 0;
+      border-bottom: 0.15mm dotted var(--walnut-300);
+      font-size: 11pt;
+    }
+    .toc-item .num {
+      font-family: var(--font-display);
+      font-size: 10pt;
+      color: var(--brass-700);
+      letter-spacing: 0.28em;
+    }
+    .toc-item .name {
+      color: var(--walnut-900);
+      font-weight: 500;
+      font-family: var(--font-display);
+      font-size: 14pt;
+    }
+    .toc-item .name small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 8.5pt;
+      color: var(--walnut-700);
+      font-weight: 400;
+      margin-top: 0.5mm;
+      letter-spacing: 0;
+    }
+    .toc-item .pg {
+      font-family: var(--font-display);
+      font-size: 12pt;
+      color: var(--walnut-900);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Hero d'ouverture (carte-bandeau bois noyer, dans le flux normal). */
+    .opener {
+      background: var(--walnut-700);
+      color: var(--cream-50);
+      padding: 12mm 14mm;
+      margin: 0 0 8mm 0;
+      border-radius: 3mm;
+      position: relative;
+      overflow: hidden;
+    }
+    .opener::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle 35% at 50% 35%, rgba(221,193,138,0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .opener > * { position: relative; z-index: 1; }
+    .opener .num {
+      font-family: var(--font-display);
+      font-size: 9pt;
+      color: var(--brass-300);
+      letter-spacing: 0.32em;
+    }
+    .opener .kicker {
+      font-family: var(--font-script);
+      color: var(--brass-300);
+      font-size: 22pt;
+      line-height: 1;
+      margin: 0;
+    }
+    .opener .title {
+      font-family: var(--font-display);
+      font-size: 32pt;
+      line-height: 1;
+      color: var(--cream-50);
+      letter-spacing: -0.01em;
+      margin: 1mm 0 3mm 0;
+    }
+    .opener .tagline {
+      font-size: 10.5pt;
+      color: var(--cream-100);
+      max-width: 130mm;
+      line-height: 1.45;
+      opacity: 0.92;
+      margin: 0;
+    }
+    .opener .divider { display: flex; gap: 3mm; align-items: center; margin: 2.5mm 0; }
+    .opener .divider .line { width: 14mm; height: 0.3mm; background: var(--brass-400); }
+    .opener .divider .diamond { width: 2mm; height: 2mm; border: 0.3mm solid var(--brass-400); transform: rotate(45deg); }
+
+    /* Two column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin: 4mm 0;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5mm;
+      margin: 4mm 0;
+    }
+
+    .feature-card {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-radius: 2.5mm;
+      padding: 5mm;
+      page-break-inside: avoid;
+    }
+    .feature-card .head {
+      display: flex; align-items: center; gap: 3mm;
+      margin-bottom: 3mm;
+    }
+    .feature-card .icon {
+      width: 8mm; height: 8mm;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: var(--walnut-50);
+      border: 0.2mm solid var(--brass-400);
+      color: var(--brass-700);
+    }
+    .feature-card h4 { font-size: 12pt; }
+    .feature-card p { font-size: 8.5pt; color: var(--walnut-700); }
+
+    /* Big number block */
+    .big-stat {
+      text-align: center;
+      padding: 8mm 6mm;
+      background: var(--walnut-900);
+      color: var(--cream-50);
+      border-radius: 3mm;
+      position: relative;
+      overflow: hidden;
+    }
+    .big-stat::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle 40% at 50% 30%, rgba(221,193,138,0.12), transparent 70%);
+    }
+    .big-stat .v {
+      font-family: var(--font-display);
+      font-size: 56pt;
+      line-height: 1;
+      color: var(--brass-300);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      position: relative; z-index: 2;
+    }
+    .big-stat .v .unit { font-size: 22pt; color: var(--brass-400); margin-left: 2mm; }
+    .big-stat .l {
+      margin-top: 3mm;
+      font-size: 8pt;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--cream-100);
+      position: relative; z-index: 2;
+    }
+
+    /* Stack badges */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3mm;
+      margin: 4mm 0;
+    }
+    .stack-badge {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-radius: 2mm;
+      padding: 3mm 4mm;
+      text-align: left;
+    }
+    .stack-badge .name {
+      font-family: var(--font-display);
+      font-size: 11pt;
+      color: var(--walnut-900);
+      font-weight: 500;
+    }
+    .stack-badge .v {
+      font-size: 7pt;
+      color: var(--brass-700);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-top: 0.5mm;
+    }
+    .stack-badge .desc {
+      font-size: 7.5pt;
+      color: var(--walnut-700);
+      line-height: 1.4;
+      margin-top: 1.5mm;
+    }
+
+    /* Last page : colophon */
+    .colophon {
+      text-align: center;
+      padding: 30mm 0;
+    }
+    .colophon .signature {
+      font-family: var(--font-script);
+      font-size: 36pt;
+      color: var(--brass-700);
+      line-height: 1;
+      margin: 5mm 0;
+    }
+    .colophon .meta {
+      font-size: 8pt;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--walnut-700);
+      margin-top: 5mm;
+    }
+
+    /* Misc */
+    .lead {
+      font-family: var(--font-display);
+      font-size: 13pt;
+      font-style: italic;
+      color: var(--walnut-700);
+      line-height: 1.5;
+      margin: 5mm 0;
+    }
+
+    .inline-tags { display: flex; flex-wrap: wrap; gap: 1.5mm; margin: 2mm 0; }
+    .inline-tags span {
+      font-size: 7pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.8mm 2.5mm;
+      border: 0.15mm solid var(--walnut-300);
+      border-radius: 8mm;
+      color: var(--walnut-700);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════ PAGE 1 — COVER ════════════════════════ -->
+<section class="page cover">
+  <div class="frame"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
+  <div class="cover-content">
+    <svg class="monogram" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.55" />
+      <circle cx="40" cy="40" r="32" stroke="currentColor" stroke-width="0.3" fill="none" opacity="0.4" />
+      <g fill="currentColor" opacity="0.85">
+        <path d="M40 6 L42 9 L40 12 L38 9 Z"/>
+        <path d="M74 40 L71 42 L68 40 L71 38 Z"/>
+        <path d="M40 74 L42 71 L40 68 L38 71 Z"/>
+        <path d="M6 40 L9 42 L12 40 L9 38 Z"/>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M28 24 L28 52 L40 52"/>
+        <path d="M36 56 L36 28 L46 44 L56 28 L56 56"/>
+      </g>
+    </svg>
+    <p class="cover-kicker">Le</p>
+    <h1 class="cover-title">Meynadier</h1>
+    <div class="cover-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+    <p class="cover-subtitle">Compte rendu technique</p>
+
+    <div class="cover-meta">
+      <div><strong>Stack</strong> Nuxt 4 · Vue 3.5 · TS</div>
+      <div><strong>Build</strong> 100 % statique</div>
+      <div><strong>Date</strong> Mai 2026</div>
+    </div>
+  </div>
+
+  <div class="cover-footer">Performance · Éco-conception · Stack · Sécurité</div>
+</section>
+
+<!-- ════════════════════════ PAGE 2 — TABLE DES MATIÈRES ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark">
+      <span class="le">Le</span><span class="name">Meynadier</span>
+    </div>
+    <span>Compte rendu · Sommaire</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="section-label">
+    <span class="num">— 00 —</span>
+    <span class="kicker">Le sommaire</span>
+    <h2 class="title">Sommaire</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Vue d'ensemble du projet, lecture page par page. Chaque chapitre traite d'un pilier de la livraison : performance, éco-conception, stack, sécurité, architecture.</p>
+  </div>
+
+  <div class="toc">
+    <div class="toc-item"><span class="num">01</span><span class="name">Vue d'ensemble<small>Le projet en chiffres clés — pages, langues, statique, prerendering</small></span><span class="pg">3</span></div>
+    <div class="toc-item"><span class="num">02</span><span class="name">Stack technique<small>Choix de framework et outillage — Nuxt 4, Vue 3.5, Tailwind v4, Reka UI</small></span><span class="pg">4</span></div>
+    <div class="toc-item"><span class="num">03</span><span class="name">Performance<small>Bundle, LCP, images responsive, Lighthouse CI</small></span><span class="pg">5</span></div>
+    <div class="toc-item"><span class="num">04</span><span class="name">Éco-conception<small>Empreinte page, hébergement statique, sobriété de chaîne</small></span><span class="pg">6</span></div>
+    <div class="toc-item"><span class="num">05</span><span class="name">SEO &amp; accessibilité<small>JSON-LD, sitemap multilingue, audit axe WCAG AA</small></span><span class="pg">7</span></div>
+    <div class="toc-item"><span class="num">06</span><span class="name">Sécurité &amp; déploiement<small>Headers .htaccess, FTP automatisé, rollback</small></span><span class="pg">8</span></div>
+    <div class="toc-item"><span class="num">07</span><span class="name">Architecture &amp; contenu<small>Content YAML, i18n, design tokens, source unique d'identité</small></span><span class="pg">9</span></div>
+    <div class="toc-item"><span class="num">08</span><span class="name">Synthèse<small>Ce qui est livré, ce qui peut suivre</small></span><span class="pg">10</span></div>
+  </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Le Meynadier — Cannes</span>
+    <span>02</span>
+  </div>
+</section>
+
+<!-- ════════════════════════ PAGE 3 — VUE D'ENSEMBLE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>01 · Vue d'ensemble</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="opener">
+    <span class="num">— 01 —</span>
+    <p class="kicker">Vue</p>
+    <h2 class="title">d'ensemble</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Site vitrine pour la brasserie historique du vieux Cannes — pizzas signatures, comptoir bois, bières pression, terrasse. 100 % statique, déployable sur n'importe quel hébergeur partagé Apache via FTPS.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="v">24</div><div class="l">Pages prerendered</div></div>
+    <div class="stat-card"><div class="v">3</div><div class="l">Langues complètes</div></div>
+    <div class="stat-card"><div class="v">87</div><div class="l">Items de carte</div></div>
+    <div class="stat-card"><div class="v">192</div><div class="l">Variantes images</div></div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="sub-title">Le périmètre livré</h3>
+      <p>Un site vitrine éditorial multilingue (français, anglais, italien) avec une carte complète versionnée en YAML, un système de design « luxe brasserie » (papier crème, bois noyer, accents laiton) et une intégration MapLibre pour la géolocalisation à l'angle 1 rue Meynadier &amp; 5 rue du Maréchal Joffre.</p>
+      <p>Le rendu est intégralement statique (SSG) : aucun serveur applicatif requis, aucune base de données, aucun cookie publicitaire. La maintenance se fait par édition Git de fichiers YAML/JSON et un push qui déclenche un déploiement FTPS automatique.</p>
+    </div>
+    <div>
+      <h3 class="sub-title">L'expérience visiteur</h3>
+      <ul class="checklist" style="grid-template-columns:1fr;">
+        <li><strong>Hero immersif</strong> sur les 5 pages clés, transitions de pages cinématiques (View Transitions API native).</li>
+        <li><strong>Navigation pill flottante</strong> qui se cache au scroll sur les pages longues.</li>
+        <li><strong>Menu mobile éditorial</strong> plein écran avec items numérotés.</li>
+        <li><strong>Carte interactive</strong> MapLibre stylée (filtre sépia) sans tracker externe.</li>
+        <li><strong>Galerie</strong> avec lightbox clavier (← → Esc) et filtres de catégorie.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    « Une expérience d'éditorial luxueux qui se charge instantanément, fonctionne en mode dégradé, et coûte le strict minimum à héberger. »
+  </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Le Meynadier — Cannes</span>
+    <span>03</span>
+  </div>
+</section>
+
+<!-- ════════════════════════ PAGE 4 — STACK TECHNIQUE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>02 · Stack technique</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="section-label">
+    <span class="num">— 02 —</span>
+    <span class="kicker">La</span>
+    <h2 class="title">Stack technique</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Frameworks et bibliothèques sélectionnés pour leur stabilité, leur écosystème et leur compatibilité avec un déploiement statique sur hébergeur mutualisé.</p>
+  </div>
+
+  <h3 class="sub-title">Cœur applicatif</h3>
+  <div class="stack-grid">
+    <div class="stack-badge"><div class="name">Nuxt</div><div class="v">v4.4 · SSG</div><div class="desc">Framework Vue meta, génération statique, routing automatique, hooks de build.</div></div>
+    <div class="stack-badge"><div class="name">Vue</div><div class="v">v3.5 · Composition</div><div class="desc">Vue 3 strict, &lt;script setup&gt;, composables, view transitions natives.</div></div>
+    <div class="stack-badge"><div class="name">TypeScript</div><div class="v">v5.7 · strict</div><div class="desc">Type-checking complet (pas de typeCheck pendant build, mais via CI).</div></div>
+    <div class="stack-badge"><div class="name">Vue Router</div><div class="v">v5</div><div class="desc">Routing modulaire fourni par Nuxt, compatible View Transitions.</div></div>
+  </div>
+
+  <h3 class="sub-title">Design &amp; UI</h3>
+  <div class="stack-grid">
+    <div class="stack-badge"><div class="name">Tailwind</div><div class="v">v4.2 · Oxide</div><div class="desc">Engine CSS-first via @theme, utilitaires custom (`meyn-glow-*`).</div></div>
+    <div class="stack-badge"><div class="name">Reka UI</div><div class="v">v2.9</div><div class="desc">Port Vue de Radix : Dialog, Popover, Tabs accessibles WCAG.</div></div>
+    <div class="stack-badge"><div class="name">@nuxt/fonts</div><div class="v">v0.14</div><div class="desc">Cormorant Garamond + Inter Tight + Italianno self-hosted, preload.</div></div>
+    <div class="stack-badge"><div class="name">@nuxt/image</div><div class="v">v2.0</div><div class="desc">Pipeline AVIF/WebP responsive, IPX au build, sharp.</div></div>
+  </div>
+
+  <h3 class="sub-title">Contenu &amp; SEO</h3>
+  <div class="stack-grid">
+    <div class="stack-badge"><div class="name">@nuxt/content</div><div class="v">v3.13</div><div class="desc">Carte en YAML (1 fichier par catégorie), schémas Zod stricts.</div></div>
+    <div class="stack-badge"><div class="name">@nuxtjs/i18n</div><div class="v">v10</div><div class="desc">FR / EN / IT, slugs localisés (/carte ↔ /menu), hreflang auto.</div></div>
+    <div class="stack-badge"><div class="name">@nuxtjs/seo</div><div class="v">v5.1</div><div class="desc">Sitemap, robots, schema-org, og-image, link-checker en build.</div></div>
+    <div class="stack-badge"><div class="name">Zod</div><div class="v">v4.4</div><div class="desc">Validation des schémas de contenu et des i18n strings.</div></div>
+  </div>
+
+  <h3 class="sub-title">Animation, carte &amp; outillage</h3>
+  <div class="stack-grid">
+    <div class="stack-badge"><div class="name">GSAP</div><div class="v">v3.15</div><div class="desc">Reveal directive, parallax hero, ScrollTrigger côté client.</div></div>
+    <div class="stack-badge"><div class="name">Lenis</div><div class="v">v1.3</div><div class="desc">Smooth scroll discret, désactivé en motion-reduce.</div></div>
+    <div class="stack-badge"><div class="name">MapLibre GL</div><div class="v">v5.24</div><div class="desc">Tuiles CartoDB Positron, marker laiton custom, lazy-mounted.</div></div>
+    <div class="stack-badge"><div class="name">Biome + Vitest + Playwright</div><div class="v">v2.4 · v4.1 · v1.59</div><div class="desc">Lint/format, 19 tests unit, 21 routes axe a11y, screenshots regression.</div></div>
+  </div>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>04</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 5 — PERFORMANCE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>03 · Performance</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="opener">
+    <span class="num">— 03 —</span>
+    <p class="kicker">La</p>
+    <h2 class="title">Performance</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Site mesuré au gramme : prerendering systématique, formats d'image modernes, fontes self-hostées, et pipeline Lighthouse CI bloquant en intégration continue.</p>
+  </div>
+
+  <div class="three-col">
+    <div class="big-stat">
+      <div class="v">13<span class="unit">Ko</span></div>
+      <div class="l">HTML / page (gzip)</div>
+    </div>
+    <div class="big-stat">
+      <div class="v">192</div>
+      <div class="l">Variantes responsive</div>
+    </div>
+    <div class="big-stat">
+      <div class="v">7<span class="unit">×</span></div>
+      <div class="l">Breakpoints d'images</div>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Pipeline d'images @nuxt/image (AVIF + WebP responsive)</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="label">320 px (xs / mobile)</span><div class="track"><div class="fill" style="width:14%">320w</div></div><span class="value">~ 12 Ko</span></div>
+    <div class="bar-row"><span class="label">640 px (sm)</span><div class="track"><div class="fill" style="width:24%">640w</div></div><span class="value">~ 28 Ko</span></div>
+    <div class="bar-row"><span class="label">1024 px (lg)</span><div class="track"><div class="fill" style="width:42%">1024w</div></div><span class="value">~ 60 Ko</span></div>
+    <div class="bar-row"><span class="label">1920 px (xl / desktop)</span><div class="track"><div class="fill" style="width:74%">1920w</div></div><span class="value">~ 180 Ko</span></div>
+    <div class="bar-row"><span class="label">3840 px (Retina 2K+)</span><div class="track"><div class="fill" style="width:100%">3840w</div></div><span class="value">~ 460 Ko</span></div>
+  </div>
+
+  <h3 class="sub-title">Cibles Core Web Vitals (assertions Lighthouse CI)</h3>
+  <table class="elegant">
+    <thead><tr><th>Critère</th><th>Cible</th><th>Sévérité</th><th>Mécanisme</th></tr></thead>
+    <tbody>
+      <tr><td>Performance</td><td class="mono">≥ 0.85</td><td><span class="badge">error</span></td><td>Build CI bloque la PR si la note tombe sous le seuil.</td></tr>
+      <tr><td>Accessibilité</td><td class="mono">≥ 0.95</td><td><span class="badge">error</span></td><td>Garde-fou WCAG, complété par axe sur 21 routes.</td></tr>
+      <tr><td>SEO</td><td class="mono">≥ 0.95</td><td><span class="badge">error</span></td><td>Hreflang, JSON-LD, robots, sitemap vérifiés.</td></tr>
+      <tr><td>LCP</td><td class="mono">≤ 3.5 s</td><td><span class="badge subtle">warn</span></td><td>Hero préchargé + AVIF/WebP responsive.</td></tr>
+      <tr><td>CLS</td><td class="mono">≤ 0.10</td><td><span class="badge">error</span></td><td>Width/height systématiques, fallback metrics.</td></tr>
+      <tr><td>TBT</td><td class="mono">≤ 400 ms</td><td><span class="badge subtle">warn</span></td><td>JS lazy par route, Vue 3.5 hydration sélective.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="lead" style="margin-top:4mm;">Chaque PR déclenche un build SSG + Lighthouse sur 5 pages. Régression ≥ 5 % bloquante.</p>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>05</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 6 — ÉCO-CONCEPTION ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>04 · Éco-conception</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="section-label">
+    <span class="num">— 04 —</span>
+    <span class="kicker">L'</span>
+    <h2 class="title">Éco-conception</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Le site a été pensé en mode sobriété de chaîne : moins de bits transmis, moins de CPU consommé, moins de tiers tracking, et aucun cookie publicitaire. Résultat : une empreinte tendue vers la lecture utile.</p>
+  </div>
+
+  <div class="three-col">
+    <div class="pillar">
+      <span class="num">— 01 —</span>
+      <h4>Hébergement statique</h4>
+      <p>Aucun serveur Node, aucune base de données. Tient sur un hébergement Apache mutualisé : la machine consomme uniquement pour servir des fichiers compressés.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 02 —</span>
+      <h4>Sans cookie ni tracker</h4>
+      <p>Pas d'analytics tiers, pas de pixel publicitaire. Tuiles MapLibre via OpenStreetMap (open data). Conformité RGPD native, sans bannière.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 03 —</span>
+      <h4>Format moderne &amp; lazy</h4>
+      <p>Images servies en AVIF/WebP responsive avec lazy-loading hors-écran. La carte n'est montée qu'au scroll — gain de ~280 Ko initiaux.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Gains mesurés (avant → après optimisation)</h3>
+
+  <div class="eco-metric">
+    <div class="head"><span class="name">Hero plein écran</span><span class="arrow">2400×1800 JPG · 1.4 Mo</span><span class="gain">→ 180 Ko AVIF · −87 %</span></div>
+    <div class="desc">~1.2 Mo en moins par page d'entrée. Sur 1 000 visites/mois, ~1.2 Go de transfert économisé.</div>
+  </div>
+
+  <div class="eco-metric">
+    <div class="head"><span class="name">Item de carte (× 87)</span><span class="arrow">1200×900 JPG · 240 Ko</span><span class="gain">→ 28 Ko WebP · −88 %</span></div>
+    <div class="desc">Sur la page /carte (87 items), ~18 Mo cumulé économisé sans dégrader la qualité.</div>
+  </div>
+
+  <h3 class="sub-title">Empreinte page d'accueil (≤ 250 Ko avant interaction)</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="label">HTML + CSS (gzip)</span><div class="track"><div class="fill" style="width:13%">26 Ko</div></div><span class="value">26 Ko</span></div>
+    <div class="bar-row"><span class="label">JS critique</span><div class="track"><div class="fill" style="width:30%">60 Ko</div></div><span class="value">60 Ko</span></div>
+    <div class="bar-row"><span class="label">Polices (woff2)</span><div class="track"><div class="fill" style="width:18%">36 Ko</div></div><span class="value">36 Ko</span></div>
+    <div class="bar-row"><span class="label">Image hero AVIF</span><div class="track"><div class="fill" style="width:60%">120 Ko</div></div><span class="value">120 Ko</span></div>
+  </div>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>06</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 7 — SEO + A11Y ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>05 · SEO &amp; accessibilité</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="opener">
+    <span class="num">— 05 —</span>
+    <p class="kicker">Le</p>
+    <h2 class="title">SEO &amp; A11Y</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Indexation multilingue irréprochable et conformité WCAG 2.1 AA vérifiée automatiquement à chaque PR. Le site est prêt à être référencé sur la requête « brasserie pizzeria Cannes vieux Cannes ».</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="sub-title">Référencement</h3>
+      <ul class="checklist" style="grid-template-columns:1fr;">
+        <li><strong>JSON-LD <code>BarOrPub</code> + <code>Restaurant</code></strong> sur Home et Contact (adresse, géo, horaires, prix).</li>
+        <li><strong>Sitemap multilingue</strong> + <code>sitemap_index</code>, hreflang auto-généré pour chaque route.</li>
+        <li><strong>Slugs localisés</strong> : /carte ↔ /en/menu ↔ /it/menu.</li>
+        <li><strong>OG / Twitter cards</strong> en zero-runtime → PNG 1200×630 par page.</li>
+        <li><strong>useSeoMeta localisé</strong> dans les 3 bundles i18n.</li>
+        <li><strong>Link-checker</strong> au build : 0 lien mort.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-title">Accessibilité (WCAG 2.1 AA)</h3>
+      <ul class="checklist" style="grid-template-columns:1fr;">
+        <li><strong>Skip-to-content</strong> visible au focus, cible <code>main#main-content</code>.</li>
+        <li><strong>Landmarks</strong> sémantiques avec aria-label localisé.</li>
+        <li><strong>Headings</strong> : un <code>h1</code> unique, ordre h2/h3 cohérent.</li>
+        <li><strong>Cibles tactiles</strong> ≥ 44 px (WCAG 2.5.5).</li>
+        <li><strong>Contraste</strong> ≥ 4.5:1 vérifié partout.</li>
+        <li><strong>prefers-reduced-motion</strong> respecté.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Audit automatisé en intégration continue</h3>
+  <table class="elegant">
+    <thead><tr><th>Outil</th><th>Couverture</th><th>Critères</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>Lighthouse CI</td><td class="mono">5 pages × desktop</td><td>perf · a11y · SEO · best-practices</td><td><span class="badge">PR-blocking</span></td></tr>
+      <tr><td>@axe-core/playwright</td><td class="mono">21 routes</td><td>WCAG 2.0 / 2.1 / 2.2 — A &amp; AA</td><td><span class="badge">PR-blocking</span></td></tr>
+      <tr><td>nuxt-link-checker</td><td class="mono">24 pages</td><td>404, redirections, ancres</td><td><span class="badge">build-blocking</span></td></tr>
+      <tr><td>Smoke E2E 3 locales</td><td class="mono">15 routes</td><td>HTTP 200, lang, h1, switcher</td><td><span class="badge">CI-stable</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>07</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 8 — SÉCURITÉ + DÉPLOIEMENT ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>06 · Sécurité &amp; déploiement</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="section-label">
+    <span class="num">— 06 —</span>
+    <span class="kicker">La</span>
+    <h2 class="title">Sécurité &amp; déploiement</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Pipeline FTPS automatique avec staging et production séparés, headers HTTP durcis Apache, dependabot hebdomadaire, et procédure de rollback documentée pour revenir à une version antérieure en moins de 5 minutes.</p>
+  </div>
+
+  <h3 class="sub-title">Headers HTTP appliqués via .htaccess</h3>
+  <table class="elegant">
+    <thead><tr><th>Header</th><th>Valeur</th><th>Effet</th></tr></thead>
+    <tbody>
+      <tr><td>Strict-Transport-Security</td><td class="mono">max-age=31536000 ; includeSubDomains</td><td>Force HTTPS pendant 1 an, navigateur résiste au downgrade.</td></tr>
+      <tr><td>Content-Security-Policy</td><td class="mono">default-src 'self' ; img-src self + OSM + carto…</td><td>Bloque scripts/iframes externes non listés, anti-XSS.</td></tr>
+      <tr><td>X-Frame-Options</td><td class="mono">SAMEORIGIN</td><td>Empêche le clickjacking par embed iframe tiers.</td></tr>
+      <tr><td>X-Content-Type-Options</td><td class="mono">nosniff</td><td>Désactive le MIME sniffing du navigateur.</td></tr>
+      <tr><td>Referrer-Policy</td><td class="mono">strict-origin-when-cross-origin</td><td>Limite les fuites d'URL en navigation externe.</td></tr>
+      <tr><td>Permissions-Policy</td><td class="mono">camera=() microphone=() geolocation=()</td><td>Coupe les API browser non utilisées.</td></tr>
+      <tr><td>Cross-Origin-Opener-Policy</td><td class="mono">same-origin</td><td>Isolation du process navigateur, défense en profondeur.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-title">Workflow de déploiement</h3>
+  <div class="three-col">
+    <div class="feature-card">
+      <div class="head">
+        <div class="icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1 L8 15 M3 6 L8 1 L13 6"/></svg></div>
+        <h4>Push staging</h4>
+      </div>
+      <p>Branche <code>staging</code> → pré-prod automatique sur sous-dossier <code>/preview/</code>. Validation client avant tag.</p>
+    </div>
+    <div class="feature-card">
+      <div class="head">
+        <div class="icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M5 8 L7 10 L11 6"/></svg></div>
+        <h4>Tag <code>v*</code></h4>
+      </div>
+      <p>Push d'un tag SemVer (ex <code>v1.0.0</code>) → build SSG + déploiement FTPS racine. Required reviewer activable.</p>
+    </div>
+    <div class="feature-card">
+      <div class="head">
+        <div class="icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8 A6 6 0 0 1 14 8 M14 8 A6 6 0 0 1 2 8 M11 5 L14 5 L14 8"/></svg></div>
+        <h4>Rollback</h4>
+      </div>
+      <p>Re-déclenche le workflow sur un tag antérieur — production restaurée en ~3-4 min. Procédure documentée dans <code>docs/DEPLOYMENT.md</code>.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:5mm; font-size:9pt; color:var(--walnut-700);">Maintenance : Dependabot hebdomadaire (npm + Actions), PRs groupées par écosystème, lint-staged + commitlint sur chaque commit. CI complète sur chaque PR.</p>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>08</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 9 — ARCHITECTURE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>07 · Architecture &amp; contenu</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="opener">
+    <span class="num">— 07 —</span>
+    <p class="kicker">L'</p>
+    <h2 class="title">Architecture</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Une séparation stricte entre code applicatif (composants Vue + composables typés), contenu éditorial (YAML versionné), libellés (i18n JSON) et tokens de design (CSS @theme).</p>
+  </div>
+
+  <h3 class="sub-title">Sources uniques de vérité</h3>
+  <table class="elegant">
+    <thead><tr><th>Domaine</th><th>Fichier</th><th>Rôle</th><th>Édition</th></tr></thead>
+    <tbody>
+      <tr><td>Coordonnées du lieu</td><td class="mono">app/composables/useVenue.ts</td><td>Adresse, horaires, géo, téléphone — propagés au footer, à /contact, au JSON-LD, à la carte.</td><td><span class="badge subtle">dev</span></td></tr>
+      <tr><td>Carte des plats</td><td class="mono">content/menu/*.yml</td><td>1 fichier YAML par catégorie, schéma Zod strict, prix multilingue.</td><td><span class="badge">client</span></td></tr>
+      <tr><td>Libellés UI</td><td class="mono">i18n/locales/*.json</td><td>Tous les textes affichés à l'écran, namespaces FR/EN/IT.</td><td><span class="badge">client</span></td></tr>
+      <tr><td>Pages éditoriales</td><td class="mono">content/pages/*.md</td><td>/histoire, mentions légales, confidentialité — Markdown.</td><td><span class="badge">client</span></td></tr>
+      <tr><td>Design tokens</td><td class="mono">app/assets/css/tailwind.css</td><td>Palette walnut/brass/cream, typographie, ombres, rayons via @theme.</td><td><span class="badge subtle">dev</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-title">Identité visuelle codifiée</h3>
+  <div class="three-col">
+    <div class="feature-card">
+      <h4 style="font-family:var(--font-display); color:var(--walnut-700);">Bois noyer</h4>
+      <p style="font-size:7.5pt;">Couleur signature : <code>#3f2d1a</code> sur les sections immersives, <code>#1a1209</code> en hero. Inspirée du comptoir réel du lieu.</p>
+      <div class="inline-tags"><span style="background:#3f2d1a; color:#f6ecd9; border-color:#3f2d1a;">walnut-700</span><span style="background:#1a1209; color:#f6ecd9; border-color:#1a1209;">walnut-900</span></div>
+    </div>
+    <div class="feature-card">
+      <h4 style="font-family:var(--font-display); color:var(--brass-700);">Laiton</h4>
+      <p style="font-size:7.5pt;">Accents dorés <code>#b88a3d</code> : filets, monogramme, dividers, hovers. Lisible sur clair comme sur sombre.</p>
+      <div class="inline-tags"><span style="background:#b88a3d; color:#0d0905; border-color:#b88a3d;">brass-500</span><span style="color:#6f521d; border-color:#b88a3d;">brass-700</span></div>
+    </div>
+    <div class="feature-card">
+      <h4 style="font-family:var(--font-display); color:var(--walnut-900);">Papier crème</h4>
+      <p style="font-size:7.5pt;">Fond dominant <code>#f6ecd9</code> : papier warm, pas blanc. Cards en <code>#fcf5e6</code>, un cran plus clair.</p>
+      <div class="inline-tags"><span style="background:#f6ecd9; color:#3f2d1a; border-color:#ddc59a;">walnut-50</span><span style="background:#fcf5e6; color:#3f2d1a; border-color:#ddc59a;">cream-50</span></div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>09</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 10 — SYNTHÈSE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand-mark"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>08 · Synthèse</span>
+  </header>
+
+  
+  <div class="page-content">
+<div class="section-label">
+    <span class="num">— 08 —</span>
+    <span class="kicker">La</span>
+    <h2 class="title">Synthèse</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Le projet est livré clé en main, prêt pour la mise en production. Le pipeline est entièrement automatisé : un push sur GitHub déclenche tout le reste.</p>
+  </div>
+
+  <h3 class="sub-title">Ce qui est livré</h3>
+  <ul class="checklist">
+    <li><strong>8 milestones</strong> traités, ~50 issues fermées, 7 commits feat majeurs.</li>
+    <li><strong>5 pages publiques</strong> en 3 langues (15 routes utilisateur, 24 pages prerendered).</li>
+    <li><strong>87 items de carte</strong> versionnés en YAML avec photos.</li>
+    <li><strong>Pipeline CI complète</strong> : lint, typecheck, tests, build, e2e, axe, Lighthouse.</li>
+    <li><strong>Workflow FTPS automatique</strong> staging + prod avec environnements protégés.</li>
+    <li><strong>Documentation</strong> trois manuels : DEPLOYMENT.md, CONTENT.md, QA.md.</li>
+    <li><strong>Build silencieux</strong> : 0 warning, 0 erreur sur 265 routes prerendered.</li>
+    <li><strong>0 cookie tiers</strong>, 0 tracker, 0 dépendance externe au runtime.</li>
+  </ul>
+
+  <h3 class="sub-title">Étapes restantes (côté client / hébergeur)</h3>
+  <ul class="checklist">
+    <li><strong>Provisionner le FTP de pré-prod</strong> : créer un sous-dossier <code>/preview/</code> sur l'hébergement.</li>
+    <li><strong>Configurer 5 secrets GitHub</strong> : <code>FTP_HOST/USER/PASSWORD/PROD_PATH/STAGING_PATH</code>.</li>
+    <li><strong>Premier déploiement staging</strong> + validation visuelle client.</li>
+    <li><strong>Tag <code>v1.0.0</code></strong> + push prod, vérification post-MEP (cf <code>docs/QA.md</code>).</li>
+  </ul>
+
+  <h3 class="sub-title">Pistes futures (M9+)</h3>
+  <div class="three-col">
+    <div class="pillar"><span class="num">— A —</span><h4>Réservation en ligne</h4><p>Intégration d'un widget tiers (TheFork, Zenchef) ou formulaire mailto avec validation Zod.</p></div>
+    <div class="pillar"><span class="num">— B —</span><h4>Carte saisonnière</h4><p>Branche <code>menu-saison</code> versionnée, tag dédié, hint visuel sur la home.</p></div>
+    <div class="pillar"><span class="num">— C —</span><h4>Page presse</h4><p>Section éditoriale dédiée, dossier de presse PDF téléchargeable, photos haute déf.</p></div>
+  </div>
+  </div>
+
+  <div class="page-footer"><span>Le Meynadier — Cannes</span><span>10</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 11 — COLOPHON ════════════════════════ -->
+<section class="page" style="background:var(--walnut-900); color:var(--cream-50); display:flex; align-items:center; justify-content:center;">
+  <div class="frame" style="position:absolute; inset:14mm; border:0.4mm solid var(--brass-500); border-radius:4mm;"></div>
+  <div style="position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(221,193,138,0.20), transparent 70%);"></div>
+
+  <div class="colophon" style="position:relative; z-index:2;">
+    <svg class="monogram" viewBox="0 0 80 80" style="color:var(--brass-400);">
+      <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.55" />
+      <circle cx="40" cy="40" r="32" stroke="currentColor" stroke-width="0.3" fill="none" opacity="0.4" />
+      <g fill="currentColor" opacity="0.85">
+        <path d="M40 6 L42 9 L40 12 L38 9 Z"/><path d="M74 40 L71 42 L68 40 L71 38 Z"/>
+        <path d="M40 74 L42 71 L40 68 L38 71 Z"/><path d="M6 40 L9 42 L12 40 L9 38 Z"/>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M28 24 L28 52 L40 52"/><path d="M36 56 L36 28 L46 44 L56 28 L56 56"/>
+      </g>
+    </svg>
+
+    <p style="font-family:var(--font-display); font-size:18pt; color:var(--cream-100); margin:6mm 0 4mm 0; line-height:1.4; max-width:120mm;">
+      Un site sobre, rapide, beau, et qui se tient bien sur la durée.
+    </p>
+
+    <div class="signature">Le Meynadier</div>
+
+    <div style="display:flex; gap:5mm; align-items:center; justify-content:center; margin:6mm 0;">
+      <span style="width:18mm; height:0.3mm; background:var(--brass-500);"></span>
+      <span style="width:3mm; height:3mm; transform:rotate(45deg); border:0.3mm solid var(--brass-400);"></span>
+      <span style="width:18mm; height:0.3mm; background:var(--brass-500);"></span>
+    </div>
+
+    <p style="color:var(--cream-100); opacity:0.75; font-size:9pt; max-width:100mm; margin:0 auto; line-height:1.5;">
+      1 rue Meynadier (angle 5 rue du Maréchal Joffre)<br>
+      06400 Cannes — Provence-Alpes-Côte d'Azur<br>
+      Tous les jours · 8h – 00h30
+    </p>
+
+    <p class="meta" style="color:var(--brass-300);">Compte rendu technique · Mai 2026</p>
+  </div>
+</section>
+
+</body>
+</html>
