@@ -1,0 +1,1525 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Devis — Le Meynadier · Site + Admin + Commandes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter+Tight:wght@400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --walnut-50:#f6ecd9; --walnut-100:#ecdcbf; --walnut-200:#ddc59a; --walnut-300:#c5a370;
+      --walnut-400:#a07f4d; --walnut-500:#7a5a33; --walnut-600:#5d4326; --walnut-700:#3f2d1a;
+      --walnut-800:#2c1f12; --walnut-900:#1a1209; --walnut-950:#0d0905;
+      --brass-100:#f4e7c2; --brass-300:#ddc18a; --brass-400:#c9a45e; --brass-500:#b88a3d;
+      --brass-600:#976f29; --brass-700:#6f521d; --brass-800:#4d3815;
+      --cream-50:#fcf5e6; --cream-100:#f9eed5; --cream-200:#f1e3c0;
+      --leaf:#4d6837; --burgundy:#6e2222;
+
+      --font-display:'Cormorant Garamond', Georgia, serif;
+      --font-body:'Inter Tight', system-ui, sans-serif;
+      --font-script:'Italianno', cursive;
+    }
+
+    @page { size: A4 portrait; margin: 0; }
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      font-family: var(--font-body);
+      color: var(--walnut-900);
+      background: var(--walnut-50);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-display); font-weight: 500;
+      letter-spacing: -0.01em; color: var(--walnut-900); margin: 0;
+    }
+
+    .page {
+      width: 210mm; min-height: 297mm; height: 297mm;
+      padding: 18mm 18mm 12mm 18mm;
+      page-break-after: always;
+      page-break-inside: avoid;
+      position: relative;
+      background: var(--walnut-50);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .page:last-of-type { page-break-after: auto; }
+    .page > .page-content { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+
+    /* ─── COVER ─── */
+    .cover {
+      padding: 0;
+      background: var(--walnut-900);
+      color: var(--cream-50);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .cover .frame {
+      position: absolute; inset: 14mm;
+      border: 0.4mm solid var(--brass-500);
+    }
+    .cover .frame::after {
+      content: ''; position: absolute; inset: 2mm;
+      border: 0.2mm solid rgba(184,138,61,0.4);
+    }
+    .cover .glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(221,193,138,0.25), transparent 70%);
+    }
+    .cover-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; padding: 0 30mm;
+    }
+    .monogram { width: 22mm; height: 22mm; margin-bottom: 8mm; color: var(--brass-400); }
+
+    .cover-tag {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 9pt; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--brass-400); margin-bottom: 8mm;
+    }
+    .cover-kicker {
+      font-family: var(--font-script); color: var(--brass-300);
+      font-size: 32pt; line-height: 1; margin-bottom: 3mm;
+    }
+    .cover-title {
+      font-family: var(--font-display);
+      font-size: 72pt; font-weight: 500;
+      line-height: 0.95; letter-spacing: -0.02em;
+      color: var(--cream-50); margin: 0;
+    }
+    .cover-divider {
+      display: flex; align-items: center; gap: 6mm; margin: 8mm 0;
+    }
+    .cover-divider .line { width: 18mm; height: 0.4mm; background: var(--brass-500); }
+    .cover-divider .diamond {
+      width: 3mm; height: 3mm; transform: rotate(45deg);
+      border: 0.4mm solid var(--brass-400);
+    }
+    .cover-sub {
+      font-family: var(--font-display); font-size: 16pt; font-style: italic;
+      color: var(--cream-100); margin-bottom: 14mm;
+    }
+
+    .cover-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10mm; width: 100%; max-width: 150mm;
+      margin-bottom: 8mm;
+      padding-top: 6mm;
+      border-top: 0.2mm solid rgba(184,138,61,0.5);
+    }
+    .cover-grid .item .l {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 7pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-300); margin-bottom: 2mm;
+    }
+    .cover-grid .item .v {
+      font-family: var(--font-display); font-size: 14pt;
+      color: var(--cream-50); line-height: 1.2;
+    }
+
+    .cover-amount {
+      margin-top: 4mm;
+      padding: 6mm 12mm;
+      border: 0.3mm solid var(--brass-500);
+      background: rgba(184,138,61,0.10);
+    }
+    .cover-amount .l {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 8pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-300); margin-bottom: 2mm;
+    }
+    /* Stack des deux prix — alignés sur le même axe vertical via inline-block.
+       Chaque prix garde sa propre largeur naturelle et le parent .cover-amount
+       les centre horizontalement (text-align: center). */
+    .cover-amount .price-stack {
+      display: inline-block;
+      text-align: right;
+      /* Force le centrage du bloc en tant que groupe */
+    }
+    .cover-amount .v {
+      font-family: var(--font-display); font-size: 38pt; font-weight: 500;
+      color: var(--cream-50); line-height: 1;
+      display: block; white-space: nowrap;
+    }
+    .cover-amount .v .unit { font-size: 16pt; color: var(--brass-400); margin-left: 1mm; }
+    .cover-amount .ttc {
+      font-family: var(--font-body); font-size: 9pt;
+      color: var(--cream-100); margin-top: 1mm;
+    }
+    .cover-amount .discount-tag {
+      display: inline-block;
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 7.5pt;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--walnut-950);
+      background: var(--brass-500);
+      padding: 1mm 4mm;
+      margin: 0 0 4mm 0;
+    }
+    /* Prix barré — line-height resserrée à 0.7 pour que la line-box colle
+       aux glyphes visibles ; le trait pseudo en top:50% tombe alors
+       précisément au centre des chiffres. */
+    .cover-amount .old-price {
+      display: inline-block;
+      position: relative;
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 18pt;
+      color: var(--brass-300);
+      opacity: 0.75;
+      line-height: 0.7;
+      margin-bottom: 3mm;
+      padding: 1mm 1.5mm;
+    }
+    .cover-amount .old-price::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 0.5mm;
+      background: var(--brass-400);
+      transform: translateY(-50%);
+    }
+    .cover-amount .old-price .unit {
+      font-size: 7.5pt; margin-left: 0.5mm;
+      color: var(--brass-300);
+    }
+    /* Centrage du bloc old-price quand seul (sans price-stack wrapper) */
+    .cover-amount > .old-price { display: block; }
+    .cover-amount .per-day {
+      display: block;
+      margin-top: 2mm;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 10pt;
+      color: var(--brass-300);
+    }
+
+    /* Modalités de paiement (page 5) — compact pour rentrer sur la page */
+    .pay-modes {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3mm; margin: 3mm 0 0 0;
+    }
+    .pay-card {
+      padding: 3.5mm 4mm; background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      position: relative;
+    }
+    .pay-card.featured {
+      background: var(--walnut-900); color: var(--cream-50);
+      border-color: var(--walnut-900);
+      overflow: hidden;
+    }
+    .pay-card.featured::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle 40% at 30% 50%, rgba(221,193,138,0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .pay-card .badge-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1mm;
+    }
+    .pay-card .badge-row .l {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 6.5pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-700);
+    }
+    .pay-card.featured .badge-row .l { color: var(--brass-300); position: relative; z-index: 1; }
+    .pay-card .badge-row .tag {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 6pt; letter-spacing: 0.28em; text-transform: uppercase;
+      background: var(--brass-500); color: var(--walnut-950);
+      padding: 0.4mm 1.8mm;
+    }
+    .pay-card .schedule {
+      font-family: var(--font-display); font-size: 14pt;
+      line-height: 1.2; color: var(--walnut-900);
+      font-weight: 500; margin: 1mm 0 0.5mm 0;
+    }
+    .pay-card.featured .schedule { color: var(--cream-50); position: relative; z-index: 1; }
+    .pay-card .schedule strong { color: var(--brass-700); font-weight: 500; }
+    .pay-card.featured .schedule strong { color: var(--brass-400); }
+    .pay-card .schedule .plus {
+      color: var(--walnut-500); font-size: 11pt; margin: 0 1mm;
+    }
+    .pay-card.featured .schedule .plus { color: var(--brass-700); }
+    .pay-card .desc {
+      font-size: 8pt; color: var(--walnut-700);
+      line-height: 1.45; margin-top: 1mm;
+    }
+    .pay-card.featured .desc { color: var(--cream-100); opacity: 0.92; position: relative; z-index: 1; }
+
+    /* Encart "rapporté au jour" — compact */
+    .per-day-callout {
+      margin: 3mm 0;
+      padding: 2.5mm 5mm;
+      background: linear-gradient(135deg, var(--cream-100), var(--brass-100));
+      border-left: 0.5mm solid var(--brass-500);
+      display: flex; align-items: center; gap: 4mm;
+    }
+    .per-day-callout .icon {
+      font-family: var(--font-display);
+      font-size: 18pt; color: var(--brass-700);
+      line-height: 1;
+    }
+    .per-day-callout .text {
+      font-family: var(--font-display);
+      font-size: 9.5pt; color: var(--walnut-800);
+      line-height: 1.4;
+    }
+    .per-day-callout .text strong {
+      font-weight: 600; color: var(--walnut-900);
+    }
+    .per-day-callout .text em {
+      font-style: italic; color: var(--walnut-700);
+      display: inline; font-size: 8.5pt;
+    }
+
+    .cover-footer {
+      position: absolute; bottom: 18mm; left: 0; right: 0;
+      text-align: center; font-size: 7pt;
+      color: var(--cream-100); opacity: 0.7;
+      letter-spacing: 0.32em; text-transform: uppercase;
+    }
+
+    /* ─── INNER PAGES ─── */
+    .page-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-bottom: 4mm; margin-bottom: 8mm;
+      border-bottom: 0.2mm solid var(--walnut-300);
+      font-size: 8pt; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--walnut-700);
+    }
+    .page-header .brand {
+      display: flex; align-items: baseline; gap: 1.5mm;
+      text-transform: none; letter-spacing: 0;
+    }
+    .page-header .brand .le {
+      font-family: var(--font-script); font-size: 14pt; color: var(--brass-700);
+    }
+    .page-header .brand .name {
+      font-family: var(--font-display); font-size: 11pt; color: var(--walnut-900);
+    }
+
+    .page-footer {
+      flex: 0 0 auto;
+      display: flex; justify-content: space-between;
+      font-size: 7pt; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--walnut-600);
+      border-top: 0.2mm solid var(--walnut-300);
+      padding-top: 3mm; margin-top: 4mm;
+    }
+
+    /* Section title */
+    .section-label {
+      display: flex; flex-direction: column; align-items: flex-start;
+      margin-bottom: 7mm;
+    }
+    .section-label .num {
+      font-family: var(--font-display);
+      font-size: 9pt; letter-spacing: 0.32em; color: var(--brass-700);
+      margin-bottom: 1mm;
+    }
+    .section-label .kicker {
+      font-family: var(--font-script); font-size: 20pt;
+      color: var(--brass-700); line-height: 1; margin-bottom: 1mm;
+    }
+    .section-label .title {
+      font-size: 26pt; line-height: 1.05; letter-spacing: -0.01em;
+      color: var(--walnut-900); margin-bottom: 3mm;
+    }
+    .section-label .divider {
+      display: flex; align-items: center; gap: 3mm; margin-top: 1mm;
+    }
+    .section-label .divider .line { width: 12mm; height: 0.3mm; background: var(--brass-600); }
+    .section-label .divider .diamond {
+      width: 2mm; height: 2mm; transform: rotate(45deg);
+      border: 0.3mm solid var(--brass-600);
+    }
+    .section-label .tagline {
+      font-size: 11pt; line-height: 1.5; color: var(--walnut-700);
+      max-width: 130mm; margin-top: 4mm;
+    }
+
+    p { line-height: 1.6; color: var(--walnut-800); font-size: 10pt; margin: 0 0 3mm 0; }
+
+    .sub-title {
+      font-size: 13pt; margin: 5mm 0 3mm 0;
+      color: var(--walnut-900); letter-spacing: -0.005em;
+    }
+
+    /* ─── Identité émetteur/client (header devis) ─── */
+    .id-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6mm; margin-bottom: 5mm;
+    }
+    .id-card {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-left: 0.6mm solid var(--brass-500);
+      padding: 5mm 6mm;
+    }
+    .id-card .label {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 7pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-700); margin-bottom: 2mm;
+    }
+    .id-card .name {
+      font-family: var(--font-display); font-size: 14pt;
+      color: var(--walnut-900); margin-bottom: 1mm;
+    }
+    .id-card .detail {
+      font-size: 8.5pt; color: var(--walnut-700); line-height: 1.5;
+    }
+
+    /* ─── Tables ─── */
+    table.elegant {
+      width: 100%; border-collapse: collapse;
+      font-size: 9pt; margin: 3mm 0;
+    }
+    table.elegant thead { background: var(--walnut-100); }
+    table.elegant thead th {
+      padding: 3mm 4mm; text-align: left;
+      font-weight: 500; font-size: 7.5pt;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--walnut-800);
+      border-bottom: 0.3mm solid var(--brass-500);
+    }
+    table.elegant tbody td {
+      padding: 2.5mm 4mm;
+      border-bottom: 0.1mm solid var(--walnut-200);
+      vertical-align: top;
+    }
+    /* Table très dense (devis premium détail) : padding réduit */
+    table.elegant.dense tbody td { padding: 1.8mm 4mm; }
+    table.elegant.dense tfoot td { padding: 2.5mm 4mm; }
+    table.elegant tbody tr:last-child td { border-bottom: 0; }
+    table.elegant tbody td.right { text-align: right; font-variant-numeric: tabular-nums; }
+    table.elegant tbody td .mono {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 8.5pt; color: var(--walnut-700);
+    }
+    table.elegant td .badge {
+      display: inline-block;
+      font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase;
+      background: var(--brass-500); color: var(--walnut-950);
+      padding: 0.5mm 2mm; font-weight: 500;
+    }
+    table.elegant td .badge.subtle {
+      background: var(--walnut-200); color: var(--walnut-800);
+    }
+    table.elegant td .badge.leaf {
+      background: var(--leaf); color: var(--cream-50);
+    }
+    table.elegant tfoot td {
+      padding: 3mm 4mm;
+      border-top: 0.3mm solid var(--brass-500);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    table.elegant tbody td.right, table.elegant tfoot td.right { white-space: nowrap; }
+    table.elegant tfoot td.total {
+      font-family: var(--font-display);
+      font-size: 14pt; color: var(--walnut-900);
+      background: var(--brass-100);
+    }
+
+    /* ─── Pull-quote / nota ─── */
+    .pull-quote {
+      border-left: 0.4mm solid var(--brass-500);
+      padding-left: 5mm; margin: 5mm 0;
+      font-family: var(--font-display);
+      font-style: italic; font-size: 13pt;
+      line-height: 1.4; color: var(--walnut-800);
+    }
+
+    .nota {
+      margin: 4mm 0; padding: 4mm 5mm;
+      background: var(--cream-100);
+      border: 0.15mm solid var(--brass-400);
+      font-size: 9pt; line-height: 1.55; color: var(--walnut-800);
+    }
+    .nota strong { color: var(--walnut-900); }
+
+    /* ─── Pillars ─── */
+    .pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 4mm; margin: 4mm 0;
+    }
+    .pillar {
+      background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+      border-left: 0.6mm solid var(--brass-500);
+      padding: 4mm 5mm;
+    }
+    .pillar h4 { font-size: 12pt; margin-bottom: 1mm; color: var(--walnut-900); }
+    .pillar p { font-size: 8.5pt; color: var(--walnut-700); line-height: 1.5; }
+    .pillar .num {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 7pt; color: var(--brass-700);
+      letter-spacing: 0.32em; text-transform: uppercase;
+      display: block; margin-bottom: 1mm;
+    }
+
+    /* ─── Two-col / checklist ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; margin: 4mm 0; }
+    .checklist { padding: 0; margin: 3mm 0; }
+    .checklist li {
+      list-style: none; padding-left: 6mm; position: relative;
+      font-size: 9.5pt; color: var(--walnut-800);
+      line-height: 1.5; margin-bottom: 1.5mm;
+      page-break-inside: avoid;
+    }
+    .checklist li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: var(--brass-600); font-weight: 700;
+    }
+    .checklist li strong { color: var(--walnut-900); font-weight: 600; }
+
+    /* ─── Comparison bars ─── */
+    .compare-bars { display: flex; flex-direction: column; gap: 3mm; margin: 4mm 0; }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 60mm 1fr 32mm;
+      gap: 4mm; align-items: center;
+      font-size: 9pt;
+    }
+    .compare-row .label { color: var(--walnut-800); font-weight: 500; }
+    .compare-row .label small {
+      display: block; font-size: 7.5pt; font-weight: 400;
+      color: var(--walnut-600); margin-top: 0.5mm;
+    }
+    .compare-row .track {
+      height: 6mm; background: var(--walnut-100); position: relative;
+    }
+    .compare-row .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--walnut-300), var(--walnut-500));
+    }
+    .compare-row .fill.us {
+      background: linear-gradient(90deg, var(--brass-600), var(--brass-400));
+    }
+    .compare-row .price {
+      font-family: var(--font-display); font-size: 12pt;
+      color: var(--walnut-900); text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .compare-row.us .label { color: var(--walnut-900); }
+    .compare-row.us .label strong { color: var(--brass-700); }
+    .compare-row.us .price { color: var(--brass-700); font-size: 13pt; }
+
+    /* ─── Big price block ─── */
+    .total-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm; margin: 5mm 0 0 0;
+    }
+    .total-card {
+      padding: 6mm; background: var(--cream-50);
+      border: 0.2mm solid var(--walnut-200);
+    }
+    .total-card.dark {
+      background: var(--walnut-900); color: var(--cream-50);
+      border-color: var(--walnut-900);
+      position: relative; overflow: hidden;
+    }
+    .total-card.dark::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle 40% at 30% 50%, rgba(221,193,138,0.15), transparent 70%);
+    }
+    .total-card .l {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 7pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-700); margin-bottom: 2mm;
+    }
+    .total-card.dark .l { color: var(--brass-300); position: relative; z-index: 1; }
+    .total-card .v {
+      font-family: var(--font-display); font-size: 26pt;
+      color: var(--walnut-900); line-height: 1; font-weight: 500;
+    }
+    .total-card.dark .v { color: var(--cream-50); position: relative; z-index: 1; }
+    .total-card .v .unit {
+      font-size: 12pt; color: var(--brass-700); margin-left: 1mm;
+    }
+    .total-card.dark .v .unit { color: var(--brass-400); }
+    .total-card .sub {
+      margin-top: 2mm; font-size: 8.5pt; color: var(--walnut-700);
+    }
+    .total-card.dark .sub { color: var(--cream-100); opacity: 0.85; position: relative; z-index: 1; }
+
+    /* ─── Signature ─── */
+    .signature-area {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8mm;
+      margin-top: 8mm;
+    }
+    .sig-box {
+      background: var(--cream-50);
+      border: 0.15mm solid var(--walnut-300);
+      padding: 6mm; min-height: 60mm;
+    }
+    .sig-box .label {
+      font-family: var(--font-body); font-weight: 500;
+      font-size: 8pt; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--brass-700); margin-bottom: 3mm;
+    }
+    .sig-box .who {
+      font-family: var(--font-display); font-size: 14pt;
+      color: var(--walnut-900); margin-bottom: 6mm;
+    }
+    .sig-box .mention {
+      font-size: 7.5pt; color: var(--walnut-700);
+      font-style: italic; line-height: 1.5; margin-top: 4mm;
+    }
+    .sig-line {
+      border-bottom: 0.2mm solid var(--walnut-400);
+      height: 12mm;
+    }
+    .sig-row {
+      display: grid; grid-template-columns: 28mm 1fr;
+      gap: 4mm; align-items: end; margin-top: 4mm;
+      font-size: 8pt; color: var(--walnut-700);
+    }
+
+    /* ─── Generic ─── */
+    code {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.85em;
+      background: var(--walnut-100); padding: 0.2mm 1.2mm;
+      color: var(--walnut-800);
+    }
+    .lead {
+      font-family: var(--font-display); font-size: 12pt;
+      font-style: italic; color: var(--walnut-700);
+      line-height: 1.5; margin: 4mm 0;
+    }
+    .small { font-size: 8.5pt; color: var(--walnut-700); line-height: 1.55; }
+
+    .clauses { counter-reset: clause; }
+    .clauses .clause {
+      margin-bottom: 4mm; padding-left: 10mm; position: relative;
+      page-break-inside: avoid;
+    }
+    .clauses .clause::before {
+      counter-increment: clause;
+      content: counter(clause, decimal-leading-zero);
+      position: absolute; left: 0; top: 0.5mm;
+      font-family: var(--font-display);
+      font-size: 11pt; color: var(--brass-700);
+      letter-spacing: 0.12em;
+    }
+    .clauses h4 {
+      font-size: 11pt; margin-bottom: 1.5mm;
+      color: var(--walnut-900);
+    }
+    .clauses p, .clauses li {
+      font-size: 8.5pt; color: var(--walnut-700);
+      line-height: 1.55; margin: 0 0 1.5mm 0;
+    }
+    .clauses ul { padding-left: 4mm; margin: 1mm 0 1.5mm 0; }
+    .clauses ul li { list-style: '— '; padding-left: 1mm; }
+
+    .ornament-line {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3mm; margin: 4mm 0;
+    }
+    .ornament-line .l { width: 14mm; height: 0.3mm; background: var(--brass-500); }
+    .ornament-line .d {
+      width: 2mm; height: 2mm; transform: rotate(45deg);
+      border: 0.3mm solid var(--brass-600);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════ PAGE 1 — COUVERTURE ════════════════════════ -->
+<section class="page cover">
+  <div class="frame"></div>
+  <div class="glow"></div>
+
+  <div class="cover-content">
+    <svg class="monogram" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.6" />
+      <circle cx="40" cy="40" r="32" stroke="currentColor" stroke-width="0.3" fill="none" opacity="0.4" />
+      <g fill="currentColor" opacity="0.85">
+        <path d="M40 6 L42 9 L40 12 L38 9 Z"/>
+        <path d="M74 40 L71 42 L68 40 L71 38 Z"/>
+        <path d="M40 74 L42 71 L40 68 L38 71 Z"/>
+        <path d="M6 40 L9 42 L12 40 L9 38 Z"/>
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M28 24 L28 52 L40 52"/>
+        <path d="M36 56 L36 28 L46 44 L56 28 L56 56"/>
+      </g>
+    </svg>
+
+    <p class="cover-tag">Devis n° DEV-2026-LM-002</p>
+    <p class="cover-kicker">Le</p>
+    <h1 class="cover-title">Meynadier</h1>
+
+    <div class="cover-divider">
+      <span class="line"></span><span class="diamond"></span><span class="line"></span>
+    </div>
+
+    <p class="cover-sub">Version Premium<br>Site + Admin + Commandes en ligne</p>
+
+    <div class="cover-grid">
+      <div class="item">
+        <div class="l">Émission</div>
+        <div class="v">11 / 05 / 2026</div>
+      </div>
+      <div class="item">
+        <div class="l">Validité</div>
+        <div class="v">30 jours</div>
+      </div>
+      <div class="item">
+        <div class="l">Statut</div>
+        <div class="v">Site + 2 modules</div>
+      </div>
+    </div>
+
+    <div class="cover-amount">
+      <div class="discount-tag">— Tarif lancement · −25 % —</div>
+      <div class="l">Montant forfaitaire</div>
+      <div class="price-stack">
+        <div class="old-price">5 690<span class="unit">€</span></div>
+        <div class="v">4 290<span class="unit">€</span></div>
+      </div>
+      <div class="ttc">TVA non applicable, art. 293 B du CGI</div>
+      <span class="per-day">soit 11,75 € par jour la 1ʳᵉ année</span>
+    </div>
+  </div>
+
+  <div class="cover-footer">Site livré · modules à développer · 6 semaines après acompte</div>
+</section>
+
+<!-- ════════════════════════ PAGE 2 — SYNTHÈSE EXÉCUTIVE ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>Devis DEV-2026-LM-002 · Synthèse</span>
+  </header>
+
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 01 —</span>
+    <span class="kicker">La</span>
+    <h2 class="title">Synthèse en une page</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Tout ce qu'il faut retenir avant de plonger dans le détail. Le site vitrine est livré ; les deux modules <em>Administration</em> et <em>Commande à emporter</em> sont à développer sous 6 semaines.</p>
+  </div>
+
+  <div class="id-grid">
+    <div class="id-card">
+      <div class="label">Émetteur</div>
+      <div class="name">FoxCase</div>
+      <div class="detail">
+        <strong>Christopher Cavalli</strong> — Micro-entrepreneur<br>
+        45 Boulevard de la Croisette, 06400 Cannes<br>
+        SIRET <strong>834 802 407 000 33</strong> · NAF <strong>62.01Z</strong><br>
+        <em>TVA non applicable, art. 293 B du CGI</em>
+      </div>
+    </div>
+    <div class="id-card">
+      <div class="label">Client</div>
+      <div class="name">Le Meynadier <span style="font-family:var(--font-body); font-size:9pt; color:var(--walnut-700); font-weight:400;">— enseigne</span></div>
+      <div class="detail">
+        <strong>MEIRA FERNANDES</strong> — Société en Nom Collectif (SNC)<br>
+        1 rue Meynadier, 06400 Cannes<br>
+        SIRET <strong>943 925 339 000 13</strong> · NAF <strong>47.26Z</strong><br>
+        Gérant : <strong>Michaël MEIRA</strong><br>
+        Associée : Amandine FERNANDES
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Ce qui est livré (forfaitaire, tout compris)</h3>
+  <ul class="checklist" style="grid-template-columns: 1fr 1fr;">
+    <li><strong>Site éditorial</strong> sur-mesure, 5 pages + 2 légales, 100 % responsive.</li>
+    <li><strong>Trois langues</strong> FR / EN / IT.</li>
+    <li><strong>Performance &amp; SEO niveau agence</strong> : Lighthouse ≥ 0.85, WCAG AA, JSON-LD.</li>
+    <li><strong>Carte des plats</strong> 87 items + carte interactive.</li>
+    <li><strong>Module Administration</strong> — édition de tout le contenu en autonomie.</li>
+    <li><strong>Module Commande à emporter</strong> — paiement Stripe + back-office cuisine.</li>
+  </ul>
+
+  <h3 class="sub-title">Conditions clés</h3>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="num">— 01 —</span>
+      <h4>Acompte 50 %</h4>
+      <p>2 145 € à la signature du présent devis. Solde à la livraison.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 02 —</span>
+      <h4>Livraison 6 semaines</h4>
+      <p>Site existant déployé immédiat, modules admin + commandes livrés sous 6 semaines après acompte.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 03 —</span>
+      <h4>Garantie 30 jours</h4>
+      <p>Correction des anomalies signalées dans les 30 jours suivant la livraison.</p>
+    </div>
+  </div>
+
+  <div class="nota">
+    <strong>Hors devis</strong> — l'hébergement web et le nom de domaine (via IONOS ou tout autre prestataire) sont à la charge directe du client. Les prestations photo et vidéo, assurées par mes partenaires de Cannes, font l'objet de devis séparés.
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>02</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 3 — LE PROJET LIVRÉ ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>02 · Le projet livré</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 02 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Projet livré</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Site vitrine éditorial multilingue, conçu sur-mesure pour la brasserie historique du vieux Cannes. Conçu, développé, testé et documenté.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="sub-title">Design &amp; expérience</h3>
+      <ul class="checklist">
+        <li>Identité visuelle « bois noyer · papier crème · laiton » entièrement codifiée.</li>
+        <li>Trois typographies sélectionnées : Cormorant Garamond, Inter Tight, Italianno.</li>
+        <li>Navbar « pill » flottante, menu mobile cinématique plein écran.</li>
+        <li>Animations cinématiques (View Transitions API, GSAP, Lenis).</li>
+        <li>5 pages publiques : Accueil, Carte, Histoire, Galerie, Nous trouver.</li>
+        <li>Responsive complet — testé sur 5 viewports (360 → 1920 px).</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-title">Technique &amp; performance</h3>
+      <ul class="checklist">
+        <li>Stack moderne : Nuxt 4, Vue 3.5, TypeScript strict, Tailwind v4.</li>
+        <li>Site 100 % statique (SSG) — compatible n'importe quel hébergement Apache.</li>
+        <li>192 variantes d'images responsive AVIF/WebP générées automatiquement.</li>
+        <li>Lighthouse CI bloquant : perf ≥ 0.85, accessibilité ≥ 0.95, SEO ≥ 0.95.</li>
+        <li>JSON-LD <code>BarOrPub</code> + <code>Restaurant</code> pour le Knowledge Panel Google.</li>
+        <li>Sitemap multilingue, hreflang, OG images générées à la build.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Sécurité &amp; conformité</h3>
+  <ul class="checklist">
+    <li><strong>Headers HTTP durcis</strong> (HSTS, CSP, X-Frame, Referrer-Policy, Permissions-Policy) via <code>.htaccess</code> Apache.</li>
+    <li><strong>Aucun cookie publicitaire</strong>, aucun tracker tiers, conformité RGPD native sans bannière de consentement.</li>
+    <li><strong>Pipeline CI/CD GitHub Actions</strong> : lint, typecheck, tests unitaires (19), E2E Playwright (15+), axe a11y, link-checker, Lighthouse.</li>
+  </ul>
+
+  <div class="pull-quote">
+    « Un site sobre, rapide, beau, et qui se tient bien sur la durée. »
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>03</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 4 — MODULE ADMINISTRATION ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>03 · Module Administration</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 03 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Module Administration</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Un back-office dédié pour éditer en toute autonomie tous les textes du site (carte, pages, légales, libellés multilingues) sans toucher au code ni passer par votre prestataire.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="sub-title">Édition de contenu</h3>
+      <ul class="checklist">
+        <li><strong>Carte des plats</strong> — création, modification, suppression et réordonnancement des plats par catégorie avec prix, descriptions et disponibilité.</li>
+        <li><strong>Pages éditoriales</strong> — accueil, histoire, mentions légales, confidentialité, modifiables via éditeur visuel.</li>
+        <li><strong>Libellés UI</strong> — tous les boutons, titres, intros traduits FR / EN / IT dans une interface dédiée.</li>
+        <li><strong>Coordonnées</strong> — horaires, adresse, téléphone, mis à jour en un clic propagés au footer, contact, JSON-LD.</li>
+        <li><strong>Photos</strong> — upload avec compression automatique AVIF/WebP, gestion par dossier.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-title">Sécurité &amp; ergonomie</h3>
+      <ul class="checklist">
+        <li><strong>Authentification</strong> sécurisée (login + mot de passe), avec option double facteur (2FA).</li>
+        <li><strong>Aperçu en temps réel</strong> — voir la modification avant publication.</li>
+        <li><strong>Historique</strong> des modifications (qui, quoi, quand) avec restauration possible.</li>
+        <li><strong>Multi-utilisateurs</strong> avec rôles (gérant, équipe, prestataire).</li>
+        <li><strong>Sauvegardes automatiques</strong> quotidiennes de la base de données.</li>
+        <li><strong>Compatible mobile</strong> — éditez depuis votre tablette ou smartphone.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nota">
+    <strong>Impact technique —</strong> le module Administration nécessite un hébergement avec Node.js (ou Laravel) et une base de données ; le mutualisé Apache standard ne suffit plus. Recommandation : VPS IONOS à <strong>~ 5 € HT / mois</strong> ou solution équivalente. L'écart annuel reste très inférieur au coût de chaque demande de modification ponctuelle facturée 75 €/h.
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>04</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 5 — MODULE COMMANDE À EMPORTER ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>04 · Module Commande à emporter</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 04 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Commande à emporter</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Vos clients commandent en ligne, paient par carte, choisissent un créneau de retrait. Vous recevez l'ordre directement en cuisine, ils récupèrent leur commande. Le tout dans le design du site.</p>
+  </div>
+
+  <h3 class="sub-title">Parcours client</h3>
+  <div class="pillars">
+    <div class="pillar">
+      <span class="num">— 01 —</span>
+      <h4>Catalogue commandable</h4>
+      <p>Sélection des plats marqués « disponibles à emporter » avec options (suppléments, allergènes, quantité, choix de pâte pour les pizzas…).</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 02 —</span>
+      <h4>Panier + créneau retrait</h4>
+      <p>Récap commande, choix d'un créneau de 15 min selon les horaires d'ouverture et la charge cuisine, coordonnées client minimales.</p>
+    </div>
+    <div class="pillar">
+      <span class="num">— 03 —</span>
+      <h4>Paiement &amp; confirmation</h4>
+      <p>Paiement carte bancaire sécurisé Stripe (3D Secure), email de confirmation client + alerte cuisine instantanée, numéro de commande.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-title">Back-office commandes</h3>
+  <ul class="checklist">
+    <li><strong>Tableau de bord cuisine</strong> — file des commandes en attente, en préparation, prêtes ; statut mis à jour en un clic, ticket imprimable.</li>
+    <li><strong>Gestion des horaires d'acceptation</strong> — fermeture automatique des commandes hors créneaux, jours fériés, fermeture exceptionnelle.</li>
+    <li><strong>Stop-rayon</strong> — désactivation d'un plat en rupture sans le supprimer du catalogue.</li>
+    <li><strong>Capacité cuisine</strong> — limitation du nombre de commandes par créneau pour ne pas saturer.</li>
+    <li><strong>Historique des commandes</strong> avec export CSV pour la comptabilité.</li>
+    <li><strong>Email transactionnel</strong> client (confirmation, prêt à retirer) et alertes équipe.</li>
+  </ul>
+
+  <div class="nota">
+    <strong>Frais de paiement —</strong> Stripe applique une commission de <strong>1,4 % + 0,25 €</strong> par transaction carte européenne, prélevée directement sur les recettes (à la charge du client). Aucune commission supplémentaire de l'agence n'est appliquée sur les ventes.
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>05</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 6 — DÉTAIL DES PRESTATIONS ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>05 · Détail des prestations</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 05 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Détail des prestations</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Récapitulatif granulé de tout ce qui est compris dans le forfait. Chaque poste est livré, testé et documenté.</p>
+  </div>
+
+  <table class="elegant dense">
+    <thead>
+      <tr>
+        <th style="width:55%;">Poste</th>
+        <th style="width:25%;">Périmètre</th>
+        <th style="width:20%; text-align:right;">Inclus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Conception graphique sur-mesure</strong><br><span class="mono">Identité visuelle, palette, typographies, ornements</span></td>
+        <td>Design system complet</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Développement front-end</strong><br><span class="mono">Nuxt 4 + Vue 3.5 + Tailwind v4 + TypeScript</span></td>
+        <td>5 pages + 2 pages légales</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Internationalisation (i18n)</strong><br><span class="mono">FR / EN / IT — slugs et hreflang</span></td>
+        <td>3 langues complètes</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Carte des plats versionnée</strong><br><span class="mono">YAML, schémas Zod, 8 catégories, prix multilingues</span></td>
+        <td>87 items intégrés</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Carte interactive géographique</strong><br><span class="mono">MapLibre + tuiles OpenStreetMap, style brasserie</span></td>
+        <td>1 carte stylée</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Optimisation images responsive</strong><br><span class="mono">AVIF + WebP, 7 breakpoints, lazy-loading</span></td>
+        <td>192 variantes générées</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>SEO, JSON-LD &amp; accessibilité WCAG AA</strong><br><span class="mono">Schema BarOrPub, hreflang, OG, axe sur 21 routes</span></td>
+        <td>Toutes les pages</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Sécurité .htaccess + Pipeline CI/CD</strong><br><span class="mono">HSTS/CSP/X-Frame, GitHub Actions, staging + prod, rollback</span></td>
+        <td>Workflow opérationnel</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr>
+        <td><strong>Tests &amp; documentation</strong><br><span class="mono">19 unit, E2E, Lighthouse · 3 manuels DEPLOYMENT/CONTENT/QA</span></td>
+        <td>Suite + 3 manuels</td>
+        <td class="right"><span class="badge">Forfait</span></td>
+      </tr>
+      <tr style="background:var(--cream-100);">
+        <td><strong>Module Administration</strong> — back-office éditorial<br><span class="mono">Édition carte, pages, libellés i18n, photos, multi-utilisateurs, 2FA</span></td>
+        <td>Module complet</td>
+        <td class="right"><span class="badge leaf">Nouveau</span></td>
+      </tr>
+      <tr style="background:var(--cream-100);">
+        <td><strong>Module Commande à emporter</strong> — paiement Stripe + cuisine<br><span class="mono">Catalogue, panier, créneau retrait, paiement carte, back-office commandes, migration stack avec base de données</span></td>
+        <td>Module complet</td>
+        <td class="right"><span class="badge leaf">Nouveau</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" class="total" style="text-align:right;">Total prestation forfaitaire</td>
+        <td class="total right">4 290,00 €</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p class="small" style="margin-top:3mm;">Postes en cream foncé : déjà réalisés et présentés en démonstration. Postes en clair signalés « Nouveau » : à développer sous 6 semaines après acompte.</p>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>06</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 5 — TARIFICATION ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>06 · Tarification</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 06 —</span>
+    <span class="kicker">La</span>
+    <h2 class="title">Tarification</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Forfait global et transparent. Aucune surprise, aucune ligne cachée, aucun coût récurrent côté agence.</p>
+  </div>
+
+  <table class="elegant">
+    <thead>
+      <tr>
+        <th style="width:55%;">Désignation</th>
+        <th style="width:15%; text-align:right;">Quantité</th>
+        <th style="width:15%; text-align:right;">Prix unitaire</th>
+        <th style="width:15%; text-align:right;">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Site vitrine multilingue Le Meynadier — forfait clé en main</strong><br><span class="mono">Conception + développement + tests + documentation + déploiement</span></td>
+        <td class="right">1</td>
+        <td class="right">4 290,00 €</td>
+        <td class="right">4 290,00 €</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align:right;">Total</td>
+        <td class="right">4 290,00 €</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align:right;"><em>TVA non applicable, art. 293 B du CGI</em></td>
+        <td class="right">—</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="total" style="text-align:right;">Net à payer</td>
+        <td class="total right">4 290,00 €</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h3 class="sub-title">Modalités de paiement (au choix)</h3>
+  <div class="pay-modes">
+    <div class="pay-card">
+      <div class="badge-row">
+        <span class="l">— Option 1 — Standard</span>
+      </div>
+      <div class="schedule"><strong>2 145 €</strong> <span class="plus">+</span> <strong>2 145 €</strong></div>
+      <p class="desc">Acompte 50 % à la signature, solde 50 % sous 8 jours après mise en ligne. Modalité par défaut.</p>
+    </div>
+
+    <div class="pay-card featured">
+      <div class="badge-row">
+        <span class="l">— Option 2 — Étalement</span>
+        <span class="tag">Sans frais</span>
+      </div>
+      <div class="schedule"><strong>1 430 €</strong> <span class="plus">×</span> <strong>3 mois</strong></div>
+      <p class="desc">Paiement en 3 mensualités égales sans majoration, prélèvement automatique mensuel. Idéal pour étaler la dépense.</p>
+    </div>
+  </div>
+
+  <div class="per-day-callout">
+    <span class="icon">◆</span>
+    <div class="text">
+      <strong>Moins de 11,75 € par jour</strong> la 1ʳᵉ année — soit le prix d'un déjeuner pour un site qui prend les commandes à votre place, à comparer aux 12 000 – 30 000 € d'une agence pour le même périmètre.
+    </div>
+  </div>
+
+  <h3 class="sub-title" style="margin-top:4mm;">Options additionnelles</h3>
+  <table class="elegant">
+    <thead>
+      <tr>
+        <th style="width:60%;">Option (non comprise dans le forfait)</th>
+        <th style="width:25%;">Périmètre</th>
+        <th style="width:15%; text-align:right;">Tarif</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Maintenance technique annuelle</strong><br><span class="mono">Mises à jour Nuxt, dépendances, sécurité, monitoring perf</span></td>
+        <td>12 mois</td>
+        <td class="right">480 € / an<br><span class="mono" style="font-size:7pt;">soit 40 €/mois</span></td>
+      </tr>
+      <tr>
+        <td><strong>Modification ou ajout hors périmètre</strong><br><span class="mono">Nouvelle page, refonte de section, nouvelle langue, etc.</span></td>
+        <td>Sur demande</td>
+        <td class="right">75 € / heure</td>
+      </tr>
+      <tr>
+        <td><strong>Formation à l'édition de contenu</strong><br><span class="mono">Visio 1 h — édition YAML carte, i18n, photos</span></td>
+        <td>1 séance</td>
+        <td class="right">120 €</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="small" style="margin-top:4mm;">Options activables à la demande, sans engagement. Heures de modification facturées à la consommation, sur mini-devis préalable.</p>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>07</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 6 — COMPARATIF MARCHÉ ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>07 · Comparatif marché</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 07 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Positionnement marché</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Pour un site vitrine multilingue de cette qualité (design sur-mesure, 3 langues, performance et accessibilité de niveau agence), voici les fourchettes constatées sur la Côte d'Azur en 2026.</p>
+  </div>
+
+  <h3 class="sub-title">Prix marché — site vitrine premium multilingue</h3>
+  <div class="compare-bars">
+    <div class="compare-row">
+      <div class="label">Agence Cannes / Nice / Antibes<small>Équipe, processus lourd, délais 3 à 6 mois</small></div>
+      <div class="track"><div class="fill" style="width:100%"></div></div>
+      <div class="price">12 000 – 30 000 €</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Freelance senior Côte d'Azur<small>Stack moderne, délais 2 à 3 mois</small></div>
+      <div class="track"><div class="fill" style="width:70%"></div></div>
+      <div class="price">7 000 – 15 000 €</div>
+    </div>
+    <div class="compare-row us">
+      <div class="label"><strong>Mon offre — site terminé, livré clé en main</strong><small>Stack moderne, 3 langues, perf premium, livraison 7 j</small></div>
+      <div class="track"><div class="fill us" style="width:34%"></div></div>
+      <div class="price">4 290 €</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Template WordPress personnalisé<small>Stack legacy, perfs limitées, dépendance thème</small></div>
+      <div class="track"><div class="fill" style="width:28%"></div></div>
+      <div class="price">2 500 – 6 000 €</div>
+    </div>
+    <div class="compare-row">
+      <div class="label">Builder no-code (Wix, Squarespace)<small>Dépendance plateforme, SEO &amp; design contraints</small></div>
+      <div class="track"><div class="fill" style="width:14%"></div></div>
+      <div class="price">600 – 2 400 € / an</div>
+    </div>
+  </div>
+
+  <div class="nota">
+    <strong>Lecture du comparatif —</strong> mon offre se positionne <strong>39 à 71 % sous le freelance senior</strong> et <strong>64 à 86 % sous l'agence locale</strong>, pour un livrable techniquement équivalent. Tarif de lancement positionné volontairement bas pour bâtir la collaboration sur la confiance ; il sera réévalué pour les prochains chantiers.
+  </div>
+
+  <h3 class="sub-title">Ce que vous économisez par rapport à une agence locale</h3>
+  <table class="elegant">
+    <thead>
+      <tr>
+        <th>Critère</th>
+        <th>Agence locale</th>
+        <th>Mon offre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fourchette tarif</td>
+        <td>12 000 – 30 000 €</td>
+        <td><strong style="color:var(--brass-700);">4 290 €</strong></td>
+      </tr>
+      <tr>
+        <td>Délai de livraison</td>
+        <td>3 à 6 mois</td>
+        <td><strong>7 jours</strong> (site déjà livré)</td>
+      </tr>
+      <tr>
+        <td>Interlocuteur</td>
+        <td>Chef de projet + équipe</td>
+        <td><strong>Direct — vous parlez au développeur</strong></td>
+      </tr>
+      <tr>
+        <td>Stack technique</td>
+        <td>Souvent WordPress + thème</td>
+        <td><strong>Nuxt 4 + Vue 3.5 — moderne, performant</strong></td>
+      </tr>
+      <tr>
+        <td>Performance Lighthouse</td>
+        <td>0.45 – 0.70 souvent</td>
+        <td><strong>≥ 0.85 garanti</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>08</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 7 — SERVICES ADDITIONNELS & EXCLUSIONS ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>08 · Services partenaires &amp; exclusions</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 08 —</span>
+    <span class="kicker">Les</span>
+    <h2 class="title">Services additionnels &amp; exclusions</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Ce qui n'est pas inclus dans le forfait, mais que je peux orchestrer via mes partenaires de confiance à Cannes — sur devis séparé.</p>
+  </div>
+
+  <h3 class="sub-title">Hors devis — à la charge directe du client</h3>
+  <table class="elegant">
+    <thead>
+      <tr>
+        <th style="width:38%;">Poste</th>
+        <th style="width:42%;">Fournisseur recommandé</th>
+        <th style="width:20%;">Ordre de grandeur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hébergement web mutualisé</strong><br><span class="mono">Apache, mod_rewrite, FTPS, certificat SSL</span></td>
+        <td>IONOS — Web Plus <em>(meilleur tarif marché à ce jour)</em></td>
+        <td>1 € HT/mois la 1ʳᵉ année<br><span class="mono" style="font-size:7pt;">puis 11 € HT/mois</span></td>
+      </tr>
+      <tr>
+        <td><strong>Nom de domaine</strong><br><span class="mono">.fr préféré · .com disponible à la signature</span></td>
+        <td>IONOS ou autre registrar au choix</td>
+        <td>0 € HT/an la 1ʳᵉ année<br><span class="mono" style="font-size:7pt;">puis 11 € HT/an</span></td>
+      </tr>
+      <tr>
+        <td><strong>Photographies professionnelles</strong><br><span class="mono">Lieu, équipe, plats, ambiance</span></td>
+        <td>Photographe partenaire (Côte d'Azur)</td>
+        <td>Devis dédié</td>
+      </tr>
+      <tr>
+        <td><strong>Captation vidéo</strong><br><span class="mono">Reels, vidéo institutionnelle, drone</span></td>
+        <td>Vidéaste partenaire (Cannes)</td>
+        <td>Devis dédié</td>
+      </tr>
+      <tr>
+        <td><strong>Rédaction de contenu</strong><br><span class="mono">Textes commerciaux, traductions natives</span></td>
+        <td>À fournir par le client</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="nota">
+    <strong>Mise en relation partenaires —</strong> sur simple demande, je peux organiser la mise en relation avec la photographe et le vidéaste partenaires, basés sur la Côte d'Azur. Leur intervention fera l'objet d'un devis dédié, directement contractualisé avec eux ; je n'assure ni la facturation ni la coordination contractuelle de ces prestations tierces.
+  </div>
+
+  <h3 class="sub-title">Postes explicitement exclus du forfait</h3>
+  <ul class="checklist">
+    <li><strong>Hébergement et nom de domaine</strong> — souscription, paiement et renouvellement à la charge du client (IONOS recommandé pour le meilleur rapport qualité-prix).</li>
+    <li><strong>Production photo et vidéo</strong> — assurée par mes partenaires sur devis séparé.</li>
+    <li><strong>Rédaction et traduction de contenu commercial</strong> — fournis par le client (textes français disponibles, traductions à valider).</li>
+    <li><strong>Comptes tiers</strong> — Google Search Console, Google Business Profile, Instagram, Facebook — création et gestion à la charge du client.</li>
+    <li><strong>Campagnes publicitaires</strong> (Google Ads, Meta, etc.).</li>
+    <li><strong>Stratégie marketing digital</strong>, animation de réseaux sociaux, gestion communautaire.</li>
+    <li><strong>Maintenance évolutive</strong> au-delà de la garantie 30 jours — disponible en option (cf. page tarification).</li>
+  </ul>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>09</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 8 — CONDITIONS GÉNÉRALES (1/2) ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>09 · Conditions générales — 1 / 2</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 09 —</span>
+    <span class="kicker">Les</span>
+    <h2 class="title">Conditions générales — 1 / 2</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Conditions contractuelles régissant la prestation. La signature du présent devis vaut acceptation expresse de l'ensemble des clauses ci-dessous.</p>
+  </div>
+
+  <div class="clauses">
+    <div class="clause">
+      <h4>Objet du devis</h4>
+      <p>Le présent devis a pour objet la livraison du site web vitrine multilingue de l'établissement Le Meynadier (Cannes), tel que décrit aux pages 02 à 05. Le périmètre est forfaitaire et limité à la liste des prestations explicitement détaillées.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Validité du devis</h4>
+      <p>Le présent devis est valable <strong>30 jours calendaires</strong> à compter de sa date d'émission (11 / 05 / 2026). Passé ce délai, l'émetteur se réserve le droit de réviser tarifs et conditions.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Acceptation</h4>
+      <p>L'acceptation s'effectue par retour du présent devis signé, accompagné de la mention manuscrite « Bon pour accord » suivie de la date et du paraphe sur chaque page. Le règlement de l'acompte vaut également acceptation tacite.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Conditions de règlement</h4>
+      <p>Deux modalités au choix du client, à indiquer lors de la signature :</p>
+      <ul>
+        <li><strong>Option standard</strong> — Acompte de 50 % (2 145 €) à l'acceptation, solde de 50 % (2 145 €) sous 8 jours après mise en ligne.</li>
+        <li><strong>Option étalement (sans frais)</strong> — 3 mensualités de 1 430 €, prélèvement automatique mensuel, première échéance à la signature.</li>
+        <li>La livraison n'est pas déclenchée sans encaissement de la première échéance ou de l'acompte.</li>
+        <li><em>TVA non applicable, art. 293 B du CGI — l'émetteur est dispensé de TVA en application du régime de la franchise en base.</em></li>
+        <li>Règlement par virement bancaire (RIB communiqué à la signature). Chèques et espèces non acceptés.</li>
+        <li>En cas de retard, intérêts au <strong>taux légal majoré de 10 points</strong> (Article L441-10 du Code de commerce) et indemnité forfaitaire de recouvrement de <strong>40 €</strong> (Décret n° 2012-1115).</li>
+      </ul>
+    </div>
+
+    <div class="clause">
+      <h4>Délai de livraison</h4>
+      <p>La version vitrine du site (déjà développée) est déployée sous <strong>7 jours ouvrés</strong> après acompte ; les modules <strong>Administration</strong> et <strong>Commande à emporter</strong> sont livrés sous <strong>6 semaines ouvrées</strong> après réception cumulée des éléments suivants :</p>
+      <ul>
+        <li>Encaissement de l'acompte ;</li>
+        <li>Communication des accès FTPS / hébergement ;</li>
+        <li>Validation du nom de domaine (DNS pointant correctement).</li>
+      </ul>
+      <p>Tout retard imputable au client (accès non communiqués, contenus en attente, validations différées) suspend ce délai sans contrepartie.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Propriété intellectuelle &amp; cession des droits</h4>
+      <p>L'émetteur conserve l'intégralité des droits sur les développements jusqu'à <strong>encaissement intégral du paiement</strong>. À cette date, une licence d'utilisation perpétuelle, non exclusive et non transférable est concédée au client sur le site livré (code, design, configuration). Le code source des composants génériques (bibliothèques internes, outils de build) reste la propriété de l'émetteur.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Modifications hors périmètre</h4>
+      <p>Toute demande de modification, ajout ou retouche n'entrant pas dans la liste des prestations (page 03) fait l'objet d'un <strong>devis complémentaire</strong> écrit, sur la base du tarif horaire <strong>75 € HT</strong>. Aucune intervention hors périmètre n'est entamée sans validation préalable du mini-devis.</p>
+    </div>
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>10</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 9 — CONDITIONS GÉNÉRALES (2/2) ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>09 · Conditions générales — 2 / 2</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label" style="margin-bottom:5mm;">
+    <span class="num">— 09 —</span>
+    <h2 class="title" style="font-size:22pt; margin-bottom:2mm;">Conditions générales — 2 / 2</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  </div>
+
+  <div class="clauses" style="counter-reset: clause 7;">
+    <div class="clause">
+      <h4>Garantie</h4>
+      <p>L'émetteur garantit le bon fonctionnement du site livré pendant <strong>30 jours calendaires</strong> à compter de la mise en ligne. Cette garantie couvre les <strong>anomalies de fonctionnement</strong> (bug avéré reproductible) signalées par écrit. Sont exclus : la formation utilisateur, les évolutions fonctionnelles, les conséquences d'une modification effectuée par le client ou un tiers, et les défaillances de l'hébergement ou du nom de domaine.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Hors périmètre &amp; responsabilités du client</h4>
+      <p>Le client assume seul la responsabilité :</p>
+      <ul>
+        <li>De l'<strong>hébergement et du nom de domaine</strong>, de leur souscription, de leur paiement et de leur renouvellement (recommandation IONOS, autre prestataire au choix) ;</li>
+        <li>De la <strong>fourniture des contenus</strong> textes commerciaux et traductions natives EN / IT ;</li>
+        <li>De la <strong>production photographique et vidéo</strong> (devis séparés via partenaires recommandés) ;</li>
+        <li>De la gestion de ses <strong>comptes tiers</strong> (Google Search Console, Google Business Profile, réseaux sociaux) ;</li>
+        <li>Du respect de la <strong>législation en vigueur</strong> applicable à son activité (mentions légales, conditions de vente, RGPD).</li>
+      </ul>
+    </div>
+
+    <div class="clause">
+      <h4>Limitation de responsabilité</h4>
+      <p>La responsabilité de l'émetteur est expressément limitée au montant TTC effectivement encaissé au titre du présent devis. Sont exclus les dommages indirects, perte de chiffre d'affaires, perte de chance ou atteinte à l'image, quelle qu'en soit la cause. L'émetteur ne saurait être tenu responsable d'une indisponibilité imputable à l'hébergeur, au registrar, au réseau Internet ou à tout tiers.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Force majeure</h4>
+      <p>Aucune partie ne pourra être tenue responsable d'un manquement à ses obligations causé par un cas de force majeure au sens de l'article 1218 du Code civil (notamment : panne majeure d'un fournisseur tiers, catastrophe naturelle, crise sanitaire, état de guerre, blocage légal).</p>
+    </div>
+
+    <div class="clause">
+      <h4>Confidentialité, données personnelles &amp; RGPD</h4>
+      <p>Chaque partie respecte la confidentialité des informations communiquées (accès techniques, données commerciales). Le site livré ne collecte aucune donnée personnelle au-delà du strictement nécessaire technique, ne pose aucun cookie publicitaire ni tracker tiers ; le client reste responsable du RGPD pour ses évolutions futures. L'émetteur se réserve le droit de citer la prestation comme référence commerciale sauf opposition écrite.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Résiliation</h4>
+      <p>En cas de manquement grave non corrigé sous 15 jours après mise en demeure écrite, la partie lésée peut résilier le devis. L'acompte reste acquis à l'émetteur à titre d'indemnité forfaitaire ; tout travail effectué au-delà de l'acompte est facturé au temps passé.</p>
+    </div>
+
+    <div class="clause">
+      <h4>Droit applicable &amp; juridiction</h4>
+      <p>Le présent devis est régi par le <strong>droit français</strong>. À défaut de règlement amiable préalable, tout litige sera porté devant le <strong>Tribunal de Commerce de Cannes</strong>, à l'exclusion de toute autre juridiction.</p>
+    </div>
+  </div>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>11</span></div>
+</section>
+
+<!-- ════════════════════════ PAGE 10 — BON POUR ACCORD ════════════════════════ -->
+<section class="page">
+  <header class="page-header">
+    <div class="brand"><span class="le">Le</span><span class="name">Meynadier</span></div>
+    <span>10 · Bon pour accord</span>
+  </header>
+  <div class="page-content">
+
+  <div class="section-label">
+    <span class="num">— 10 —</span>
+    <span class="kicker">Le</span>
+    <h2 class="title">Bon pour accord</h2>
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <p class="tagline">Pour valider le devis, signez ci-dessous et renvoyez par e-mail. L'acompte est à régler par virement à réception du devis signé, déclenchant le démarrage des développements (livraison modules : 6 semaines).</p>
+  </div>
+
+  <h3 class="sub-title">Rappel financier</h3>
+  <table class="elegant">
+    <tbody>
+      <tr>
+        <td>Forfait total</td>
+        <td class="right" style="font-family:var(--font-display); font-size:13pt;">4 290,00 €</td>
+      </tr>
+      <tr>
+        <td><em>TVA non applicable, art. 293 B du CGI</em></td>
+        <td class="right">—</td>
+      </tr>
+      <tr>
+        <td><strong>Net à payer</strong></td>
+        <td class="right"><strong style="font-family:var(--font-display); font-size:14pt; color:var(--walnut-900);">4 290,00 €</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Option standard</strong> — Acompte 50 % + Solde 50 %</td>
+        <td class="right" style="color:var(--brass-700); font-weight:600;">2 145 € + 2 145 €</td>
+      </tr>
+      <tr>
+        <td><strong>Option étalement</strong> — 3 mensualités sans frais</td>
+        <td class="right" style="color:var(--brass-700); font-weight:600;">1 430 € × 3 mois</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="signature-area">
+    <div class="sig-box">
+      <div class="label">— L'émetteur —</div>
+      <div class="who">FoxCase</div>
+      <p class="small" style="margin:0 0 4mm 0; color:var(--walnut-700);">
+        Christopher Cavalli — EI · SIRET 834 802 407 000 33<br>
+        45 Bd de la Croisette, 06400 Cannes
+      </p>
+      <div class="sig-line"></div>
+      <div class="sig-row">
+        <div>Date</div>
+        <div>Signature &amp; cachet</div>
+      </div>
+      <p class="mention">Le présent devis engage l'émetteur dans les conditions et délais énoncés aux pages 08 et 09.</p>
+    </div>
+
+    <div class="sig-box">
+      <div class="label">— Le client —</div>
+      <div class="who">Le Meynadier</div>
+      <p class="small" style="margin:0 0 4mm 0; color:var(--walnut-700);">
+        MEIRA FERNANDES (SNC) · SIRET 943 925 339 000 13<br>
+        1 rue Meynadier, 06400 Cannes · M. Michaël Meira, gérant
+      </p>
+      <div class="sig-line"></div>
+      <div class="sig-row">
+        <div>Date</div>
+        <div>Signature &amp; cachet</div>
+      </div>
+      <p class="mention">Mention manuscrite obligatoire : « Bon pour accord » — date et paraphe sur chaque page.</p>
+    </div>
+  </div>
+
+  <div class="ornament-line">
+    <span class="l"></span><span class="d"></span><span class="l"></span>
+  </div>
+
+  <p class="small" style="text-align:center; margin-top:4mm;">
+    Devis n° <strong>DEV-2026-LM-002</strong> · Émis le <strong>11 / 05 / 2026</strong> · Valable 30 jours · Cannes, France
+  </p>
+
+  </div>
+  <div class="page-footer"><span>Devis DEV-2026-LM-002</span><span>12</span></div>
+</section>
+
+</body>
+</html>

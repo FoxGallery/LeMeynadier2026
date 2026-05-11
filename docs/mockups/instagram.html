@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le Meynadier — Instagram Story mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter+Tight:wght@400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Le Meynadier — bois noyer + papier crème + laiton */
+    --walnut-50:#f6ecd9; --walnut-100:#ecdcbf; --walnut-200:#ddc59a;
+    --walnut-700:#3f2d1a; --walnut-800:#2c1f12; --walnut-900:#1a1209; --walnut-950:#0d0905;
+    --brass-300:#ddc18a; --brass-400:#c9a45e; --brass-500:#b88a3d;
+    --brass-600:#976f29; --brass-700:#6f521d;
+    --cream-50:#fcf5e6; --cream-100:#f9eed5; --cream-200:#f1e3c0;
+    --font-display:'Cormorant Garamond', Georgia, serif;
+    --font-body:'Inter Tight', system-ui, sans-serif;
+    --font-script:'Italianno', cursive;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; }
+
+  /* Canvas Instagram Story 1080×1920 (portrait 9:16) */
+  .canvas {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    overflow: hidden;
+    /* Fond luxe brasserie : noyer profond + halo laiton centré + voile warm */
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 25%, rgba(184, 138, 61, 0.16), transparent 70%),
+      radial-gradient(ellipse 100% 50% at 50% 80%, rgba(63, 45, 26, 0.50), transparent 70%),
+      linear-gradient(180deg, #0d0905 0%, #1a1209 35%, #2c1f12 70%, #0d0905 100%);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Veine bois subtile en filigrane (textile équivalent au damas FoxCube) */
+  .grain {
+    position: absolute; inset: 0;
+    opacity: 0.06;
+    mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g fill='none' stroke='%23b88a3d' stroke-width='0.6'><path d='M0 60 Q 50 50 100 60 T 200 60' opacity='0.5'/><path d='M0 100 Q 50 90 100 100 T 200 100' opacity='0.6'/><path d='M0 140 Q 50 130 100 140 T 200 140' opacity='0.5'/><path d='M0 180 Q 50 170 100 180 T 200 180' opacity='0.4'/><path d='M0 20 Q 50 10 100 20 T 200 20' opacity='0.4'/></g></svg>");
+    background-size: 200px 200px;
+  }
+
+  /* Encadré laiton — filets fins style brasserie chic */
+  .frame-outer {
+    position: absolute;
+    inset: 50px;
+    border: 2px solid var(--brass-500);
+    pointer-events: none;
+  }
+  .frame-inner {
+    position: absolute;
+    inset: 64px;
+    border: 0.8px solid var(--brass-700);
+    pointer-events: none;
+  }
+  .corner {
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 1.2px solid var(--brass-500);
+    transform: rotate(45deg);
+    background: var(--walnut-950);
+  }
+  .corner.tl { top: 41px; left: 41px; }
+  .corner.tr { top: 41px; right: 41px; }
+  .corner.bl { bottom: 41px; left: 41px; }
+  .corner.br { bottom: 41px; right: 41px; }
+
+  /* En-tête : monogramme + kicker */
+  .header {
+    position: absolute;
+    top: 130px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 5;
+  }
+  .header .mono {
+    width: 88px; height: 88px;
+    color: var(--brass-500);
+    margin: 0 auto 18px;
+  }
+  .header .pretitle {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--brass-400);
+  }
+  .header .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 18px;
+    margin: 22px 0 8px;
+  }
+  .header .ornament .line {
+    width: 100px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass-500), transparent);
+  }
+  .header .ornament .star {
+    color: var(--brass-500);
+    font-size: 14px;
+    transform: rotate(45deg);
+    display: inline-block;
+    width: 8px; height: 8px;
+    border: 1.2px solid var(--brass-500);
+  }
+  .header .wordmark {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 18px;
+    margin: 8px 0 6px;
+    line-height: 1;
+  }
+  .header .wordmark .le {
+    font-family: var(--font-script);
+    font-size: 92px;
+    color: var(--brass-300);
+    line-height: 1;
+    padding-bottom: 8px;
+  }
+  .header .wordmark .name {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: 80px;
+    font-weight: 500;
+    color: var(--cream-50);
+    letter-spacing: -0.005em;
+    line-height: 1;
+  }
+  .header .tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 28px;
+    color: var(--brass-300);
+    margin-top: 16px;
+    letter-spacing: 0.02em;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+  }
+
+  /* Browser mockup macOS-style — vitrine web centrale */
+  .browser {
+    position: absolute;
+    top: 700px;
+    left: 110px;
+    right: 110px;
+    height: 580px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 50px 100px -20px rgba(0, 0, 0, 0.85),
+      0 0 0 1.5px rgba(184, 138, 61, 0.40),
+      0 0 80px rgba(184, 138, 61, 0.12);
+  }
+  .browser .chrome {
+    height: 42px;
+    background: linear-gradient(180deg, #2a2118, #1a130a);
+    border-bottom: 1px solid #0a0805;
+    display: flex; align-items: center;
+    padding: 0 16px;
+    gap: 9px;
+  }
+  .browser .dot {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(0,0,0,0.4);
+  }
+  .browser .dot.r { background: #ff5f57; }
+  .browser .dot.y { background: #febc2e; }
+  .browser .dot.g { background: #28c840; }
+  .browser .url {
+    flex: 1;
+    background: #3a2e1f;
+    border-radius: 7px;
+    height: 26px;
+    margin: 0 100px 0 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'SF Mono', Menlo, monospace;
+    font-size: 12px;
+    color: #ddc18a;
+    letter-spacing: 0.02em;
+  }
+  .browser .url::before {
+    content: '🔒';
+    margin-right: 7px;
+    font-size: 10px;
+    opacity: 0.8;
+  }
+  .browser .shot {
+    width: 100%;
+    height: calc(100% - 42px);
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* Filet laiton sous le browser */
+  .accent-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    width: 600px;
+    background: linear-gradient(90deg, transparent, var(--brass-500), transparent);
+  }
+  .accent-line.top { top: 1340px; }
+
+  /* Bandeau bas : signature + ville + URL */
+  .footer {
+    position: absolute;
+    bottom: 230px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 5;
+  }
+  .footer .signature {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 14px;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .footer .signature .le {
+    font-family: var(--font-script);
+    font-size: 70px;
+    color: var(--brass-400);
+    line-height: 1;
+    padding-bottom: 6px;
+  }
+  .footer .signature .name {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 500;
+    color: var(--cream-50);
+    letter-spacing: -0.005em;
+    line-height: 1;
+  }
+  .footer .city {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--brass-300);
+    margin-top: 4px;
+    letter-spacing: 0.06em;
+  }
+  .footer .ornament-small {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px;
+    margin: 28px 0 24px;
+  }
+  .footer .ornament-small .line {
+    width: 80px; height: 1px;
+    background: var(--brass-600);
+  }
+  .footer .ornament-small .star {
+    color: var(--brass-500);
+    width: 8px; height: 8px;
+    border: 1.2px solid var(--brass-500);
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+  .footer .url-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--brass-400);
+  }
+  .footer .swipe {
+    margin-top: 50px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    color: var(--brass-500);
+    opacity: 0.7;
+  }
+  .footer .swipe .arrow {
+    display: block;
+    margin: 8px auto 0;
+    color: var(--brass-500);
+    font-size: 16px;
+    font-family: var(--font-display);
+  }
+
+  /* Signature Christopher Cavalli — bas de visuel, mirror du footer du site */
+  .cavalli {
+    position: absolute;
+    bottom: 95px;
+    left: 0; right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 5;
+  }
+  .cavalli::before {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass-700), transparent);
+    margin-bottom: 4px;
+  }
+  .cavalli-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--brass-500);
+    opacity: 0.8;
+  }
+  .cavalli-sign {
+    height: 40px;
+    width: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="grain"></div>
+  <div class="frame-outer"></div>
+  <div class="frame-inner"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- En-tête : monogramme LM + wordmark Italianno + Cormorant -->
+  <div class="header">
+    <svg class="mono" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.7" />
+      <circle cx="40" cy="40" r="32" stroke="currentColor" stroke-width="0.45" fill="none" opacity="0.5" />
+      <g fill="currentColor" opacity="0.85">
+        <path d="M40 6 L42 9 L40 12 L38 9 Z" />
+        <path d="M74 40 L71 42 L68 40 L71 38 Z" />
+        <path d="M40 74 L42 71 L40 68 L38 71 Z" />
+        <path d="M6 40 L9 42 L12 40 L9 38 Z" />
+      </g>
+      <g fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M28 24 L28 52 L40 52" />
+        <path d="M36 56 L36 28 L46 44 L56 28 L56 56" />
+      </g>
+      <line x1="26" y1="24" x2="30" y2="24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <line x1="34" y1="56" x2="38" y2="56" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      <line x1="54" y1="56" x2="58" y2="56" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+
+    <p class="pretitle">Brasserie · Pizzeria · Pub · Cannes</p>
+
+    <div class="ornament">
+      <span class="line"></span>
+      <span class="star"></span>
+      <span class="line"></span>
+    </div>
+
+    <div class="wordmark">
+      <span class="le">Le</span>
+      <span class="name">Meynadier</span>
+    </div>
+
+    <p class="tagline">Pizzas signatures, bières pression et<br>cocktails au cœur du vieux Cannes.</p>
+  </div>
+
+  <!-- Browser mockup avec capture localhost:3000 -->
+  <div class="browser">
+    <div class="chrome">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+      <div class="url">lemeynadier.fr</div>
+    </div>
+    <img class="shot" src="./lemeynadier-desktop.png" alt="">
+  </div>
+
+  <!-- Filet laiton sous le browser -->
+  <div class="accent-line top"></div>
+
+  <!-- Bandeau signature + URL -->
+  <div class="footer">
+    <div class="signature">
+      <span class="le">Le</span>
+      <span class="name">Meynadier</span>
+    </div>
+    <p class="city">— Cannes · Côte d'Azur · 06400 —</p>
+
+    <div class="ornament-small">
+      <span class="line"></span>
+      <span class="star"></span>
+      <span class="line"></span>
+    </div>
+
+    <p class="url-label">lemeynadier.fr</p>
+
+    <div class="swipe">
+      <span>Découvrir la maison</span>
+      <span class="arrow">⌃</span>
+    </div>
+  </div>
+
+  <!-- Signature designer Christopher Cavalli — bas du visuel -->
+  <div class="cavalli">
+    <span class="cavalli-label">Designed by</span>
+    <img src="./sign-cavalli.svg" alt="Christopher Cavalli" class="cavalli-sign">
+  </div>
+</div>
+
+</body>
+</html>
